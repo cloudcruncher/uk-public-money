@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Methodology · UK Public Money</title>
+<meta name="description" content="How UK Public Money converts, labels and checks official figures.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+<script src="config.js" defer></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/info.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="head-inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">£</span><span>UK Public Money</span></a>
+<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li></ul><ul class="secondary"><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html" aria-current="page">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul></nav>
+</div></header>
+<div class="controls"><div class="controls-inner"><div></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
+<main id="main" tabindex="-1" data-page-root>
+
+<h1>Methodology</h1>
+<p class="lede">How the numbers are read, converted, labelled and checked.</p>
+<h2>Cash, real terms and % of GDP</h2>
+<p><strong>Cash</strong> figures are as published, scaled to £ billion where needed (the scaling is recorded in each number’s source).</p>
+<p><strong>Real terms</strong> figures are in <span data-fill="real_base_year">…</span> prices: cash × deflator in the base year ÷ deflator in that
+year, using the OBR GDP deflator at market prices (<span data-fill="deflator_vintage">…</span>). Tax-year series are deflated with the
+financial-year deflator, and say so. Counts of people are never deflated.</p>
+<p><strong>% of GDP</strong> is the value ÷ nominal GDP for the same financial year from the same OBR vintage × 100. It is not published for
+series that are not UK-wide (such as PESA Table 10.1, England only) or for tax-year series.</p>
+<p>When a view is not available for a series, the page says so and shows cash instead.</p>
+<h2>Outturn and forecast</h2>
+<p><strong>Outturn</strong> is what was actually spent or received. <strong>Forecast</strong> covers forecasts, plans and projections from the publisher
+(for example OBR forecasts, DWP spring forecasts and HMRC income tax projections). Forecasts are hatched in charts and labelled
+“Forecast” next to the number. A number derived from any forecast input is itself a forecast. The latest outturn year in this
+build is <span data-fill="latest_outturn">…</span>.</p>
+<h2>Editions and gaps</h2>
+<p>Publishers revise past years. For each year we use the newest edition that covers it, and every number shows its edition.
+Older values are kept in the published all-vintages file. Years that no fetched edition covers are gaps with a reason. We never
+interpolate, carry values forward or back-cast. Coverage starts in <span data-fill="from_year">…</span>.</p>
+<h2>Known limits of this slice</h2>
+<ul>
+<li>PESA Table 10.1 (spending by function) is <strong>England-only</strong> identifiable spending on services (TES), not UK TME, and the COFOG split <strong>ends in 2024-25</strong>.</li>
+<li>HMRC income tax Table 2.5 <strong>starts in 2023-24</strong>; historic Table 2.5a editions are not yet read.</li>
+<li>DWP Table 1a is Great Britain; the “UK welfare” tab is UK. They are different totals.</li>
+<li>HMRC receipts are cash; OBR receipts are accrued and broader.</li>
+<li>ONS Public Sector Finances, DWP Stat-Xplore caseloads, PAYE RTI and household incidence data are not yet included.</li>
+</ul>
+<h2>Pence in every £1</h2>
+<p>The “pence in every £1” and “share” figures are computed in your browser by dividing one published cash figure by its
+published total for the same year and edition. They are not published figures themselves; clicking one shows the formula and
+links to both inputs.</p>
+<h2>Cross-checks</h2>
+<p>Each build runs reconciliation rules R1 to R7 (for example: do the COFOG functions add up to the table total; does PESA TME agree
+with the OBR). Results, including failures, are on the <a href="reconciliation.html">reconciliation page</a>.</p>
+<h2>Checking a number yourself</h2>
+<p>Spreadsheets cannot be linked to a single cell, so the check page gives the file link, its SHA-256 hash (to confirm you have the
+same file), the sheet, the cell and the row and column labels.</p>
+
+</main>
+<footer class="site-foot"><div class="foot-inner">
+<ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul>
+<p>Every number links to the publisher’s own file. No tracking, no cookies, no third-party scripts. Data: Open Government Licence v3.0.</p>
+<p id="build-host">Loading build information…</p>
+</div></footer>
+</body>
+</html>

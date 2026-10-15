@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Check a claim · UK Public Money</title>
+<meta name="description" content="Look up the official figure behind a claim about UK public money, with its source.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+<script src="config.js" defer></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/claims.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="head-inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">£</span><span>UK Public Money</span></a>
+<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html" aria-current="page">Check a claim</a></li></ul><ul class="secondary"><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul></nav>
+</div></header>
+<div class="controls"><div class="controls-inner"><div id="basis-host"></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
+<main id="main" tabindex="-1" data-page-root>
+
+<h1>Check a claim</h1>
+<p class="lede">Heard a number about public money? Find the official figure, its definition and the exact cell it comes from.</p>
+<h2>Checked claims</h2>
+<div id="claims"><p class="state" role="status">Loading…</p></div>
+<h2>Look up an official number</h2>
+<div class="grid grid-2">
+<div>
+<div class="field"><label for="q">Search series</label><input id="q" type="search" autocomplete="off" placeholder="e.g. health, VAT, welfare" aria-describedby="count"></div>
+<p class="small muted" id="count" aria-live="polite"></p>
+<ul class="results" id="results" aria-label="Matching series"></ul>
+</div>
+<div id="lookup" aria-live="polite"><p class="state" role="status">Loading…</p></div>
+</div>
+
+</main>
+<footer class="site-foot"><div class="foot-inner">
+<ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul>
+<p>Every number links to the publisher’s own file. No tracking, no cookies, no third-party scripts. Data: Open Government Licence v3.0.</p>
+<p id="build-host">Loading build information…</p>
+</div></footer>
+</body>
+</html>

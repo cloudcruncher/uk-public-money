@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Who pays · UK Public Money</title>
+<meta name="description" content="Income tax liabilities and taxpayers by income band, from HMRC.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+<script src="config.js" defer></script>
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/whopays.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head"><div class="head-inner">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">£</span><span>UK Public Money</span></a>
+<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html" aria-current="page">Who pays</a></li><li><a href="claims.html">Check a claim</a></li></ul><ul class="secondary"><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul></nav>
+</div></header>
+<div class="controls"><div class="controls-inner"><div id="basis-host"></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
+<main id="main" tabindex="-1" data-page-root>
+
+<h1>Who pays income tax</h1>
+<p class="lede">How much income tax people at different incomes are liable for, and how many of them there are.</p>
+<div class="note"><p><strong>Coverage.</strong> HMRC Table 2.5 in the current edition <strong>starts in 2023-24</strong>. Earlier years are in historic
+Table 2.5a editions that are not yet in this build, so they are gaps. Years after the latest Survey of Personal Incomes are HMRC
+<strong>projections</strong> and are marked Forecast. These are tax years (6 April to 5 April). Income bands are as HMRC publishes them;
+we do not re-band. Liabilities are not the same as cash receipts.</p></div>
+<div class="toolbar" id="tools"></div>
+<div id="head"><p class="state" role="status">Loading…</p></div>
+<div class="grid grid-2">
+<section class="card" aria-labelledby="liab-h"><h2 id="liab-h" class="first">Income tax by income band</h2><div id="liab"><p class="state" role="status">Loading…</p></div></section>
+<section class="card" aria-labelledby="pay-h"><h2 id="pay-h" class="first">Taxpayers by income band</h2><p class="small muted">Counts of people are not adjusted by the money toggle.</p><div id="payers"><p class="state" role="status">Loading…</p></div></section>
+</div>
+<h2>By marginal tax rate</h2>
+<div id="rates"><p class="state" role="status">Loading…</p></div>
+
+</main>
+<footer class="site-foot"><div class="foot-inner">
+<ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul>
+<p>Every number links to the publisher’s own file. No tracking, no cookies, no third-party scripts. Data: Open Government Licence v3.0.</p>
+<p id="build-host">Loading build information…</p>
+</div></footer>
+</body>
+</html>
