@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL A1 addresses (Table 1a and "UK welfare "
+only; selected benefit rows and year columns 2015/16, 2023/24, 2025/26, 2026/27). Fetched 2026-10-15. OGL v3.0.
+
+spring_forecast_2026.trimmed.xlsx
+  sha256 3de2cf94e1d5238a0488764a747e339935c6eecc22baad10c3dfdd222d297268
+  original https://assets.publishing.service.gov.uk/media/69dcdc8c6b695d635c34dcc4/outturn-and-forecast-tables-spring-forecast-2026.xlsx
+  original sha256 11a591e4a2144ed6a686be6a9ded4e5d5b3b8d4887bd57c1ff0632bd251009de

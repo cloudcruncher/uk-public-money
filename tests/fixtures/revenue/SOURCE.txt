@@ -1,0 +1,15 @@
+Trimmed fixtures: real cell values copied at their ORIGINAL A1 addresses from the publisher files
+(unrelated rows and sheets blanked or dropped), saved as xlsx. Fetched 2026-10-15. OGL v3.0.
+
+NS_Table.trimmed.xlsx  (sheet Receipts_Annually: header row 6 and rows for 2015-16, 2024-25, 2025-26)
+  sha256 aa50f14e29e56df874b3b23e20263ae2a6f1dc0c7b8d75314970b3276a30203c
+  original https://assets.publishing.service.gov.uk/media/6aa923f20420ac660805f7f2/NS_Table.ods
+  original sha256 2cadbec4c57e8626dae26c9f46975375eb2d0c07e40a94070a3c6ccc64403cab
+Table_2.5.trimmed.xlsx (sheets 2_5_IT_Liabilities_2023-24 and 2026-27, complete)
+  sha256 908ce022724bcc7ef5672e962ed6623b7901f44dffc0967deeba47d38ef3c624
+  original https://assets.publishing.service.gov.uk/media/6a5a4b987eb057103bd946a5/Table_2.5_Income_Tax_liabilites_by_income_range.ods
+  original sha256 d7e9b36cb585824bf69a3a60b32099b4a2fe213e53ea538401ae3acfaf5fb68c
+Table_2.1.trimmed.xlsx (sheet 2_1_IT_payers_by_demographic: header and rows 2015-16, 2023-24, 2024-25, 2026-27)
+  sha256 4468259dfcfdac40b5ac95aa1f499ac43226200fd77176f93f2bce4e0c9d9da8
+  original https://assets.publishing.service.gov.uk/media/6a54e2a9a4890e65cce64dd3/Table_2.1_Number_of_individual_Income_Tax_Payers.ods
+  original sha256 caca39aca5c041081a56cf685a438769a6fbcbfe5b3f8ec8d498ec0afc2c9ed1
