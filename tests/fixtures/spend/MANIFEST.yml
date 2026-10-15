@@ -1,0 +1,54 @@
+- source_id: pesa
+  key: pesa_2021_ch10
+  fixture: pesa_2021_ch10.trim.xlsx
+  original_url: https://assets.publishing.service.gov.uk/media/60f57459d3bf7f56801f3d84/PESA_2021_CP_Chapter_10.xlsx
+  original_sha256: 4be4da7b9a800152f30ae2516472aeb1ab199feb86583f477df0b7b61c11cb5d
+  fixture_sha256: 906421d09dc33f6f1a9901f86be48527afe24be0a9f237482a72f04dcb1c032a
+  publication_date: 2021-07-20
+  trimmed: true
+  trim_note: only sheet '10.1' kept, cell values copied at their original addresses
+- source_id: pesa
+  key: pesa_2023_ch10
+  fixture: pesa_2023_ch10.trim.xlsx
+  original_url: https://assets.publishing.service.gov.uk/media/64b67a9d71749c001389ed6e/PESA_2023_CP_Chapter_10_tables.xlsx
+  original_sha256: e4d97184d529831819e5b5f850a303eec6d1f9fe003b351c8562064e08efe9ba
+  fixture_sha256: 46587ab45def19d5a90cab95196b6bc2b993ec2b1185b37946ea9bff04f1062d
+  publication_date: 2023-07-19
+  trimmed: true
+  trim_note: only sheet '10.1' kept, cell values copied at their original addresses
+- source_id: pesa
+  key: pesa_2024_ch10
+  fixture: pesa_2024_ch10.trim.xlsx
+  original_url: https://assets.publishing.service.gov.uk/media/66a8dec0a3c2a28abb50d9b9/PESA_2024_CP_Chapter_10_tables.xlsx
+  original_sha256: 42c87f10010283c577e77e8d58b366de77d800f2fcefbefd0fd76b4831df84e5
+  fixture_sha256: 68a89b24e1af718b64f3ce59636fcb852bbf9d5a8e0773ee7ff7a3de36cfa444
+  publication_date: 2024-07-30
+  trimmed: true
+  trim_note: only sheet '10.1' kept, cell values copied at their original addresses
+- source_id: pesa
+  key: pesa_2025_ch10
+  fixture: pesa_2025_ch10.trim.xlsx
+  original_url: https://assets.publishing.service.gov.uk/media/6874fea182370235232f9345/PESA_2025_CP_Chapter_10_tables.xlsx
+  original_sha256: b898a1dc0d2d87ee6a8e5a9273cf3fd2bab9b3ef45d9e3a3f6de2c91ed72d2a7
+  fixture_sha256: 036b6117b44635bf1a09ae7457cba020b807069bd1c2cd93fffdfec641cbb306
+  publication_date: 2025-07-17
+  trimmed: true
+  trim_note: only sheet '10.1' kept, cell values copied at their original addresses
+- source_id: pesa
+  key: pesa_2026_ch10
+  fixture: pesa_2026_ch10.trim.xlsx
+  original_url: https://assets.publishing.service.gov.uk/media/6a57736c6d6d5c7e2845c9d6/PESA_2026_CP_Chapter_10_tables.xlsx
+  original_sha256: baaa63b96fc3ba066d20d90add268c98f871718ccadf15b75babf922e006d934
+  fixture_sha256: cbdcfcadd47bcacae10b4df5d5c42d9a1a3285163e45b4d771b9a09637579cbf
+  publication_date: 2026-07-16
+  trimmed: true
+  trim_note: only sheet '10.1' kept, cell values copied at their original addresses
+- source_id: pesa
+  key: pesa_2026_ch4
+  fixture: pesa_2026_ch4.trim.xlsx
+  original_url: https://assets.publishing.service.gov.uk/media/6a5772e09e63154454413700/PESA_2026_CP_Chapter_4_tables.xlsx
+  original_sha256: 50ae80d95c4e542c34a17dfa8bc302858ca6508b6753e27bb31920cec9bb75c4
+  fixture_sha256: 4d8ad63b885f733f1143afd32942bdb24e9f40ab6914038808b72a63599c7c75
+  publication_date: 2026-07-16
+  trimmed: true
+  trim_note: only sheet '4_1' kept, cell values copied at their original addresses
