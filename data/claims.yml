@@ -1,0 +1,3 @@
+# Curated claims for the claim checker (see docs/ARCHITECTURE.md section 11).
+# Ships empty: example claims live only in test fixtures, never on the site.
+[]
