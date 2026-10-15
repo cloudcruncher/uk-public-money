@@ -114,12 +114,13 @@ def main(argv: list[str] | None = None) -> int:
     pb.add_argument("--out", default="site/api/v1")
     pc = sub.add_parser("check-api")
     pc.add_argument("dir", nargs="?", default="site/api/v1")
+    pc.add_argument("--live", action="store_true")
     args = ap.parse_args(argv)
     if args.cmd == "fetch":
         return cmd_fetch(args)
     if args.cmd == "build":
         return _delegate("build", ["--out", args.out] + (["--offline"] if args.offline else []))
-    return _delegate("check_api", [args.dir])
+    return _delegate("check_api", [args.dir] + (["--live"] if args.live else []))
 
 
 if __name__ == "__main__":
