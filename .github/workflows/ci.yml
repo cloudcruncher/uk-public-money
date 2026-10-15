@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions: {}
+
+concurrency:
+  group: ukpm-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
+      - run: uv sync --locked
+      - name: Lint
+        run: uv run --locked ruff check .
+      - name: Tests
+        run: uv run --locked pytest -q --ignore=tests/smoke
+      - name: Offline build from committed fixtures
+        run: PYTHONPATH=src uv run --locked python -m ukpm build --offline
+      - name: Check built API contract
+        run: PYTHONPATH=src uv run --locked python -m ukpm check-api site/api/v1

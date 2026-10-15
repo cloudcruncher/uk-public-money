@@ -1,0 +1,103 @@
+name: Refresh data
+
+on:
+  schedule:
+    - cron: "23 5 * * *"   # daily, off the :00 mark when GitHub drops the most scheduled runs
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ukpm-refresh
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pages: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONPATH: src
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
+      - run: uv sync --locked
+
+      - name: Restore raw cache
+        run: |
+          mkdir -p work/raw-cache
+          if gh release view raw-cache >/dev/null 2>&1; then
+            gh release download raw-cache -D work/raw-cache --clobber || echo "::warning::raw-cache restore incomplete"
+          else
+            echo "no raw-cache release yet"
+          fi
+
+      - name: Fetch sources
+        run: uv run --locked python -m ukpm fetch
+
+      - name: Build API
+        run: uv run --locked python -m ukpm build
+
+      - name: Gate - check API contract
+        run: uv run --locked python -m ukpm check-api site/api/v1
+
+      - name: Gate - tests
+        run: uv run --locked pytest -q --ignore=tests/smoke
+
+      - name: Gate - local browser smoke
+        run: |
+          if [ -d tests/smoke ]; then
+            uv run --locked playwright install --with-deps chromium
+            python3 -m http.server 8080 --directory site >/dev/null 2>&1 &
+            sleep 2
+            SMOKE_URL=http://127.0.0.1:8080 uv run --locked pytest tests/smoke -q
+          else
+            echo "no tests/smoke yet"
+          fi
+
+      - name: Upload new raw files to raw-cache
+        run: |
+          gh release view raw-cache >/dev/null 2>&1 || \
+            gh release create raw-cache --title "Raw source cache" --notes "Source files by sha256, used when a live fetch fails."
+          if [ -d work/raw ]; then
+            # layout: work/raw/<source>/<sha256>/<filename> -> asset <source>__<filename>__<sha256>
+            find work/raw -type f | while read -r f; do
+              sha=$(basename "$(dirname "$f")")
+              src=$(basename "$(dirname "$(dirname "$f")")")
+              name="${src}__$(basename "$f")__${sha}"
+              gh release upload raw-cache "${f}#${name}" || echo "::warning::asset ${name} not uploaded (exists?)"
+            done
+          fi
+
+      - name: Commit manifest
+        run: |
+          git config user.name "ukpm-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/fetched.json
+          git diff --cached --quiet || git commit -m "data: refresh $(date -u +%F)"
+          for i in 1 2 3; do
+            (git pull --rebase -X theirs -q origin "$GITHUB_REF_NAME" || { git rebase --abort; false; }) && git push && exit 0
+            sleep $((i * 5))
+          done
+          echo "::error::could not push manifest commit"; exit 1
+
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
+        with:
+          path: site
+
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
