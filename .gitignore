@@ -1,6 +1,11 @@
-.swarm/
 work/
 .venv/
 __pycache__/
-.ruff_cache/
+*.pyc
 .pytest_cache/
+.ruff_cache/
+.swarm/
+node_modules/
+test-results/
+playwright-report/
+.claude/worktrees/

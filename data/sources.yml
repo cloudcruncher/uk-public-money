@@ -1,0 +1,283 @@
+# Source register. Every file URL is pinned with the sha256 a scout recorded on 2026-10-15
+# (docs/sources/*.md). A new edition = a PR that adds a verified file entry.
+# Only USABLE/PARTIAL sources may be enabled. Disabled sources stay listed so the register is complete.
+
+- id: pesa
+  publisher: HM Treasury
+  dataset: Public Expenditure Statistical Analyses (PESA)
+  landing_url: https://www.gov.uk/government/collections/public-expenditure-statistical-analyses-pesa
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: annual (July), occasional December update
+  coverage: {from: 2015-16, to: 2024-25, note: "COFOG 10.1; 4.1 aggregates to 2025-26 outturn"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/spend
+  user_agent: null
+  files:
+    - key: pesa_2021_ch10
+      edition: PESA 2021
+      publication_date: 2021-07-20
+      file_url: https://assets.publishing.service.gov.uk/media/60f57459d3bf7f56801f3d84/PESA_2021_CP_Chapter_10.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2021
+      format: xlsx
+      sha256: 4be4da7b9a800152f30ae2516472aeb1ab199feb86583f477df0b7b61c11cb5d
+      role: cofog_10_1
+    - key: pesa_2023_ch10
+      edition: PESA 2023
+      publication_date: 2023-07-19
+      file_url: https://assets.publishing.service.gov.uk/media/64b67a9d71749c001389ed6e/PESA_2023_CP_Chapter_10_tables.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2023
+      format: xlsx
+      sha256: e4d97184d529831819e5b5f850a303eec6d1f9fe003b351c8562064e08efe9ba
+      role: cofog_10_1
+    - key: pesa_2024_ch10
+      edition: PESA 2024
+      publication_date: 2024-07-30
+      file_url: https://assets.publishing.service.gov.uk/media/66a8dec0a3c2a28abb50d9b9/PESA_2024_CP_Chapter_10_tables.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2024
+      format: xlsx
+      sha256: 42c87f10010283c577e77e8d58b366de77d800f2fcefbefd0fd76b4831df84e5
+      role: cofog_10_1
+    - key: pesa_2025_ch10
+      edition: PESA 2025
+      publication_date: 2025-07-17
+      file_url: https://assets.publishing.service.gov.uk/media/6874fea182370235232f9345/PESA_2025_CP_Chapter_10_tables.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2025
+      format: xlsx
+      sha256: b898a1dc0d2d87ee6a8e5a9273cf3fd2bab9b3ef45d9e3a3f6de2c91ed72d2a7
+      role: cofog_10_1
+    - key: pesa_2026_ch10
+      edition: PESA 2026
+      publication_date: 2026-07-16
+      file_url: https://assets.publishing.service.gov.uk/media/6a57736c6d6d5c7e2845c9d6/PESA_2026_CP_Chapter_10_tables.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2026
+      format: xlsx
+      sha256: baaa63b96fc3ba066d20d90add268c98f871718ccadf15b75babf922e006d934
+      role: cofog_10_1
+    - key: pesa_2026_ch4
+      edition: PESA 2026
+      publication_date: 2026-07-16
+      file_url: https://assets.publishing.service.gov.uk/media/6a5772e09e63154454413700/PESA_2026_CP_Chapter_4_tables.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2026
+      format: xlsx
+      sha256: 50ae80d95c4e542c34a17dfa8bc302858ca6508b6753e27bb31920cec9bb75c4
+      role: aggregates_4_1
+  gaps:
+    - {series: "pesa.cofog.*", years: ["2025-26"], reason: "PESA 2026 10.1 ends at 2024-25 outturn"}
+
+# Licence UNVERIFIED (risk R1): the OBR licence page has not been fetched. Disabled until
+# parse-obr records a verbatim quote and the licence is confirmed OGL v3; then set
+# licence: OGL-UK-3.0, licence_evidence, and enabled: true.
+- id: obr
+  publisher: Office for Budget Responsibility
+  dataset: Public Finances Databank
+  landing_url: https://obr.uk/data/
+  licence: UNVERIFIED
+  licence_evidence: null
+  cadence: twice yearly with each forecast
+  coverage: {from: 2015-16, to: 2025-26, note: "outturn plus forecast years; Sept 2026 vintage"}
+  verdict: USABLE
+  enabled: false
+  fixture_dir: tests/fixtures/obr
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: obr_pfd_sep2026
+      edition: OBR Public Finances Databank Sep 2026
+      publication_date: 2026-09-24   # Last-Modified header of the file; edition date not stated on page
+      file_url: https://obr.uk/docs/dlm_uploads/PSF_aggregates_databank_Sep-3.xlsx
+      landing_url: https://obr.uk/data/
+      format: xlsx
+      sha256: 9f3c513a6940e6f75dbcc768bc95cdb5dec78fe6d49fdf3662a019645d1a88ed
+      role: databank
+  notes: "Enabling is blocked on risk R1 (licence). Browser User-Agent required (bare curl gets 403)."
+
+- id: hmrc_receipts
+  publisher: HM Revenue and Customs
+  dataset: HMRC tax and NICs receipts for the UK
+  landing_url: https://www.gov.uk/government/statistics/hmrc-tax-and-nics-receipts-for-the-uk
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: monthly
+  coverage: {from: 2015-16, to: 2025-26, note: "Receipts_Annually; year headers to be confirmed by the parser"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/revenue
+  user_agent: null
+  files:
+    - key: hmrc_ns_table
+      edition: HMRC receipts, updated 2026-09-22
+      publication_date: 2026-09-22
+      file_url: https://assets.publishing.service.gov.uk/media/6aa923f20420ac660805f7f2/NS_Table.ods
+      landing_url: https://www.gov.uk/government/statistics/hmrc-tax-and-nics-receipts-for-the-uk
+      format: ods
+      sha256: 2cadbec4c57e8626dae26c9f46975375eb2d0c07e40a94070a3c6ccc64403cab
+      role: receipts_annually
+
+- id: hmrc_income_tax
+  publisher: HM Revenue and Customs
+  dataset: Income Tax liabilities statistics
+  landing_url: https://www.gov.uk/government/collections/income-tax-statistics-and-distributions
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: annual
+  coverage: {from: 2023-24, to: 2026-27, note: "tax years; 2026-27 is a projection"}
+  verdict: PARTIAL
+  enabled: true
+  fixture_dir: tests/fixtures/revenue
+  user_agent: null
+  files:
+    - key: hmrc_table_2_5
+      edition: Income Tax liabilities statistics, 2023-24 to 2026-27
+      publication_date: 2026-07-15
+      file_url: https://assets.publishing.service.gov.uk/media/6a5a4b987eb057103bd946a5/Table_2.5_Income_Tax_liabilites_by_income_range.ods
+      landing_url: https://www.gov.uk/government/collections/income-tax-statistics-and-distributions
+      format: ods
+      sha256: d7e9b36cb585824bf69a3a60b32099b4a2fe213e53ea538401ae3acfaf5fb68c
+      role: liabilities_by_income_range
+    - key: hmrc_table_2_1
+      edition: Income Tax liabilities statistics, 2023-24 to 2026-27
+      publication_date: 2026-07-15
+      file_url: https://assets.publishing.service.gov.uk/media/6a54e2a9a4890e65cce64dd3/Table_2.1_Number_of_individual_Income_Tax_Payers.ods
+      landing_url: https://www.gov.uk/government/collections/income-tax-statistics-and-distributions
+      format: ods
+      sha256: caca39aca5c041081a56cf685a438769a6fbcbfe5b3f8ec8d498ec0afc2c9ed1
+      role: taxpayer_numbers
+  gaps:
+    - {series: "hmrc_income_tax.*", years: ["2015-16", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"], reason: "current edition starts 2023-24; historic Table 2.5a not yet downloaded"}
+
+- id: dwp_benefits
+  publisher: Department for Work and Pensions
+  dataset: Benefit expenditure and caseload tables (outturn and forecast)
+  landing_url: https://www.gov.uk/government/publications/benefit-expenditure-and-caseload-tables-2026
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: twice yearly (Spring, Autumn)
+  coverage: {from: 2015-16, to: 2029-30, note: "Table 1a 1948/49 to 2029/30 incl. forecasts"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/dwp
+  user_agent: null
+  files:
+    - key: dwp_spring_2026
+      edition: DWP Spring Forecast 2026
+      publication_date: 2026-04-14
+      file_url: https://assets.publishing.service.gov.uk/media/69dcdc8c6b695d635c34dcc4/outturn-and-forecast-tables-spring-forecast-2026.xlsx
+      landing_url: https://www.gov.uk/government/publications/benefit-expenditure-and-caseload-tables-2026
+      format: xlsx
+      sha256: 11a591e4a2144ed6a686be6a9ded4e5d5b3b8d4887bd57c1ff0632bd251009de
+      role: outturn_and_forecast
+
+# --- Not in the first slice (disabled) ---
+
+- id: ons_psf
+  publisher: Office for National Statistics
+  dataset: Public Sector Finances
+  landing_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+  licence: UNVERIFIED
+  licence_evidence: null
+  cadence: monthly
+  coverage: {}
+  verdict: UNVERIFIED
+  enabled: false
+  fixture_dir: null
+  user_agent: null
+  files:
+    - key: ons_psf_placeholder
+      edition: none
+      publication_date: 2026-10-15
+      file_url: null
+      landing_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
+      format: csv
+      sha256: null
+      role: cross_check
+  notes: "Guessed URLs returned 404/429; nothing downloaded. Enable only after a real URL returns 200 and its sha256 is recorded."
+
+- id: ons_lms
+  publisher: Office for National Statistics
+  dataset: Labour market statistics, series MGRZ (employment 16+, SA)
+  landing_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/mgrz/lms
+  licence: OGL-UK-3.0
+  licence_evidence: "ONS pages: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: monthly
+  coverage: {from: 1971, to: 2026, note: "MGRZ only; MGSX unverified"}
+  verdict: PARTIAL
+  enabled: false
+  fixture_dir: null
+  user_agent: null
+  files:
+    - key: ons_mgrz
+      edition: LMS release 2026-09-15
+      publication_date: 2026-09-15
+      file_url: https://www.ons.gov.uk/generator?format=csv&uri=/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/mgrz/lms
+      landing_url: https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/timeseries/mgrz/lms
+      format: csv
+      sha256: 400b6004f2c9190c1f3f9a37ce64c43922e1757c3abec39a992f08dc72d2d49d
+      role: labour_market
+
+- id: ons_taxes_benefits
+  publisher: Office for National Statistics
+  dataset: Effects of taxes and benefits on household income
+  landing_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/householddisposableincomeandinequality
+  licence: OGL-UK-3.0
+  licence_evidence: "ONS dataset page: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: annual
+  coverage: {note: "financial year ending 2025; historical series years open"}
+  verdict: PARTIAL
+  enabled: false
+  fixture_dir: null
+  user_agent: null
+  files:
+    - key: hdii_fye2025
+      edition: Financial year ending 2025
+      publication_date: 2026-10-15   # PLACEHOLDER: release date not recorded by scout; verify before enabling
+      file_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/householddisposableincomeandinequality/financialyearending2025/hdiifye2025.xlsx
+      landing_url: https://www.ons.gov.uk/peoplepopulationandcommunity/personalandhouseholdfinances/incomeandwealth/datasets/householddisposableincomeandinequality
+      format: xlsx
+      sha256: 6438e9fbce43497bbf9a346a6d4a589ede1c552140dbaae34ab7c18f04856e83
+      role: household_income
+
+- id: dwp_stat_xplore
+  publisher: Department for Work and Pensions
+  dataset: Stat-Xplore Open Data API
+  landing_url: https://stat-xplore.dwp.gov.uk/
+  licence: UNVERIFIED
+  licence_evidence: null
+  cadence: continuous
+  coverage: {}
+  verdict: PARTIAL
+  enabled: false
+  fixture_dir: null
+  user_agent: null
+  files: []
+  notes: "Needs an API key; licence not found on the site."
+
+- id: hmrc_paye_rti
+  publisher: HM Revenue and Customs
+  dataset: Earnings and employment from PAYE Real Time Information
+  landing_url: https://www.gov.uk/government/statistics/earnings-and-employment-from-pay-as-you-earn-real-time-information-uk-may-2026
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15)"
+  cadence: monthly
+  coverage: {}
+  verdict: PARTIAL
+  enabled: false
+  fixture_dir: null
+  user_agent: null
+  files: []
+  notes: "Landing pages located; no data file hashed."
+
+- id: obr_other
+  publisher: Office for Budget Responsibility
+  dataset: EFO detailed tables, historical PF database, forecast revisions, July 2025 annexes
+  landing_url: https://obr.uk/data/
+  licence: UNVERIFIED
+  licence_evidence: null
+  cadence: various
+  coverage: {}
+  verdict: PARTIAL
+  enabled: false
+  fixture_dir: null
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files: []
+  notes: "Downloaded but not inspected (see docs/sources/spend.md). Historical official forecasts database is UNUSABLE (access page)."

@@ -1,0 +1,6 @@
+# Public corrections log. Copied as-is to corrections.json.
+# Entry schema:
+#   id, date (ISO), series_id, fiscal_year, price_basis (nominal|real|pct_gdp|none),
+#   old_value, new_value, old_provenance_id, new_provenance_id, reason,
+#   reported_by (optional, public), status (open|fixed)
+[]

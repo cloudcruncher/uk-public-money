@@ -1,0 +1,83 @@
+# Side-by-side definitions. Every definition used on the site lists at least one series_id.
+# Wording is taken from docs/sources/*.md; do not add scope claims the sources do not support.
+
+- id: welfare_dwp_ame
+  label: DWP benefit spending (AME)
+  short: "Benefits paid by DWP from the demand-led (AME) budget"
+  includes: [State Pension, Universal Credit, PIP, Housing Benefit]
+  excludes: [Tax credits (HMRC, pre-UC), departmental admin]
+  source_id: dwp_benefits
+  series_ids: [dwp_benefits.total_uk_welfare]
+  notes: "DWP Table 1a (nominal expenditure by benefit). Geography as stated in the table."
+
+- id: welfare_cap
+  label: Welfare Cap
+  short: "DWP AME excluding State Pension and the most cyclical elements, plus some other departments and Northern Ireland"
+  includes: [Some non-DWP welfare spending, Northern Ireland]
+  excludes: [State Pension, JSA and the UC equivalent (cyclical)]
+  source_id: dwp_benefits
+  series_ids: [dwp_benefits.total_uk_welfare]
+  notes: "Use for fiscal-rule purposes only; not a total of what is spent on welfare."
+
+- id: uk_welfare_total
+  label: UK welfare (DWP tab)
+  short: "The broader welfare total on the DWP 'UK welfare' tab"
+  includes: [Benefits shown on the UK welfare tab]
+  excludes: []
+  source_id: dwp_benefits
+  series_ids: [dwp_benefits.total_uk_welfare]
+  notes: "GB welfare is a separate tab; the parser records which geography each series uses."
+
+- id: cofog_social_protection
+  label: COFOG social protection (function 10)
+  short: "Social protection as classified by the UN COFOG function, from PESA Table 10.1"
+  includes: [COFOG function 10]
+  excludes: []
+  source_id: pesa
+  series_ids: [pesa.cofog.social_protection]
+  notes: "Scope differs from DWP welfare; the site shows both. COFOG tables are TES, not TME."
+
+- id: tme
+  label: Total managed expenditure (TME)
+  short: "Total public spending: departmental and annually managed expenditure"
+  includes: [DEL, AME]
+  excludes: []
+  source_id: pesa
+  series_ids: [pesa.tme, obr.tme]
+  notes: "PESA Table 4.1 (£bn) and OBR databank; vintages differ (PESA July, OBR Sept)."
+
+- id: tes
+  label: Total expenditure on services (TES)
+  short: "Spending by function in PESA Table 10.1; differs from TME by accounting adjustments"
+  includes: [COFOG functions]
+  excludes: [Accounting adjustments between TES and TME]
+  source_id: pesa
+  series_ids: [pesa.tes]
+  notes: "TME = TES + accounting adjustments."
+
+- id: public_sector_current_receipts
+  label: Public sector current receipts
+  short: "All current receipts of the public sector, including non-HMRC items"
+  includes: [Taxes, NICs, council tax, business rates, other receipts]
+  excludes: []
+  source_id: obr
+  series_ids: [obr.receipts]
+  notes: "Wider than HMRC receipts."
+
+- id: hmrc_receipts
+  label: HMRC tax and NICs receipts
+  short: "Tax and National Insurance receipts collected by HMRC"
+  includes: [Income tax, NICs, VAT, Corporation tax, other HMRC taxes]
+  excludes: [Council tax, business rates, other non-HMRC receipts]
+  source_id: hmrc_receipts
+  series_ids: [hmrc_receipts.total]
+  notes: "Receipts only, not welfare."
+
+- id: income_tax_liabilities
+  label: Income tax liabilities
+  short: "Income tax only (no NICs), tax-year basis, by income range"
+  includes: [Income tax]
+  excludes: [NICs, welfare]
+  source_id: hmrc_income_tax
+  series_ids: [hmrc_income_tax.liabilities_total]
+  notes: "Tax years, not fiscal years. 2023-24 onward in the current edition."

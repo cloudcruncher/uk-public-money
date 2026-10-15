@@ -1,0 +1,33 @@
+[project]
+name = "ukpm"
+version = "0.1.0"
+description = "UK public money: provenance-enforced open data pipeline"
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb",
+    "openpyxl",
+    "python-calamine",
+    "pyyaml",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff",
+    "playwright",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+extend-exclude = [".claude", ".swarm", "work"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
