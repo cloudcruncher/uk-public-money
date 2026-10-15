@@ -118,7 +118,8 @@ def _resolve_files(
         for f in src.files:
             cached = fetch_mod._cache_path(WORK, src, f)
             if cached.exists() and fetch_mod.sha256_file(cached) == f.sha256:
-                out.append((f, cached, "cache", _now()))
+                info = fetch_mod._load_manifest(WORK).get(f.sha256, {})
+                out.append((f, cached, "cache", info.get("fetched_at") or _now()))
                 continue
             fx = _fixture_path(src, f)
             if fx is None:
