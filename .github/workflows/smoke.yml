@@ -1,4 +1,5 @@
 name: Smoke test (live site)
+# registered on push
 
 on:
   workflow_run:

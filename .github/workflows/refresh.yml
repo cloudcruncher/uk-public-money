@@ -1,4 +1,5 @@
 name: Refresh data
+# registered on push
 
 on:
   schedule:
