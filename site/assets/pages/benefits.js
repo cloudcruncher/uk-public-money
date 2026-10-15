@@ -86,10 +86,10 @@ UKPM.page(async () => {
       return { label: humanTitle(ser), fullLabel: humanTitle(ser) + ', GB, ' + year, point: U.pointFor(ser, vf.variant, year), barValue: nom ? nom.value : 0, forecast: nom && nom.status === 'forecast', sub: nom ? null : 'No figure for ' + year };
     }).sort((a, b) => b.barValue - a.barValue);
     const rest = totNom.value - sum;
-    if (rest > 0.0005) {
+    if (Math.abs(rest) > 0.0005) {
       rows.push({
         label: 'Not in the lines above', sub: 'Total minus the lines in this build',
-        barValue: rest,
+        barValue: Math.max(rest, 0),
         valueNode: U.derivedNum(U.fmt(rest, 'GBP_bn') + ' (cash)', {
           title: 'Spending not covered by the lines shown',
           formula: 'Total benefit expenditure − sum of the ' + lineIds.length + ' benefit lines, cash, ' + year,
@@ -101,9 +101,9 @@ UKPM.page(async () => {
     }
     linesHost.appendChild(U.barList(rows, { max: totNom.value }));
     linesHost.appendChild(h('p', { class: 'small muted' }, 'Bars are drawn against the GB total (cash), so a full-width bar would be all benefit spending.'));
-    if (rest > 0.0005) {
+    if (Math.abs(rest) > 0.0005) {
       linesHost.appendChild(U.note('bad', h('strong', null, 'These lines do not add up to the total. '),
-        'The build reads only some Table 1a lines. See rule R7 on the ', h('a', { href: 'reconciliation.html#R7' }, 'reconciliation page'), '.'));
+        'The cause is under investigation. See rule R7 on the ', h('a', { href: 'reconciliation.html#R7' }, 'reconciliation page'), '.'));
     }
   }
 

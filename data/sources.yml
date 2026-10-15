@@ -66,9 +66,7 @@
   gaps:
     - {series: "pesa.cofog.*", years: ["2025-26"], reason: "PESA 2026 10.1 ends at 2024-25 outturn"}
 
-# Licence UNVERIFIED (risk R1): the OBR licence page has not been fetched. Disabled until
-# parse-obr records a verbatim quote and the licence is confirmed OGL v3; then set
-# licence: OGL-UK-3.0, licence_evidence, and enabled: true.
+# Licence recorded from the OBR copyright page; the OGL version is inferred from an unversioned link (see licence_evidence).
 - id: obr
   publisher: Office for Budget Responsibility
   dataset: Public Finances Databank

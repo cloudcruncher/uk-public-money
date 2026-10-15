@@ -5,7 +5,7 @@ Verified 2026-10-15 by the scouts; detail and hashes in `docs/sources/spend.md` 
 | source_id | Publisher / dataset | Verdict | Enabled | Notes |
 |---|---|---|---|---|
 | `pesa` | HMT PESA: Table 10.1 COFOG, Table 4.1 aggregates | USABLE | yes | COFOG 2015-16 to 2024-25; 4.1 to 2025-26 outturn. OGL v3 |
-| `obr` | OBR Public Finances Databank, Sept 2026 | USABLE (licence UNVERIFIED) | no | Blocked on risk R1: licence page not yet fetched. Needs a browser User-Agent |
+| `obr` | OBR Public Finances Databank, Sept 2026 | USABLE | yes | OGL v3 (version inferred from an unversioned link on the OBR copyright page). Needs a browser User-Agent |
 | `hmrc_receipts` | HMRC tax and NICs receipts, `NS_Table.ods` | USABLE | yes | Year headers of `Receipts_Annually` still to be confirmed by the parser |
 | `hmrc_income_tax` | HMRC Income Tax Tables 2.5 and 2.1 | PARTIAL | yes | 2023-24 onward only; 2015-16 to 2022-23 need historic Table 2.5a |
 | `dwp_benefits` | DWP outturn and forecast tables, Spring Forecast 2026 | USABLE | yes | Table 1a (spend), 1c (caseload); UK and GB welfare tabs |

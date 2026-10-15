@@ -106,6 +106,7 @@ def _download(src: Source, f: FileEntry, dest: Path) -> tuple[str, str, str, int
                 tmp.replace(dest)
                 return digest, r.geturl(), r.headers.get("Content-Type", ""), size
         except FetchError:
+            dest.with_suffix(".part").unlink(missing_ok=True)
             raise
         except (urllib.error.URLError, TimeoutError, OSError) as e:
             last = e

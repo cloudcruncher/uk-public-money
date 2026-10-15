@@ -15,7 +15,7 @@
   function safeHref(v) {
     if (v == null) return null;
     const s = String(v).trim();
-    if (s === '') return null;
+    if (s === '' || /[\x00-\x20]/.test(s)) return null;
     if (/^[a-z][a-z0-9+.-]*:/i.test(s) || s.startsWith('//')) {
       let u;
       try { u = new URL(s); } catch (e) { return null; }

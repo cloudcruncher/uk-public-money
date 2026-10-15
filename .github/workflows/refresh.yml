@@ -17,9 +17,7 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: write
-      pages: write
     env:
-      GH_TOKEN: ${{ github.token }}
       PYTHONPATH: src
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -27,10 +25,18 @@ jobs:
       - run: uv sync --locked
 
       - name: Restore raw cache
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p work/raw-cache
           if gh release view raw-cache >/dev/null 2>&1; then
             gh release download raw-cache -D work/raw-cache --clobber || echo "::warning::raw-cache restore incomplete"
+            # asset <source>__<file> -> work/raw/<source>/<file> (the layout fetch.py reads)
+            for f in work/raw-cache/*__*; do
+              [ -e "$f" ] || continue
+              n=$(basename "$f"); src=${n%%__*}
+              mkdir -p "work/raw/$src"; mv "$f" "work/raw/$src/${n#*__}"
+            done
           else
             echo "no raw-cache release yet"
           fi
@@ -42,7 +48,7 @@ jobs:
         run: uv run --locked python -m ukpm build
 
       - name: Gate - check API contract
-        run: uv run --locked python -m ukpm check-api site/api/v1
+        run: uv run --locked python -m ukpm check-api site/api/v1 --live
 
       - name: Gate - tests
         run: uv run --locked pytest -q --ignore=tests/smoke
@@ -59,24 +65,26 @@ jobs:
           fi
 
       - name: Upload new raw files to raw-cache
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           gh release view raw-cache >/dev/null 2>&1 || \
             gh release create raw-cache --title "Raw source cache" --notes "Source files by sha256, used when a live fetch fails."
           if [ -d work/raw ]; then
-            # layout: work/raw/<source>/<sha256>/<filename> -> asset <source>__<filename>__<sha256>
-            find work/raw -type f | while read -r f; do
-              sha=$(basename "$(dirname "$f")")
-              src=$(basename "$(dirname "$(dirname "$f")")")
-              name="${src}__$(basename "$f")__${sha}"
+            # layout: work/raw/<source>/<sha>.<fmt> -> asset <source>__<sha>.<fmt>
+            find work/raw -type f ! -name manifest.json | while read -r f; do
+              name="$(basename "$(dirname "$f")")__$(basename "$f")"
               gh release upload raw-cache "${f}#${name}" || echo "::warning::asset ${name} not uploaded (exists?)"
             done
           fi
 
       - name: Commit manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "ukpm-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/fetched.json
+          git add -A data/
           git diff --cached --quiet || git commit -m "data: refresh $(date -u +%F)"
           for i in 1 2 3; do
             (git pull --rebase -X theirs -q origin "$GITHUB_REF_NAME" || { git rebase --abort; false; }) && git push && exit 0
