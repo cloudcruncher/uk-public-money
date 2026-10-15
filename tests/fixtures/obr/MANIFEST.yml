@@ -1,0 +1,10 @@
+# Trimmed copy of the OBR Public Finances Databank (Sep 2026).
+# Trim: kept 4 sheets (Aggregates (£bn), Aggregates (per cent of GDP), Aggregates (2025-26 prices),
+# Receipts (£bn)); blanked rows for years before 2015-16 (cell addresses unchanged); dropped
+# external links and defined names. Cell addresses match the original; values agree to 9 d.p.
+# (openpyxl writes 16 significant digits, so forecast floats differ beyond ~1e-13).
+- source_id: obr
+  original_sha256: 9f3c513a6940e6f75dbcc768bc95cdb5dec78fe6d49fdf3662a019645d1a88ed
+  original_url: https://obr.uk/docs/dlm_uploads/PSF_aggregates_databank_Sep-3.xlsx
+  fixture: PSF_aggregates_databank_Sep-3.trimmed.xlsx
+  fixture_sha256: 664db9582d756815ee962304b52f48e32a31a60df4f3a5bf50ecdfce3d5121c4

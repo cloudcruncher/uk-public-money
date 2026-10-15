@@ -73,12 +73,12 @@
   publisher: Office for Budget Responsibility
   dataset: Public Finances Databank
   landing_url: https://obr.uk/data/
-  licence: UNVERIFIED
-  licence_evidence: null
+  licence: OGL-UK-3.0
+  licence_evidence: "https://obr.uk/copyright/ (HTTP 200): 'You may use and re-use the information featured on this website (not including logos) free of charge in any format or medium, under the terms of the Open Government Licence.' Page links the unversioned OGL; v3.0 is the current OGL (version inferred)."
   cadence: twice yearly with each forecast
   coverage: {from: 2015-16, to: 2025-26, note: "outturn plus forecast years; Sept 2026 vintage"}
   verdict: USABLE
-  enabled: false
+  enabled: true
   fixture_dir: tests/fixtures/obr
   user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
   files:
@@ -90,7 +90,7 @@
       format: xlsx
       sha256: 9f3c513a6940e6f75dbcc768bc95cdb5dec78fe6d49fdf3662a019645d1a88ed
       role: databank
-  notes: "Enabling is blocked on risk R1 (licence). Browser User-Agent required (bare curl gets 403)."
+  notes: "Licence recorded (R1 cleared; OGL version inferred from unversioned link). Browser User-Agent required (bare curl gets 403)."
 
 - id: hmrc_receipts
   publisher: HM Revenue and Customs
