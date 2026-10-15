@@ -583,7 +583,12 @@
       const offline = ix.build && ix.build.mode === 'offline';
       if (offline || stale.length) {
         const msg = [];
-        if (offline) msg.push('This is an offline build from committed test fixtures, so some years are missing. Each number’s source shows how it was retrieved.');
+        if (offline) {
+          const fixtures = (ix.sources || []).some((x) => (x.files || []).some((f) => f.retrieval === 'fixture'));
+          msg.push(fixtures
+            ? 'This is an offline build that uses committed test fixtures, so some years are missing. Each number’s source shows how it was retrieved.'
+            : 'This is an offline build from previously downloaded source files. Each number’s source shows how it was retrieved.');
+        }
         stale.forEach((x) => msg.push(x.publisher + ' data is from a cached copy since ' + x.stale_since + ' (the live download failed).'));
         const b = h('div', { class: 'build-banner', role: 'note' }, h('div', null, msg.join(' ')));
         document.body.insertBefore(b, document.body.firstElementChild.nextElementSibling);
