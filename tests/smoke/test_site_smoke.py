@@ -13,13 +13,15 @@ PAGES = [
     "benefits",
     "who-pays",
     "claims",
+    "facts",
+    "immigration",
     "check",
     "reconciliation",
     "about",
     "methodology",
     "corrections",
 ]
-DATA_PAGES = ["index", "spending", "revenue", "benefits", "who-pays"]
+DATA_PAGES = ["index", "spending", "revenue", "benefits", "who-pays", "facts", "immigration"]
 T = 20_000
 
 
@@ -264,6 +266,6 @@ def test_nav_links_resolve(page, base_url):
     hrefs = sorted(
         set(page.locator("nav.nav a").evaluate_all("els => els.map(e => e.getAttribute('href'))"))
     )
-    assert len(hrefs) == 11
+    assert len(hrefs) == 13
     for href in hrefs:
         assert page.request.get(base_url + href).ok, href

@@ -25,6 +25,8 @@ TES = "pesa.cofog.total_services"
 TME = "pesa.tme"
 COFOG_PREFIX = "pesa.cofog."
 OBR_TME = "obr.psf.tme"
+OBR_TME_REAL = "obr.psf.tme_real"
+OBR_DEFLATOR = "obr.gdp_deflator"
 OBR_RECEIPTS = "obr.psf.receipts"
 HMRC_TOTAL = "hmrc_receipts.total"
 DWP_GB_TOTAL = "dwp_benefits.exp.total_benefit_expenditure"
@@ -83,7 +85,10 @@ RULES: list[dict[str, Any]] = [
     {
         "id": "R5",
         "title": "Our real-terms TME vs the OBR databank real-terms sheet",
-        "description": "Compares our deflated TME with the databank's own real-terms TME.",
+        "description": "Same databank file: nominal TME deflated with the file's GDP deflator "
+        "(x D[base] / D[year], base = the year the deflator equals 100) against the file's own "
+        "real-terms TME column. Checks the arithmetic of our deflation, not the OBR's choice of "
+        "deflator.",
         "tolerance": {"abs": None, "rel": 0.005, "unit": "relative"},
     },
     {
@@ -112,8 +117,11 @@ RULES: list[dict[str, Any]] = [
         "2026 Universal Credit line within the welfare cap, per overlapping year. Run only for "
         "the pair of editions that share a forecast round; other pairs are information. Known "
         "result: 2024-25 is outturn in both files yet differs by about 1.1% (OBR 52.83, DWP 53.42 "
-        "GBP bn); the forecast years agree within 0.2%. Neither file says why, so the cause is "
-        "unconfirmed (possibly a different outturn vintage or scope); the failure stays visible.",
+        "GBP bn); forecast years agree to rounding. The line and scope are the same, so this is "
+        "not a wrong comparison. DWP's notes say its tables differ from the EFO through different "
+        "spending definitions and reassignment of spending across benefits, and Table 1a's OBR "
+        "reconciliation bridges 2024-25 by +1.41 (accounting adjustments), -0.20 and +0.00 GBP bn, "
+        "not itemised by benefit. The failure is kept visible and the tolerance is not loosened.",
         "tolerance": {"abs": None, "rel": 0.01, "unit": "relative"},
     },
     {
@@ -170,7 +178,8 @@ RULES: list[dict[str, Any]] = [
 ]
 
 # Table 1a rows printed below "Total benefit expenditure" that restate spending already counted
-# in the lines above it (by funder), so adding them to the lines double-counts.
+# in the lines above it (by funder), so adding them to the lines double-counts. Including them
+# gave 16 live failures (about 0.63% in 2015-16: 407.4 + 670.8 of 171,893 GBP m).
 R7_MEMO_LINES = frozenset(
     {
         "expenditure_covered_by_departmental_expenditure_limit",
@@ -345,6 +354,45 @@ def _outturn_compare(
             )
         )
     return out
+
+
+def _r5(by: dict[str, list[Row]], pid: PidFn) -> list[dict[str, Any]]:
+    """Our deflation (nominal TME x D[base] / D[year]) vs OBR's real-terms TME, per databank.
+
+    Both come from the same databank edition. The base is the deflator year that equals 100
+    (the databank header says "GDP Deflator (2025-26=100)"). Years where the databank itself
+    forecasts are included: the check is arithmetic on one published file.
+    """
+    nom, defl, real = (_edition_year(by.get(s, [])) for s in (OBR_TME, OBR_DEFLATOR, OBR_TME_REAL))
+    out: list[dict[str, Any]] = []
+    for ed in sorted({e for e, _ in real}):
+        base = next(
+            (d for (e, _), d in sorted(defl.items()) if e == ed and abs(d.value - 100) < 1e-9),
+            None,
+        )
+        if base is None:
+            continue
+        for (e, fy), pub in sorted(real.items()):
+            n, d = nom.get((ed, fy)), defl.get((ed, fy))
+            if e != ed or n is None or d is None or not d.value:
+                continue
+            ours = n.value * base.value / d.value
+            left = _side(f"{OBR_TME} deflated to {base.fiscal_year}=100", ours, [n, d, base], pid)
+            right = _side(OBR_TME_REAL, pub.value, [pub], pid)
+            rel = abs(ours - pub.value) / pub.value if pub.value else 1
+            out.append(
+                _result(
+                    fy,
+                    n.prov.vintage,
+                    left,
+                    right,
+                    "pass" if rel <= 0.005 else "fail",
+                    f"same databank; deflator base {base.fiscal_year}=100; relative gap "
+                    f"{rel:.4%} vs tolerance 0.50%",
+                    tolerance_rel=0.005,
+                )
+            )
+    return out or _not_run("databank real-terms TME, nominal TME and deflator share no year")
 
 
 def _r6(by: dict[str, list[Row]], pid: PidFn) -> list[dict[str, Any]]:
@@ -774,10 +822,7 @@ def run(
         )
         or _not_run("PESA TME and OBR TME share no outturn year"),
         "R4": _r4(by, pid),
-        "R5": _not_run(
-            "the databank's real-terms TME column is not extracted by the OBR parser "
-            "(only its GDP deflator is), so there is nothing to compare our deflated TME with"
-        ),
+        "R5": _r5(by, pid),
         "R6": _r6(by, pid),
         "R7": _r7(by, pid),
         "R8": _efo_vs_dwp(by, pid, EFO_UC, DWP_UC),

@@ -549,3 +549,12 @@ main table { min-width: 0; }
 }
 details.gaps-note { margin: 6px 0 10px; color: var(--muted); }
 details.gaps-note > summary { cursor: pointer; color: var(--accent); min-height: 32px; }
+
+/* Is it true? */
+.lead { font-size: 1.1rem; max-width: 62ch; }
+.faq { margin: 0 0 16px; }
+.faq h3 { font-family: var(--serif); font-size: 1.2rem; }
+.faq-answer { font-size: 1.05rem; max-width: 66ch; }
+.faq-know { max-width: 66ch; border-top: 1px solid var(--line); padding-top: 8px; margin-top: 8px; }
+.tips { max-width: 66ch; padding-left: 1.4em; }
+.tips li { margin: 0 0 10px; }

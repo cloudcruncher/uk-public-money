@@ -380,7 +380,9 @@ def check(root: Path, live: bool = False) -> list[str]:
             need = {"nominal", "pct_gdp"} | ({"real"} if index.get("real_base_year") else set())
             for v in sorted(need - set(variants)):
                 errs.append(f"{sid}: headline series lacks the {v} variant")
-        if s.get("period_type") == "calendar_year" and set(variants) != {"nominal"}:
+        if s.get("period_type") in ("calendar_year", "may_snapshot") and set(variants) != {
+            "nominal"
+        }:
             errs.append(f"{sid}: calendar-year series must be nominal only, not converted")
         for v, pts in variants.items():
             if v not in VARIANTS:

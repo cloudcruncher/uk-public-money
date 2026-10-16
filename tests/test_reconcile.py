@@ -526,3 +526,35 @@ def test_r10_window_not_run_with_fewer_than_twelve_months(make_row):
     res = _rule(reconcile.run([], pid, {}, {}, co_rows=_co(make_row, 5)), "R10")
     assert res[-1]["status"] == "not_run"
     assert all(x["status"] == "pass" for x in res[:-1])
+
+
+# ---- R5 -------------------------------------------------------------------------------------
+
+
+def _r5_rows(make_row, real_2023):
+    ed = {"edition": "OBR databank Sep 2026", "vintage": "OBR databank Sep 2026"}
+    return [
+        make_row(reconcile.OBR_TME, "2023-24", 90.0, **ed),
+        make_row(reconcile.OBR_TME, "2025-26", 100.0, **ed),
+        make_row(reconcile.OBR_DEFLATOR, "2023-24", 90.0, unit="index", **ed),
+        make_row(reconcile.OBR_DEFLATOR, "2025-26", 100.0, unit="index", **ed),
+        make_row(reconcile.OBR_TME_REAL, "2023-24", real_2023, **ed),
+        make_row(reconcile.OBR_TME_REAL, "2025-26", 100.0, **ed),
+    ]
+
+
+def test_r5_passes_when_databank_real_terms_equals_our_deflation(make_row):
+    res = _rule(_run(_r5_rows(make_row, 100.0)), "R5")
+    assert [x["status"] for x in res] == ["pass", "pass"]
+    assert res[0]["left"]["value"] == pytest.approx(100.0)
+    assert len(res[0]["left"]["provenance_ids"]) == 3  # nominal, deflator year, deflator base
+
+
+def test_r5_fails_beyond_half_a_percent_and_reports_delta(make_row):
+    res = _rule(_run(_r5_rows(make_row, 101.0)), "R5")
+    bad = next(x for x in res if x["fiscal_year"] == "2023-24")
+    assert bad["status"] == "fail" and bad["delta"] == pytest.approx(-1.0)
+
+
+def test_r5_not_run_without_databank_real_terms_rows():
+    assert _rule(_run([]), "R5")[0]["status"] == "not_run"

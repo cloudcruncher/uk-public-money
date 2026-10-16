@@ -56,10 +56,10 @@ Rules R1 to R14 are published in `reconciliation.json` and shown on the site. A 
 | R2 | PESA 10.1 total vs TME (4.1); TES-to-TME gap shown as `info` if the label is TES | Implemented |
 | R3 | PESA TME vs OBR TME, per outturn year (rel tolerance 1.0%) | Implemented |
 | R4 | ONS PSF central government TME vs PESA/OBR public sector TME (different scope, stated) | Implemented |
-| R5 | Our real-terms TME vs the databank real-terms sheet | `not_run` |
+| R5 | Our deflated TME (nominal x D[base]/D[year], base = the year the deflator equals 100) vs the databank real-terms TME, same file, 0.5% | Implemented; all years agree |
 | R6 | HMRC receipts vs OBR current receipts (`info`) | Implemented |
 | R7 | DWP total benefit expenditure vs sum of Table 1a lines (memo rows below the total excluded) | Implemented |
-| R8 | OBR EFO Universal Credit vs DWP Spring Forecast, 1% tolerance | 2024-25 fails at 1.09%; cause unconfirmed |
+| R8 | OBR EFO Universal Credit vs DWP Spring Forecast, 1% tolerance | 2024-25 fails at 1.09%; cause traced to the DWP outturn basis, see Known limits |
 | R9 | OBR EFO welfare cap vs DWP UK welfare total | Implemented |
 | R10 | Cabinet Office monthly payments within plausibility bounds | Implemented |
 | R11 | PESA UK COFOG 5.2 total vs headline TME | Implemented |
@@ -77,5 +77,6 @@ Statuses are `pass`, `fail`, `info`, and `not_run`.
 - **HMRC income tax (Table 2.5):** current edition starts 2023-24. Earlier years need the historic tables, not yet sourced.
 - **DWP Table 1a:** GB geography. Values from 2025-26 onward are forecasts.
 - **Stat-Xplore, ONS labour market, PAYE RTI:** deferred.
-- **R8** fails for 2024-25 (1.09%); the files give no reason.
+- **R8** fails for 2024-25 (1.09%: OBR 52.835, DWP 53.418 GBP bn) and is left failing on purpose. It is the right line and scope on both sides (the "within the Welfare Cap" Universal Credit line; forecast years 2026-27 to 2030-31 agree to 1e-14). DWP's Notes tab says its tables "do not exactly match those in the EFO" because of "different definitions of spending, and additional analysis leading to reassignment of spending across benefits", and Table 1a's own OBR reconciliation block shows 2024-25 outturn needs +1.41 (removal of accounting adjustments), -0.20 and +0.004 GBP bn to reach the OBR total (OBR DWP social security 289.143 = that reconciled total exactly). The adjustments are not itemised by benefit, so the UC share cannot be derived: DWP UC total is 66.74 vs OBR 66.36 and the within/outside split also differs by 0.20. The tolerance is not loosened.
+- **R7** failed 16 times on live data (about 0.6% in 2015-16) before the memo rows were excluded. Cause: the "Expenditure covered by Departmental Expenditure Limit" and "Benefits funded by local authorities" rows printed under the total restate spending already in the lines above (2015-16: 407.4 + 670.8 = 1,078.3 of 171,893 GBP m = 0.63%). With them excluded, Table 1a lines sum to the total in all 16 years and the UK welfare tab also sums, checked against the real file (sha256 11a591e4...).
 - **Claims:** `data/claims.yml` ships empty, so no claims are shown.

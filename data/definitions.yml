@@ -144,3 +144,47 @@
   source_id: ons_gdp
   series_ids: [ons_gdp.nominal]
   notes: "Calendar years do not line up with fiscal years, so it is not used for percent-of-GDP; the OBR fiscal-year GDP is used there."
+
+- id: fcdo_idrc
+  group: [immigration, "Immigration: money in and money out"]
+  label: In-donor refugee costs (FCDO)
+  short: "What the UK spends at home on people seeking protection in their first year here, as counted for UK aid"
+  publisher: Foreign, Commonwealth and Development Office
+  includes: [Support for asylum seekers and refugees from aid-eligible countries during the first 12 months of their stay, Spending by the Home Office and other departments, Estimated devolved health and education costs]
+  excludes: [Costs after the first 12 months, People from countries that are not aid-eligible, Spending not counted as aid]
+  source_id: fcdo_oda
+  series_ids: [fcdo_oda.idrc.total, fcdo_oda.idrc.home_office, fcdo_oda.idrc.dhsc, fcdo_oda.idrc.dfe, fcdo_oda.idrc.mhclg, fcdo_oda.idrc.dwp, fcdo_oda.idrc.hmrc, fcdo_oda.idrc.other]
+  notes: "Calendar year (January to December), not financial year. Provisional: the final release for the year is due in autumn 2026. Departments' figures may not add to the total because of rounding. This is the only cross-department series on this subject that the official sources publish."
+
+- id: home_office_resource_del
+  group: [immigration, "Immigration: money in and money out"]
+  label: Home Office day-to-day spending by area (Core Data Tables)
+  short: "What the Home Office spent on day-to-day running costs in the areas shown, after fee income is taken off"
+  publisher: Home Office
+  includes: [Resource (day-to-day) spending within the Home Office budget limit, Actual figures for 2021-22 to 2025-26]
+  excludes: [Capital spending, Spending by other departments or local authorities, Plans for future years]
+  source_id: home_office_spend
+  series_ids: [home_office_spend.resource_del.asylum_support_resettlement_accommodation, home_office_spend.resource_del.customer_services_visas_passports, home_office_spend.resource_del.immigration_enforcement, home_office_spend.resource_del.border_force, home_office_spend.resource_del.total]
+  notes: "The Customer Services line (visas and passports) is negative because fee income is taken off the cost, so it shows income above cost. The file name says 'draft', so check against the Annual Report and Accounts. Group names change from year to year, so a line is shown only for the years it appears under that name. Asylum hotels are not a separate line."
+
+- id: dwp_uc_by_status
+  group: [immigration, "Immigration: money in and money out"]
+  label: People on Universal Credit by immigration status (DWP)
+  short: "How many people get Universal Credit, split by the immigration status DWP holds for them"
+  publisher: Department for Work and Pensions
+  includes: [People on Universal Credit in Great Britain in May of each year, Status from the Habitual Residence Test record]
+  excludes: [Pounds paid, Other benefits, Northern Ireland, Asylum seekers and people with no recourse to public funds (they cannot claim)]
+  source_id: dwp_uc_status
+  series_ids: [dwp_uc_status.people.cta, dwp_uc_status.people.eu_settlement_scheme, dwp_uc_status.people.humanitarian, dwp_uc_status.people.refugee, dwp_uc_status.people.indefinite_leave_to_remain, dwp_uc_status.people.limited_leave_to_remain, dwp_uc_status.people.other, dwp_uc_status.people.no_status_recorded]
+  notes: "Counts of people, not pounds. The latest three months of each release are provisional. 'No immigration status recorded' is a data category and does not mean a person is here without permission. Numbers have small random adjustments to protect privacy, so parts may not add up to a total."
+
+- id: home_office_asylum_counts
+  group: [immigration, "Immigration: money in and money out"]
+  label: People claiming asylum and people in asylum support (Home Office)
+  short: "How many people claim asylum, wait for a decision, get Home Office housing and support, and live in hotels"
+  publisher: Home Office
+  includes: [Asylum seekers in receipt of Home Office support at the end of each calendar year, Those of them housed in hotels]
+  excludes: [Pounds spent, People supported by other routes, Figures for the year ending June 2026 (not included here)]
+  source_id: home_office_asylum
+  series_ids: [home_office_asylum.claims, home_office_asylum.awaiting_decision, home_office_asylum.support, home_office_asylum.support_hotels]
+  notes: "Counts of people, not pounds. Hotel counts are published from 2022. The Home Office accounts have no separate pounds figure for hotels. Figures are revised every quarter."

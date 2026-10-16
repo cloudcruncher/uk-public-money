@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-15/16.
+Licence: Open Government Licence v3.0 (gov.uk). Published 2026-04-09.
+
+fig3.trimmed.xlsx  (sheet Fig3 rows 1-14, 19-20 (the original is an ods; the fixture is xlsx))
+  sha256 f5f9de61696f9d47dba42863bab33987c1be003be1d92d015e9b5bc4b4dd984a
+  original https://assets.publishing.service.gov.uk/media/69d4cb4d826d774e7b263e3c/Tables-Statistics-on-International-Development-provisional-UK-ODA-spend-2025.ods
+  original sha256 cb1363b7c2fa914e81b0864052e5fb85051aaaadd496749f2a262fbece81a8fa

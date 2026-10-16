@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-16.
+Licence: Open Government Licence v3.0 (gov.uk). Published 2026-08-27.
+
+asy_00a.trimmed.xlsx  (sheet Asy_00a rows 1, 4, 6, 7, 13, 18, 19; the original is an ods, the fixture is xlsx)
+  sha256 3089f9d138895286152b749985cf2cb868d31fad1f27efc46c18e7a7c4082be8
+  original https://assets.publishing.service.gov.uk/media/6a85c315b0504df9f2c89800/asylum-summary-jun-2026-tables.ods
+  original sha256 f935782ab90190deb04a1a86f7b6ba7515f32e238c14b96c55993f4793096d14

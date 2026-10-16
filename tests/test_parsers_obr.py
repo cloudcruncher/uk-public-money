@@ -233,3 +233,13 @@ def test_vintage_derived_from_edition_and_bad_edition_rejected(src):
 def test_slug(label, slug):
     assert obr._slug(label) == slug
     assert re.fullmatch(r"[a-z0-9_]+", slug)
+
+
+def test_databank_real_terms_tme_extracted_as_published(rows):
+    assert sorted(r.fiscal_year for r in rows if r.series_id == "obr.psf.tme_real") == YEARS
+    r = _one(rows, "obr.psf.tme_real", "2025-26")
+    # base year of the deflator (=100): real equals nominal
+    assert r.value == pytest.approx(_one(rows, "obr.psf.tme", "2025-26").value)
+    assert (r.prov.sheet, r.unit, r.prov.transformations) == (obr.REAL, "gbp_bn", ())
+    assert r.prov.status == "outturn"
+    assert _one(rows, "obr.psf.tme_real", "2027-28").prov.status == "forecast"
