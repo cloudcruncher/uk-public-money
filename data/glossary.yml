@@ -252,3 +252,51 @@
   plain: Our check that figures from different official sources agree, and our explanation when they do not.
   long: Different publishers count things in different ways, so their totals do not always match. We compare them using fixed rules and publish every result, including the ones that fail. Where a difference is expected, we say what causes it.
   see_also: [tme, welfare]
+
+- id: asylum-seeker
+  term: Asylum seeker
+  aliases: [asylum seekers, people claiming asylum]
+  plain: A person who has asked the UK for protection and is waiting to hear if they can stay.
+  long: A person claiming asylum says they cannot safely return to their home country. While they wait for a decision, they are called an asylum seeker. The Home Office decides each claim. Some asylum seekers are given housing and a small weekly payment. In general they cannot claim Universal Credit and cannot work unless the Home Office gives permission. If the claim is accepted, the person becomes a refugee.
+  see_also: [refugee, leave-to-remain]
+  source_id: home_office_asylum
+
+- id: refugee
+  term: Refugee
+  aliases: [refugees]
+  plain: A person who has been told they can stay in the UK because it is not safe for them at home.
+  long: A refugee is someone whose asylum claim was accepted, or who came to the UK on a special scheme for people fleeing danger. The government gives them leave to remain, which lets them live and work here. Different official tables use the word in different ways. The Department for Work and Pensions shows refugees as one group and shows people on some schemes, such as those for Ukraine, as another.
+  see_also: [asylum-seeker, leave-to-remain, in-donor-refugee-costs]
+  source_id: dwp_uc_status
+
+- id: in-donor-refugee-costs
+  term: Costs of supporting new refugees in the UK
+  aliases: [in-donor refugee costs, IDRC]
+  plain: Money the UK spends here on people who have just arrived to seek protection, which international rules let it count as aid.
+  long: The UK counts some of what it spends on asylum seekers and refugees at home as part of its overseas aid, under rules set by an international group of rich countries. These rules cover only the first year of a person's stay and only people from countries that can receive UK aid, so later costs are not in the figure. The numbers are for calendar years, January to December, not for the April to March financial year. The first release for the latest year is a first estimate and is checked again later in the year.
+  see_also: [asylum-seeker, refugee, provisional]
+  source_id: fcdo_oda
+
+- id: immigration-health-surcharge
+  term: Immigration health surcharge
+  aliases: [IHS, health surcharge]
+  plain: A fee that most people pay when they apply for a visa to stay in the UK for more than six months, to help pay for the NHS.
+  long: The Home Office collects the surcharge when a visa application is made. It keeps the money in its accounts and passes it on to the health services of the four nations of the UK. It is income to the government. It is not a measure of what care for migrants costs the NHS, and the official accounts give one total, not a split by type of visa.
+  see_also: [immigration-skills-charge]
+  source_id: home_office_spend
+
+- id: immigration-skills-charge
+  term: Immigration skills charge
+  aliases: [ISC, skills charge]
+  plain: A fee that an employer pays when it hires a worker from abroad on a skilled worker visa.
+  long: The employer pays the charge for each worker for each year of the visa. The Home Office collects it and pays it into the government's main account, not into its own budget. The official accounts give one total, not a split by employer or by job.
+  see_also: [immigration-health-surcharge]
+  source_id: home_office_spend
+
+- id: leave-to-remain
+  term: Leave to remain
+  aliases: [limited leave to remain, indefinite leave to remain, ILR]
+  plain: Official permission to live in the UK, either for a set time or with no end date.
+  long: Limited leave to remain lets a person live here for a set period, and it can be renewed. Indefinite leave to remain has no end date and is often called settled status. Most people with either can work, and many can claim benefits such as Universal Credit. Some visas carry a rule called no recourse to public funds, which means the person cannot claim most benefits.
+  see_also: [refugee, asylum-seeker]
+  source_id: dwp_uc_status

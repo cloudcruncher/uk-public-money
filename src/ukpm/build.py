@@ -682,6 +682,12 @@ def build_series(
                 "March) and a calendar year do not line up. Fiscal-year series use the OBR "
                 "fiscal-year GDP for their % of GDP."
             )
+        if first.period_basis == "may_snapshot":
+            notes.append(
+                "Snapshot series: each point is the count for May of the year shown (the label is "
+                "that year), not a full-year total. Other months are not published here. It gets "
+                "no real-terms, % of GDP or per-head variant."
+            )
         if sid in STOCK_SERIES:
             notes.append(
                 "A stock at 31 March, not a flow over the year: nominal only. The ratio to GDP "
@@ -749,6 +755,12 @@ def _first_year(src: Source) -> str:
     return claimed if re.fullmatch(r"\d{4}-\d{2}", claimed) and claimed > FIRST_YEAR else FIRST_YEAR
 
 
+def _claimed_year(src: Source) -> int:
+    """First calendar year a source claims to cover (0 if it does not say)."""
+    claimed = str(src.coverage.get("from", ""))
+    return int(claimed) if re.fullmatch(r"\d{4}", claimed) else 0
+
+
 def _gaps(sid: str, rs: list[Row], src: Source, retrieval: dict[str, str]) -> list[dict[str, Any]]:
     have = {r.fiscal_year for r in rs}
     declared: dict[str, str] = {}
@@ -759,8 +771,9 @@ def _gaps(sid: str, rs: list[Row], src: Source, retrieval: dict[str, str]) -> li
     default = "not published in any fetched edition"
     if any(retrieval.get(f.sha256) == "fixture" for f in src.files):
         default += " (offline build from trimmed fixtures)"
-    if rs[0].period_basis == "calendar_year":
-        span = {str(y) for y in range(int(FIRST_YEAR[:4]), int(max(have)) + 1)} | set(declared)
+    if rs[0].period_basis in ("calendar_year", "may_snapshot"):
+        first = max(int(FIRST_YEAR[:4]), _claimed_year(src))
+        span = {str(y) for y in range(first, int(max(have)) + 1)} | set(declared)
     else:
         span = set(_fy_range(_first_year(src), max(have))) | set(declared)
     return [{"fiscal_year": y, "reason": declared.get(y, default)} for y in sorted(span - have)]

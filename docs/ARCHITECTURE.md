@@ -237,7 +237,7 @@ record. It copies the primary input's location fields, appends a transformation,
   This is not GDP centred end-March (that measure is for debt stocks, which are out of slice 1).
 - A derived value is `forecast` if any input is forecast. Fiscal-year deflators are applied to tax-year series with
   `status_note: "tax-year series deflated with fiscal-year deflator"`.
-- Cross-check: our real-terms TME is compared with the databank's "Aggregates (2025-26 prices)" sheet (rule R5).
+- Cross-check: our deflation of TME is compared with the databank's own real-terms TME (`obr.psf.tme_real`, "Aggregates (2025-26 prices)" sheet, rule R5). The sheet title says "2024-25 prices" but the deflator header says 2025-26=100; the data agree with 2025-26 (2025-26 real = nominal).
 
 ---
 

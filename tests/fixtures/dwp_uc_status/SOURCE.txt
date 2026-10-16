@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-15/16.
+Licence: Open Government Licence v3.0 (gov.uk). Published 2026-08-18.
+
+uc_status_to_may_2026.trimmed.xlsx  (sheet Table_1 rows 1-26 and Guidance rows 4, 8, 12, 14, 15 (the original is an ods; the fixture is xlsx))
+  sha256 2cac1a2772c96bd5e6803b801a22b316a044ae0f2c33cec81b95ca3e1dffe80a
+  original https://assets.publishing.service.gov.uk/media/6a82c17492ec93e1e0329a46/uc-immigration-status-nationality-statistics-to-may-2026.ods
+  original sha256 22c9f2f3aa448af7f5ea4458cb2286e494a79f69ac31a7fa0b7381e86d2f29e4

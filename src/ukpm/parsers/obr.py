@@ -17,6 +17,9 @@ Sheets used (names exact; columns and rows are found by label, never by address)
   - "Aggregates (2025-26 prices)": column "GDP Deflator (2025-26=100)" -> obr.gdp_deflator.
     Its "£ billion (2024-25 prices)" title disagrees with the sheet name; only the deflator
     column is read, and its base year is read from its own header.
+  - Same sheet, column "Total managed expenditure" -> obr.psf.tme_real (OBR's own real-terms
+    TME, kept as published for the R5 cross-check only). The sheet title says "2024-25 prices"
+    while the deflator header says 2025-26=100; the base is settled by R5 against the data.
 Skipped: "Changes since last (OLD)" and "Spending and receipts" (no data), "Public finances since
 1900" (long history, out of scope), "Glossary", and every other column of the sheets above.
 
@@ -81,6 +84,12 @@ SERIES["obr.gdp_nominal"] = {
 SERIES["obr.gdp_deflator"] = {
     "title": "GDP deflator at market prices (base year = 100)",
     "unit": "index",
+    "period_type": "fiscal_year",
+    "monetary": False,
+}
+SERIES["obr.psf.tme_real"] = {
+    "title": "Total managed expenditure, databank real terms (as published)",
+    "unit": "gbp_bn",
     "period_type": "fiscal_year",
     "monetary": False,
 }
@@ -222,6 +231,20 @@ def parse(path: Path, meta: FileMeta) -> list[Row]:
     # GDP deflator
     hr, col, _ = _regex_col(book, REAL, key, r"^GDP Deflator \(\d{4}-\d{2}=100\)$")
     emit(REAL, hr, col, "obr.gdp_deflator", "index", _forecast_start(book, REAL, key))
+
+    # Real-terms TME as published by OBR (cross-check only, R5; never re-deflated)
+    hr = _header_row(book, REAL, key, "Total managed expenditure")
+    col = next(
+        (
+            c
+            for c, v in enumerate(book.rows(REAL)[hr])
+            if isinstance(v, str) and v.strip().casefold() == "total managed expenditure"
+        ),
+        None,
+    )
+    if col is None:
+        raise LayoutError(key, f"{REAL}!Total managed expenditure")
+    emit(REAL, hr, col, "obr.psf.tme_real", "gbp_bn", _forecast_start(book, REAL, key))
 
     if not rows:
         raise LayoutError(key, "no data rows")

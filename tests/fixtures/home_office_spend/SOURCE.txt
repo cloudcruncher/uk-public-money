@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-15/16.
+Licence: Open Government Licence v3.0 (gov.uk). Published date used: 2026-07-14 (the companion Annual Report and Accounts; the tables carry no date of their own).
+
+core_data_tables_2026.trimmed.xlsx  (sheet Total_departmental_spending rows 1-7, 17, 19, 20, 22, 23, 35, 63, 73, 76, 79, 90, 120; the Capital DEL rows keep the block-scoping test honest)
+  sha256 fb7ebb214864444731d40c8a72b99100dd450fb0769f90b119380e8a310cbe13
+  original https://assets.publishing.service.gov.uk/media/6a5651389e63154454413675/Core_Data_Tables_2026_Home_Office__draft__based_on_ARA_model_shared_29th_June__-_FINAL__FRT_.xlsx
+  original sha256 8860a2fe3e2b1d1d41e4c7264fc313d2a7cf8d7becf9f9e78456083e51bcda29

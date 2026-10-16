@@ -531,3 +531,103 @@
   user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
   files: []
   notes: "Downloaded but not inspected (see docs/sources/spend.md). Historical official forecasts database is UNUSABLE (access page)."
+
+- id: fcdo_oda
+  publisher: Foreign, Commonwealth and Development Office
+  dataset: Statistics on International Development, provisional UK Official Development Assistance spend 2025 (Figure 3, in-donor refugee costs)
+  landing_url: https://www.gov.uk/government/statistics/statistics-on-international-development-provisional-uk-official-development-assistance-spend-2025
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk standard line: 'All content is available under the Open Government Licence v3.0, except where otherwise stated' (docs/sources/new-sources-3-immigration.md section 3.2; Accredited Official Statistics)."
+  cadence: annual (provisional in spring, final in autumn)
+  coverage: {from: 2021, to: 2025, note: "CALENDAR years, provisional; OECD in-donor refugee costs = first 12 months of a stay only"}
+  verdict: PARTIAL
+  verdict_reason: "Provisional (revised in the autumn 2026 final release); first 12 months of a stay only; calendar year."
+  enabled: true
+  fixture_dir: tests/fixtures/fcdo_oda
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: fcdo_oda_provisional_2025
+      edition: FCDO provisional UK ODA spend 2025
+      publication_date: 2026-04-09
+      file_url: https://assets.publishing.service.gov.uk/media/69d4cb4d826d774e7b263e3c/Tables-Statistics-on-International-Development-provisional-UK-ODA-spend-2025.ods
+      landing_url: https://www.gov.uk/government/statistics/statistics-on-international-development-provisional-uk-official-development-assistance-spend-2025
+      format: ods
+      sha256: cb1363b7c2fa914e81b0864052e5fb85051aaaadd496749f2a262fbece81a8fa
+      role: idrc_by_department
+  notes: "Next (final 2025) release due autumn 2026: expect restated values and a new sha256. A final 2024 release exists but is not fetched. Percentage-of-ODA row and change columns are not parsed."
+
+- id: dwp_uc_status
+  publisher: Department for Work and Pensions
+  dataset: Universal Credit statistics by immigration status and nationality, to May 2026 (Table 1)
+  landing_url: https://www.gov.uk/government/statistics/universal-credit-quarterly-statistics-29-april-2013-to-14-may-2026
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk standard line: Open Government Licence v3.0 (docs/sources/new-sources-3-immigration.md section 3.3)."
+  cadence: quarterly (next 2026-11-17)
+  coverage: {from: 2022, to: 2026, note: "Great Britain; people (not GBP); the May count of each year; latest month in the file is May 2026"}
+  verdict: PARTIAL
+  verdict_reason: "Counts of people on Universal Credit by status only: no pounds, no other benefits, no Northern Ireland. Last three months provisional."
+  enabled: true
+  fixture_dir: tests/fixtures/dwp_uc_status
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: dwp_uc_status_to_may_2026
+      edition: DWP UC immigration status statistics to May 2026
+      publication_date: 2026-08-18
+      file_url: https://assets.publishing.service.gov.uk/media/6a82c17492ec93e1e0329a46/uc-immigration-status-nationality-statistics-to-may-2026.ods
+      landing_url: https://www.gov.uk/government/statistics/universal-credit-quarterly-statistics-29-april-2013-to-14-may-2026
+      format: ods
+      sha256: 22c9f2f3aa448af7f5ea4458cb2286e494a79f69ac31a7fa0b7381e86d2f29e4
+      role: uc_people_by_status
+  notes: "Table_2 (status by nationality by employment) is not parsed: its header says Apr-26, which does not match the file title. Only the May column of each year is published (monthly points would add 53 x 8 values for little gain); the sha256 changes every quarter."
+
+- id: home_office_spend
+  publisher: Home Office
+  dataset: Core Data Tables 2026 (Total departmental spending, resource DEL)
+  landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2025-to-2026
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk standard line: Open Government Licence v3.0, UNVERIFIED on the attachment page itself (docs/sources/new-sources-3-immigration.md section 2.2). Companion to the Annual Report and Accounts 2025-26 (HC 440, published 2026-07-14)."
+  cadence: annual
+  coverage: {from: 2021-22, to: 2025-26, note: "outturn only; PLANS columns 2026-27 onward are not published"}
+  verdict: PARTIAL
+  verdict_reason: "File name contains 'draft' and says it is based on the accounts model; to be reconciled against the Annual Report and Accounts PDF. Home Office spending only; group names change between years."
+  enabled: true
+  fixture_dir: tests/fixtures/home_office_spend
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ho_core_data_tables_2026
+      edition: Home Office Core Data Tables 2026 (draft)
+      publication_date: 2026-07-14
+      file_url: https://assets.publishing.service.gov.uk/media/6a5651389e63154454413675/Core_Data_Tables_2026_Home_Office__draft__based_on_ARA_model_shared_29th_June__-_FINAL__FRT_.xlsx
+      landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2025-to-2026
+      format: xlsx
+      sha256: 8860a2fe3e2b1d1d41e4c7264fc313d2a7cf8d7becf9f9e78456083e51bcda29
+      role: total_departmental_spending
+  gaps:
+    - {series: "home_office_spend.resource_del.asylum_support_resettlement_accommodation", years: ["2021-22", "2022-23"], reason: "published under a different group name (Asylum & Protection), so not joined to this line"}
+  notes: "publication_date is the ARA publication date (the scout doc gives no date for the tables). Customer Services (Visas & Passports) is NET of fee income (negative). Asylum & Protection (2022-23) and Asylum Support (2023-24 on) are different group names, so they are not joined."
+
+- id: home_office_asylum
+  publisher: Home Office
+  dataset: Immigration system statistics, year ending June 2026 (asylum summary tables, Asy_00a)
+  landing_url: https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk standard line: Open Government Licence v3.0 (docs/sources/new-sources-3-immigration.md section 4.1; the scout marked it UNVERIFIED on the dataset page itself)."
+  cadence: quarterly (next 2026-11-26)
+  coverage: {from: 2015, to: 2025, note: "CALENDAR years; the 'year ending June' columns are not parsed. Counts of people only"}
+  verdict: USABLE
+  verdict_reason: "Counts only: no pounds, tax or benefits. Restated each quarter."
+  enabled: true
+  fixture_dir: tests/fixtures/home_office_asylum
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ho_asylum_summary_jun_2026
+      edition: Home Office asylum summary tables, year ending June 2026
+      publication_date: 2026-08-27
+      file_url: https://assets.publishing.service.gov.uk/media/6a85c315b0504df9f2c89800/asylum-summary-jun-2026-tables.ods
+      landing_url: https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables
+      format: ods
+      sha256: f935782ab90190deb04a1a86f7b6ba7515f32e238c14b96c55993f4793096d14
+      role: asylum_summary
+  gaps:
+    - {series: "home_office_asylum.support_hotels", years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021"], reason: "the Home Office table has no hotel figure for these years (cells marked not applicable or not collected)"}
+  notes: "Only sheet Asy_00a, calendar years 2015 onward (hotel counts exist from 2022; earlier cells are z/: and give no value). The two 'Year ending June' columns (latest: June 2026) are not parsed because they use a different period basis. The sha256 changes each quarter."
