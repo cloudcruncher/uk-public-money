@@ -1,0 +1,54 @@
+Cabinet Office spend over GBP 25,000 (core), 12 monthly CSVs, fetched 2026-10-15. OGL v3.0.
+Trimmed for privacy. Every row stays at its original line number. Ref and Transaction number
+are blanked; every Supplier whose 12-month total (all 12 files) is below 1,000,000 pounds is
+replaced by 'WITHHELD (fixture)'. Amount, Date and Expense Type are unchanged, so totals match
+the publisher. Original encoding, CRLF line endings and trailing blank rows are kept.
+
+co_2025_09.csv
+  sha256 007e4cde080ca1324854208684e35737f397f363f226c2bf2c1ee798a3127e66
+  original https://assets.publishing.service.gov.uk/media/69009a5a84b816d72cb9aa48/Expenditure_Over_25000_-_September_2025__Cabinet_Office_Core___1___2_.csv
+  original sha256 587b8fcba37848d8cb4081d8cfb0af1872cca67bdd0d8d68604a2a0940b5555b
+co_2025_10.csv
+  sha256 b6d019bb8e9b2b678aab8d21733a8a77d1932978acc0052c1c039b3157e08016
+  original https://assets.publishing.service.gov.uk/media/692439c3367485ea116a5601/Expenditure_Over_25000_-_October_2025__Cabinet_Office_Core___1___2___1_.csv
+  original sha256 37b8277b11f45f9e709ce477161759bb0d5586f5579bb584ba85690763d97192
+co_2025_11.csv
+  sha256 4e89c6f5c1be419bd1cfde37d1245206755fb84047c307534129d82723732a0d
+  original https://assets.publishing.service.gov.uk/media/693bf0cc5cc812f50aa420c3/Expenditure_Over_25000_-_November_2025__Cabinet_Office_Core.csv
+  original sha256 fb7a8d642751d8f914a55932a8be3ea3627a776f9f8b0554efd08f81a4f88ce0
+co_2025_12.csv
+  sha256 7cccb94a157a2e47937e381969ff9039306e26306d91397d8691f2a5674ac25c
+  original https://assets.publishing.service.gov.uk/media/69774ec94883520241b796df/Expenditure_Over_25000_-_December_2025__Cabinet_Office_Core.csv
+  original sha256 b1dfbcb6bab221435b0705ccf0bfeb3bd28a052b7a1545e4bc72235d60c450bb
+co_2026_01.csv
+  sha256 3ced6c7f092a4950f835cce8fda79fe625d6981d24f21952a8212f551e6aa07b
+  original https://assets.publishing.service.gov.uk/media/699c82d2e1c6bad1576fbbfd/Expenditure_Over_25000_-_January_2026__Cabinet_Office_Core.csv
+  original sha256 15a47ac9a23079dc83a8e20006e7cf459c93dcb71c18432f46eac16abfe4c00b
+co_2026_02.csv
+  sha256 bcc56172335b42b023ea174648f59e6077dcdad667da1684a3fdb12589da7323
+  original https://assets.publishing.service.gov.uk/media/69c15f18bb0dfe55b83e4bc1/Expenditure_Over_25000_-_February_2026__Cabinet_Office_Core__1_.csv
+  original sha256 1e96da3fbf166e943bcd110330e575428a39ad8fa5abcec87d9422e922389cad
+co_2026_03.csv
+  sha256 fd32fb5acb4051baeb52a17ad572372c5da3be10bade91a345f9eb3b3bf82a39
+  original https://assets.publishing.service.gov.uk/media/69ef6596ed93f72cf816343c/Expenditure_Over_25000_-_March_2026__Cabinet_Office_Core.csv
+  original sha256 fda534025b47e80a45e41a0bbfc5b6fb3d868dccb045ac1b88718608891866eb
+co_2026_04.csv
+  sha256 7311a1e767b92dcc87b19e20651c88b491aa327ed3de693ffd69b33df39c8ff2
+  original https://assets.publishing.service.gov.uk/media/6a18061ec7335e2ca6daac44/Expenditure_Over_25000_-April_2026__Cabinet_Office_Core.csv
+  original sha256 27888083577226475e8069fd9ed1d274d8660fd60e066e227bf00ab6bed6a934
+co_2026_05.csv
+  sha256 b8304e281f8e71e0c06991602d41a5b2be7ed4de5954e40075b9f653b47fa295
+  original https://assets.publishing.service.gov.uk/media/6a3919a225c5199bda1178e2/Expenditure_Over_25000_-May_2026__Cabinet_Office_Core.csv
+  original sha256 00b06342cd07278a775f47b8b5d5aaddeed2d7d08d338659a68183b0d2001dab
+co_2026_06.csv
+  sha256 28aa49f9661d3bb41ddbe12282310135e0be281e64b07e126c3ebc75f4e538b6
+  original https://assets.publishing.service.gov.uk/media/6a69c721f23ff62c51c1a7eb/Expenditure_Over_25000_-June_2026__Cabinet_Office_Core.csv
+  original sha256 9bceed0988394baa46c41a5eac8fd0a0bcb84e99459c92b7eb40727e98d5d3ba
+co_2026_07.csv
+  sha256 e4f63069cfa3211b17afeacae75962c71e6dc0e6b089db4e842dd7234906467d
+  original https://assets.publishing.service.gov.uk/media/6a842891c9205b515d421e07/Expenditure_Over_25000_-July_2026__Cabinet_Office_Core.csv
+  original sha256 52b4287984158cf874ef361c455d59f1ba38364bdadbce46d3c1f82718d283d7
+co_2026_08.csv
+  sha256 4cb394e3a04bdd6c152a2d5bfbbce4450fc86c589bbef06528f4a47e667f213a
+  original https://assets.publishing.service.gov.uk/media/6aad022a44ec1aa417346c6d/Expenditure_Over_25000_-Aug_2026__Cabinet_Office_Core__1_.csv
+  original sha256 6b44468c316b6831245af143b1995f4aadda131a41791159e939beb1032dba27

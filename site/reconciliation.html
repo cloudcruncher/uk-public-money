@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Reconciliation · UK Public Money</title>
-<meta name="description" content="Every cross-check between sources, including failures.">
+<title>Why official totals differ · UK Public Money</title>
+<meta name="description" content="Official totals often differ because they count different things. We compare them on every build and publish the result.">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/app.css">
 <script src="config.js" defer></script>
@@ -17,23 +17,22 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
 <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">£</span><span>UK Public Money</span></a>
-<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li></ul><ul class="secondary"><li><a href="reconciliation.html" aria-current="page">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul></nav>
+<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="spending.html">Where your money goes</a></li><li><a href="revenue.html">Where the money comes from</a></li><li><a href="benefits.html">Benefits explained</a></li><li><a href="who-pays.html">Who pays tax</a></li><li><a href="claims.html">Check a number</a></li></ul><ul class="secondary"><li><a href="glossary.html">Words explained</a></li><li><a href="reconciliation.html" aria-current="page">Why totals differ</a></li><li><a href="methodology.html">How we work it out</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About us</a></li></ul></nav>
 </div></header>
-<div class="controls"><div class="controls-inner"><div></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
+<div class="controls"><div class="controls-inner"><div id="basis-host"></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
 <main id="main" tabindex="-1" data-page-root>
 
-<h1>Reconciliation</h1>
-<p class="lede">On every build we check the sources against themselves and each other. Every result is published here, including failures.</p>
+<h1>Why official totals differ</h1>
+<section class="summary" aria-labelledby="summary-h"><h2 id="summary-h" class="visually-hidden">In one sentence</h2><div id="summary-body"><p class="state" role="status">Loading…</p></div></section>
 <div id="summary"><p class="state" role="status">Loading…</p></div>
-<div class="note"><p><strong>What the statuses mean.</strong> <strong>Pass</strong>: within tolerance. <strong>Fail</strong>: outside tolerance; the numbers on
-the site are still the publishers’ own, but something does not add up and we show it. <strong>Info</strong>: a known difference in definition
-(for example cash vs accrued), shown with the gap. <strong>Not run</strong>: an input is missing; the reason is given.</p></div>
+<div class="note"><p><strong>What the results mean.</strong> <strong>Pass</strong>: the numbers agree within a small margin. <strong>Fail</strong>: they do not agree. The numbers on this site are still the publishers’ own, but we show the gap. <strong>Info</strong>: a known difference in what is counted, shown with the gap. <strong>Not run</strong>: a number was missing, and we say which.</p></div>
 <div class="filters" id="filters" role="group" aria-label="Filter results by status"></div>
 <div id="recon"><p class="state" role="status">Loading…</p></div>
-
+<h2 class="visually-hidden">For checkers</h2>
+<div id="checkers"></div>
 </main>
 <footer class="site-foot"><div class="foot-inner">
-<ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul>
+<ul><li><a href="index.html">Home</a></li><li><a href="spending.html">Where your money goes</a></li><li><a href="revenue.html">Where the money comes from</a></li><li><a href="benefits.html">Benefits explained</a></li><li><a href="who-pays.html">Who pays tax</a></li><li><a href="claims.html">Check a number</a></li><li><a href="glossary.html">Words explained</a></li><li><a href="reconciliation.html">Why totals differ</a></li><li><a href="methodology.html">How we work it out</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About us</a></li></ul>
 <p>Every number links to the publisher’s own file. No tracking, no cookies, no third-party scripts. Data: Open Government Licence v3.0.</p>
 <p id="build-host">Loading build information…</p>
 </div></footer>

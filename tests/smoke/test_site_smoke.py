@@ -60,7 +60,7 @@ def tme_first_row(page):
 
 def test_basis_toggle_changes_values(page, base_url):
     """Real equals cash in the price-base year, so compare the earliest year."""
-    goto(page, base_url, "spending.html")
+    goto(page, base_url, "spending.html?basis=nominal")
     page.locator("#tme details.table-view tbody tr").first.wait_for(state="attached", timeout=T)
     nominal = tme_first_row(page)
     caption = page.locator("#tme figcaption").inner_text()
@@ -87,7 +87,7 @@ def test_basis_toggle_changes_values(page, base_url):
 
 
 def test_home_tiles_follow_basis_toggle(page, base_url):
-    goto(page, base_url, "index.html")
+    goto(page, base_url, "index.html?basis=nominal")
     page.locator(".hero-num button.num-val").first.wait_for(timeout=T)
     nominal_meta = page.locator("#tiles .meta").all_inner_texts()
     nominal = hero_values(page)
@@ -173,6 +173,7 @@ def test_figure_popover_shows_source(page, base_url):
 
 def test_reconciliation_panel_on_home(page, base_url):
     goto(page, base_url, "index.html")
+    page.locator("#for-checkers > summary").click()
     page.locator("#recon-panel table tbody tr").first.wait_for(timeout=T)
     assert page.locator("#recon-panel .recon-summary .rs").count() == 4
     page.locator("#recon-host a").wait_for(timeout=T)
@@ -263,6 +264,6 @@ def test_nav_links_resolve(page, base_url):
     hrefs = sorted(
         set(page.locator("nav.nav a").evaluate_all("els => els.map(e => e.getAttribute('href'))"))
     )
-    assert len(hrefs) == 10
+    assert len(hrefs) == 11
     for href in hrefs:
         assert page.request.get(base_url + href).ok, href

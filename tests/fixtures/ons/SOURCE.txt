@@ -1,0 +1,9 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Kept MYE4 rows 1 to 20
+(all columns) and MYE1 rows 7 to 9. Other sheets dropped. Fetched 2026-10-15. Licence: not verified by this
+fixture (registry decides; see docs/design/layman-and-sources.md section 2).
+
+mye25tablesuk.trimmed.xlsx
+  sha256 f80adc693ec7446fa0ba1d278b26ce851408e000d3c010d42cf2b63d88c151dc
+  original https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland/mid2025/mye25tablesuk.xlsx
+  original sha256 8ae244e3341257ecccaee55f4973fe12f46afe6656ead6c1a9ed3f4f8585e40f
+  original size 1026940 bytes

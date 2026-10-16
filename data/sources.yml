@@ -166,30 +166,282 @@
       sha256: 11a591e4a2144ed6a686be6a9ded4e5d5b3b8d4887bd57c1ff0632bd251009de
       role: outturn_and_forecast
 
-# --- Not in the first slice (disabled) ---
+# --- Layman framing and new sources (docs/design/layman-and-sources.md; verification: docs/sources/new-sources.md) ---
+
+- id: ons_population
+  publisher: Office for National Statistics
+  dataset: Population estimates for the UK, England, Wales, Scotland and Northern Ireland
+  landing_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland
+  licence: OGL-UK-3.0
+  licence_evidence: "ONS dataset landing page footer, fetched 2026-10-15 (HTTP 200): 'All content is available under the Open Government Licence v3.0, except where otherwise stated'; the page metadata also names https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/ as its licence."
+  cadence: annual (mid-year estimates; prior years revised)
+  coverage: {from: 2015-16, to: 2025-26, note: "mid-YYYY estimate mapped to fiscal year YYYY-(YY+1)"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/ons
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ons_mye_2025
+      edition: ONS mid-2025 population estimates
+      publication_date: 2026-10-01   # cover sheet: "originally published at 9.30am 1 October 2026"
+      file_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland/mid2025/mye25tablesuk.xlsx
+      landing_url: https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatesforukenglandandwalesscotlandandnorthernireland
+      format: xlsx
+      sha256: 8ae244e3341257ecccaee55f4973fe12f46afe6656ead6c1a9ed3f4f8585e40f
+      role: mye_summary
+
+- id: obr_efo
+  publisher: Office for Budget Responsibility
+  dataset: Economic and fiscal outlook, detailed forecast tables (expenditure)
+  landing_url: https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/
+  licence: OGL-UK-3.0
+  licence_evidence: "https://obr.uk/copyright/ (HTTP 200): 'You may use and re-use the information featured on this website (not including logos) free of charge in any format or medium, under the terms of the Open Government Licence.' Same OBR copyright page as the obr entry; OGL version inferred from an unversioned link."
+  cadence: twice yearly with each forecast
+  coverage: {note: "forecast publication; year range read from the sheet header"}
+  verdict: PARTIAL
+  verdict_reason: "Only sheet 4.9 welfare cap rows are parsed. Receipts and policy tables were not inspected."
+  enabled: true
+  fixture_dir: tests/fixtures/obr_efo
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: obr_efo_mar2026_expenditure
+      edition: OBR EFO March 2026
+      publication_date: 2026-03-03   # EFO landing page datePublished 2026-03-03 (checked 2026-10-15)
+      file_url: https://obr.uk/docs/d055fbf02d5b3g6jq8l2/efo-march-2026-detailed-forecast-tables-expenditure.xlsx
+      landing_url: https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/
+      format: xlsx
+      sha256: 700bfd700c872794e5fe8cf164086cd38a63850db26427b9d4b2e363d177d9a1
+      role: efo_expenditure
+
+- id: cabinet_office_spend
+  publisher: Cabinet Office
+  dataset: Cabinet Office spend over £25,000
+  landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: 'All content is available under the Open Government Licence v3.0, except where otherwise stated' (checked 2026-10-15)"
+  cadence: monthly
+  coverage: {from: 2025-09, to: 2026-08, note: "Cabinet Office core; amounts as published, VAT basis unverified"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/cabinet_office
+  user_agent: null
+  files:
+    - key: co_2026_08
+      edition: "2026-08"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/6aad022a44ec1aa417346c6d/Expenditure_Over_25000_-Aug_2026__Cabinet_Office_Core__1_.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 6b44468c316b6831245af143b1995f4aadda131a41791159e939beb1032dba27
+      role: monthly_spend
+    - key: co_2026_07
+      edition: "2026-07"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/6a842891c9205b515d421e07/Expenditure_Over_25000_-July_2026__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 52b4287984158cf874ef361c455d59f1ba38364bdadbce46d3c1f82718d283d7
+      role: monthly_spend
+    - key: co_2026_06
+      edition: "2026-06"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/6a69c721f23ff62c51c1a7eb/Expenditure_Over_25000_-June_2026__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 9bceed0988394baa46c41a5eac8fd0a0bcb84e99459c92b7eb40727e98d5d3ba
+      role: monthly_spend
+    - key: co_2026_05
+      edition: "2026-05"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/6a3919a225c5199bda1178e2/Expenditure_Over_25000_-May_2026__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 00b06342cd07278a775f47b8b5d5aaddeed2d7d08d338659a68183b0d2001dab
+      role: monthly_spend
+    - key: co_2026_04
+      edition: "2026-04"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/6a18061ec7335e2ca6daac44/Expenditure_Over_25000_-April_2026__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 27888083577226475e8069fd9ed1d274d8660fd60e066e227bf00ab6bed6a934
+      role: monthly_spend
+    - key: co_2026_03
+      edition: "2026-03"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/69ef6596ed93f72cf816343c/Expenditure_Over_25000_-_March_2026__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: fda534025b47e80a45e41a0bbfc5b6fb3d868dccb045ac1b88718608891866eb
+      role: monthly_spend
+    - key: co_2026_02
+      edition: "2026-02"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/69c15f18bb0dfe55b83e4bc1/Expenditure_Over_25000_-_February_2026__Cabinet_Office_Core__1_.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 1e96da3fbf166e943bcd110330e575428a39ad8fa5abcec87d9422e922389cad
+      role: monthly_spend
+    - key: co_2026_01
+      edition: "2026-01"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/699c82d2e1c6bad1576fbbfd/Expenditure_Over_25000_-_January_2026__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 15a47ac9a23079dc83a8e20006e7cf459c93dcb71c18432f46eac16abfe4c00b
+      role: monthly_spend
+    - key: co_2025_12
+      edition: "2025-12"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/69774ec94883520241b796df/Expenditure_Over_25000_-_December_2025__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: b1dfbcb6bab221435b0705ccf0bfeb3bd28a052b7a1545e4bc72235d60c450bb
+      role: monthly_spend
+    - key: co_2025_11
+      edition: "2025-11"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/693bf0cc5cc812f50aa420c3/Expenditure_Over_25000_-_November_2025__Cabinet_Office_Core.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: fb7a8d642751d8f914a55932a8be3ea3627a776f9f8b0554efd08f81a4f88ce0
+      role: monthly_spend
+    - key: co_2025_10
+      edition: "2025-10"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/692439c3367485ea116a5601/Expenditure_Over_25000_-_October_2025__Cabinet_Office_Core___1___2___1_.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 37b8277b11f45f9e709ce477161759bb0d5586f5579bb584ba85690763d97192
+      role: monthly_spend
+    - key: co_2025_09
+      edition: "2025-09"
+      publication_date: 2026-09-24   # page last-updated date; the content API gives no per-file date
+      file_url: https://assets.publishing.service.gov.uk/media/69009a5a84b816d72cb9aa48/Expenditure_Over_25000_-_September_2025__Cabinet_Office_Core___1___2_.csv
+      landing_url: https://www.gov.uk/government/publications/cabinet-office-spend-data
+      format: csv
+      sha256: 587b8fcba37848d8cb4081d8cfb0af1872cca67bdd0d8d68604a2a0940b5555b
+      role: monthly_spend
+  notes: "publication_date is the page's last-updated date (2026-09-24) for every file: the gov.uk content API gives no per-file date. VAT basis is not stated in the files."
+
+# --- Wave 2 sources (verification: docs/sources/new-sources-2-ons.md, new-sources-2-pub.md) ---
 
 - id: ons_psf
   publisher: Office for National Statistics
-  dataset: Public Sector Finances
-  landing_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
-  licence: UNVERIFIED
-  licence_evidence: null
-  cadence: monthly
-  coverage: {}
-  verdict: UNVERIFIED
-  enabled: false
-  fixture_dir: null
+  dataset: Public sector finances tables 1 to 10, Appendix A
+  landing_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/publicsectorfinancesappendixatables110
+  licence: OGL-UK-3.0
+  licence_evidence: "ONS dataset landing page, fetched 2026-10-15 (HTTP 200): 'Open Government Licence v3.0' (link to nationalarchives.gov.uk/doc/open-government-licence/version/3/); docs/sources/new-sources-2-ons.md."
+  cadence: monthly (restated every release)
+  coverage: {from: 2015-16, to: 2025-26, note: "financial-year rows only; two central government expenditure definitions are published and never mixed"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/ons2
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ons_psf_aug2026
+      edition: ONS Public sector finances, August 2026
+      publication_date: 2026-09-22   # cover sheet: 'published at 7.00am 22 September 2026'
+      file_url: https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/publicsectorfinancesappendixatables110/current/publicsectorfinancessummarytablesappendixafinal.xlsx
+      landing_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/publicsectorfinancesappendixatables110
+      format: xlsx
+      sha256: 4cc5dded99d4bf06b8df9c3d9ef4e09a903c96208ba54626e6db507a07129b7e
+      role: appendix_a_tables
+  notes: "Verified 2026-10-15 by following bulletin -> dataset page -> file (docs/sources/new-sources-2-ons.md). The dataset is re-issued monthly and restates history; the release month is the vintage. Replaces the earlier UNUSABLE verdict. URL stability: ONS replaces /current/ in place and only moves a release to /current/previous/vNNN after the next one (checked 2026-10-16: v143, dated 2026-09-22, returned a different sha256 from this pin, so no versioned URL matches this vintage). If the fetch reports a sha256 mismatch, use landing_url to find the new release, re-verify and update; CI restores the pinned file from the raw-cache GitHub release (asset ons_psf__<sha256>.xlsx) before fetching, so once cached the pin survives ONS replacing it; offline builds use the committed fixture."
+
+- id: ons_households
+  publisher: Office for National Statistics
+  dataset: Families and households in the UK
+  landing_url: https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/families/datasets/familiesandhouseholdsfamiliesandhouseholds
+  licence: OGL-UK-3.0
+  licence_evidence: "ONS dataset landing page, fetched 2026-10-15 (HTTP 200): 'Open Government Licence v3.0'; the workbook cover sheet also says re-use is under the Open Government Licence v3.0 (docs/sources/new-sources-2-ons.md)."
+  cadence: annual
+  coverage: {from: 2015-16, to: 2025-26, note: "Labour Force Survey April-June quarter of calendar year YYYY, labelled with the fiscal year YYYY-(YY+1) that contains it; 2011 onwards only (definition break at 2010/2011)"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/ons2
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ons_households_2025
+      edition: Families and households in the UK 2025
+      publication_date: 2026-04-17   # cover sheet: 'Date published: 17 April 2026'
+      file_url: https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/birthsdeathsandmarriages/families/datasets/familiesandhouseholdsfamiliesandhouseholds/current/familiesandhouseholdsuk2025.xlsx
+      landing_url: https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/families/datasets/familiesandhouseholdsfamiliesandhouseholds
+      format: xlsx
+      sha256: a89eaa3d7f519bfa949c7cfa12f531b8c7a86c704adcb70e81f49567ae724a91
+      role: households_by_size
+  notes: "Sample survey (2025: 29,003 thousand +/- 155), private households only. Not a census count. URL stability: ONS replaces /current/ in place; /current/previous/v11 is the 2024 edition, not this one, so no versioned URL matches this sha256 (checked 2026-10-16). A sha256 mismatch means ONS re-issued the file: re-verify via landing_url. The raw-cache GitHub release holds the pinned copy (asset ons_households__<sha256>.xlsx) once fetched, and is the durable source for this sha256."
+
+- id: ons_gdp
+  publisher: Office for National Statistics
+  dataset: "Gross Domestic Product at market prices: Current price: Seasonally adjusted GBP m (YBHA, UKEA)"
+  landing_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ybha/ukea
+  licence: OGL-UK-3.0
+  licence_evidence: "ONS time series page, fetched 2026-10-15 (HTTP 200): 'Open Government Licence v3.0' (docs/sources/new-sources-2-ons.md)."
+  cadence: quarterly (revised each quarter)
+  coverage: {from: 2015, to: 2025, note: "CALENDAR-year nominal GDP, labelled with the bare calendar year"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/ons2
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ons_gdp_ybha_2026_09_30
+      edition: UKEA YBHA 30 September 2026
+      publication_date: 2026-09-30   # CSV header 'Release date 30-09-2026'
+      file_url: https://www.ons.gov.uk/generator?format=csv&uri=/economy/grossdomesticproductgdp/timeseries/ybha/ukea
+      landing_url: https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/ybha/ukea
+      format: csv
+      sha256: 080b6afad67e567c2f27c1afea720cdf49832b7158de0487fc4a3681c0485bf4
+      role: nominal_gdp_annual
+  notes: "Nominal GDP moved +0.35% for 2025 between two vintages a quarter apart; the release date is stored as the vintage. URL stability: the generator URL always serves the latest vintage; ONS keeps older vintages at /previous/vNN, but this one (release 30-09-2026) has no versioned URL until the next release (checked 2026-10-16: v43 is the 30-06-2026 vintage, different sha256). A sha256 mismatch means a newer vintage: re-verify via landing_url. The raw-cache GitHub release holds the pinned copy (asset ons_gdp__<sha256>.csv) once fetched, and is the durable source for this sha256."
+
+- id: pesa_uk
+  publisher: HM Treasury
+  dataset: Public Expenditure Statistical Analyses 2026, Chapter 5 (UK public sector expenditure on services by function)
+  landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2026
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15; docs/sources/new-sources-2-pub.md)."
+  cadence: annual (July)
+  coverage: {from: 2021-22, to: 2025-26, note: "table 5.2, UK-wide, all five years outturn"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/pesa_uk
   user_agent: null
   files:
-    - key: ons_psf_placeholder
-      edition: none
-      publication_date: 2026-10-15
-      file_url: null
-      landing_url: https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance
-      format: csv
-      sha256: null
-      role: cross_check
-  notes: "Guessed URLs returned 404/429; nothing downloaded. Enable only after a real URL returns 200 and its sha256 is recorded."
+    - key: pesa_2026_ch5
+      edition: PESA 2026
+      publication_date: 2026-07-16
+      file_url: https://assets.publishing.service.gov.uk/media/6a5772f59e63154454413701/PESA_2026_CP_Chapter_5_tables.xlsx
+      landing_url: https://www.gov.uk/government/statistics/public-expenditure-statistical-analyses-2026
+      format: xlsx
+      sha256: ccb4539bb837c2b6a7f9509da49bd409eb9e5a910f3332311b494291fbd33107
+      role: chapter_5_tables
+  notes: "UK-wide, unlike the England-only chapter 10 table (pesa source). The ten function totals plus EU transactions sum to services within 1-2 GBP m of rounding."
+
+- id: obr_efo_receipts
+  publisher: Office for Budget Responsibility
+  dataset: Economic and fiscal outlook, detailed forecast tables (receipts)
+  landing_url: https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/
+  licence: OGL-UK-3.0
+  licence_evidence: "https://obr.uk/legal-pages/copyright/ (HTTP 200, 2026-10-15): 'You may use and re-use the information featured on this website (not including logos) free of charge in any format or medium, under the terms of the Open Government Licence.' OGL version inferred from an unversioned link."
+  cadence: twice yearly with each forecast
+  coverage: {from: 2024-25, to: 2030-31, note: "table 3.8; 2024-25 outturn, later years forecast"}
+  verdict: PARTIAL
+  verdict_reason: "Only sheet 3.8 (current receipts, cash basis) is parsed; the policy tables and other receipts sheets are not."
+  enabled: true
+  fixture_dir: tests/fixtures/obr_receipts
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: obr_efo_mar2026_receipts
+      edition: OBR EFO March 2026
+      publication_date: 2026-03-03   # EFO landing page datePublished (same as the expenditure workbook entry)
+      file_url: https://obr.uk/docs/d055fbf02d5b3g6jq8l2/efo-march-2026-detailed-forecast-tables-receipts.xlsx
+      landing_url: https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/
+      format: xlsx
+      sha256: f65b6cb7f96931d4abd85940794eb60f6f65afca8bbf16c74a4548bf92766a28
+      role: efo_receipts
+
+# --- Not in the first slice (disabled) ---
 
 - id: ons_lms
   publisher: Office for National Statistics

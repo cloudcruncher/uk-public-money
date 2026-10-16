@@ -1,133 +1,113 @@
-/* Benefits: welfare definitions side by side, DWP spending by benefit, UK welfare over time. */
+/* Benefits explained: what each DWP benefit costs (Great Britain), ranked, following the price basis.
+   The same figures as each benefit's own page (both use UKPM.benefitView). */
 UKPM.page(async () => {
   const U = UKPM; const { h, $ } = U;
-  const [ix, defs] = await Promise.all([U.index(), U.getJSON('definitions.json')]);
-  const groups = defs.groups || [];
-  const welfare = (groups.find((g) => g.id === 'welfare') || { definitions: [] }).definitions.slice();
-  groups.forEach((g) => (g.definitions || []).forEach((d) => { if (d.id === 'cofog_social_protection') welfare.push(d); }));
-  const lineIds = ix.series.filter((x) => /^dwp_benefits\.exp\.[a-z_]+$/.test(x.id) && !x.id.startsWith('dwp_benefits.exp.total')).map((x) => x.id);
-  const TOTAL_1A = 'dwp_benefits.exp.total_benefit_expenditure';
-  const UK_TOTAL = 'dwp_benefits.total_uk_welfare';
-  const defSeries = welfare.map((d) => d.series_id).filter(Boolean);
-  const data = await U.seriesMany([...new Set([...defSeries, ...lineIds, TOTAL_1A, UK_TOTAL])]);
-  const caseloads = ix.series.filter((x) => x.source_id === 'dwp_benefits' && /persons/.test(x.unit));
-  const yearSet = new Set();
-  defSeries.forEach((id) => { const ser = data[id]; if (ser) (ser.variants.nominal || []).forEach((p) => yearSet.add(p.fiscal_year)); });
-  const years = [...yearSet].sort();
-  const latest = ix.fiscal_years && ix.fiscal_years.latest_outturn;
-  let year = years.includes(latest) ? latest : years[years.length - 1];
-  const humanTitle = (ser) => (ser.title || ser.id).replace(/^Benefit expenditure and caseload tables \(outturn and forecast\):\s*exp\s*\/\s*/, '').replace(/^./, (c) => c.toUpperCase());
-
-  /* --- definitions side by side --- */
-  const defHost = $('#defs');
-  $('#defs-tools').appendChild(U.yearSelect('Year', years, year, (y) => { year = y; renderDefs(); renderLines(); }));
-  function list(title, items) {
-    if (!items || !items.length) return null;
-    return [h('p', { class: 'inc-h' }, title), h('ul', null, items.map((x) => h('li', null, x)))];
+  const [ix, bx] = await Promise.all([U.index(), U.getJSON('benefits/index.json')]);
+  const entries = (bx.benefits || []).filter((b) => b.headline && b.headline.spend);
+  const host = $('#list');
+  if (!entries.length) {
+    U.clear(host).appendChild(U.gapBox('We don’t show the benefits yet: the official figures aren’t published in a form we can trace.'));
+    U.summaryState('We don’t show benefit costs yet: the official figures aren’t published in a form we can trace.');
+    return;
   }
-  function renderDefs() {
-    U.clear(defHost);
-    const firstUse = {};
-    welfare.forEach((d) => { if (d.series_id && !firstUse[d.series_id]) firstUse[d.series_id] = d; });
-    const grid = h('div', { class: 'defs' });
-    welfare.forEach((d) => {
-      const card = h('article', { class: 'card def', 'aria-labelledby': 'def-' + d.id });
-      card.appendChild(h('h3', { id: 'def-' + d.id }, d.label));
-      if (d.short) card.appendChild(h('p', { class: 'short' }, d.short));
-      card.appendChild(h('p', null, U.badge('scope', 'Scope: ' + (d.scope || 'not stated'))));
-      const ser = d.series_id ? data[d.series_id] : null;
-      if (!d.series_id || d.status !== 'available') {
-        card.appendChild(h('p', { class: 'state' }, 'No figure: ' + (d.status || 'not available') + '.'));
-      } else if (!ser) {
-        card.appendChild(h('p', { class: 'state error' }, 'Series ' + d.series_id + ' could not be loaded.'));
-      } else {
-        const vf = U.variantFor(ser);
-        const pt = U.pointFor(ser, vf.variant, year);
-        if (pt) {
-          card.appendChild(h('div', { class: 'hero-num' }, U.num(pt, { label: d.label + ' ' + year })));
-          card.appendChild(h('p', { class: 'small muted' }, year, ' · ', U.unitNote(pt.unit) || '', ' · ', pt.vintage));
-        } else {
-          const g = U.gapFor(ser, year);
-          card.appendChild(h('p', { class: 'state' }, 'No figure for ' + year + (g ? ': ' + g.reason : '.')));
-        }
-        if (vf.fallback) card.appendChild(h('p', { class: 'small muted' }, vf.fallback));
-        const owner = firstUse[d.series_id];
-        if (owner && owner.id !== d.id) {
-          card.appendChild(U.note('warn', h('strong', null, 'Same series as “' + owner.label + '”. '),
-            'This build has no separate series for this definition yet, so the figure above is not a distinct ' + d.label + ' total.'));
-        }
-        card.appendChild(h('p', { class: 'small muted' }, 'Series: ', h('code', null, d.series_id)));
-      }
-      append(card, list('Includes', d.includes));
-      append(card, list('Excludes', d.excludes));
-      if (d.notes) card.appendChild(h('p', { class: 'small' }, d.notes));
+  const year = entries[0].headline.fiscal_year;
+  const docs = entries.map(U.benefitSlim);
+  let total = null;
+  try { total = await U.series(bx.total_series_id); } catch (e) { total = null; }
+  const href = (d) => 'benefit.html?b=' + encodeURIComponent(d.slug);
+
+  function render() {
+    const views = docs.map((d) => ({ d, v: U.benefitView(d, year) })).filter((x) => x.v.spend).sort((a, b) => b.v.spend.value - a.v.spend.value);
+    if (!views.length) { U.state(host, 'We don’t show benefit costs for ' + year + ' yet.'); return; }
+    const mode = views[0].v.mode;
+    const totalPoint = total && (U.pointFor(total, mode, year) || U.pointFor(total, 'nominal', year));
+    const top = views[0];
+    const status = views.some((x) => x.v.spend.status === 'forecast') ? 'mixed' : 'actual';
+
+    /* summary */
+    const sentence = [];
+    if (totalPoint) {
+      sentence.push('In ' + year + ', benefits in Great Britain cost about ', U.num(totalPoint, { label: 'All DWP benefit spending, ' + year, badge: false }),
+        '. The biggest was ' + top.d.name + ', at about ', U.num(top.v.spend, { label: top.d.name + ' cost, ' + year, badge: false }), '.');
+    } else {
+      sentence.push('In ' + year + ', ' + top.d.name + ' was the biggest benefit, at about ', U.num(top.v.spend, { label: top.d.name + ' cost, ' + year, badge: false }), '.');
+    }
+    U.setSummary(sentence, (status === 'actual' ? 'Actual figures' : 'Actual and forecast figures') + ' · ' + top.v.basisWords + ' · last updated ' + U.updatedText(ix), totalPoint || top.v.spend);
+
+    U.clear(host);
+    if (top.v.pctNote) host.appendChild(U.note('warn', top.v.pctNote));
+    /* ranked bars: the cost of each benefit, with how many people get it */
+    const rows = views.map((x, k) => ({
+      label: x.d.name, href: href(x.d), barValue: x.v.spend.value, forecast: x.v.spend.status === 'forecast',
+      sub: [x.v.claimants ? U.peopleText(x.v.claimants.value * (x.v.claimants.unit === 'thousand_cases' ? 1000 : 1)) + (x.d.in_payment ? ' people' : ' claims') : null,
+        k === 0 && x.v.share ? 'about ' + U.per100Text(x.v.share.value) + ' of every £100 of benefit spending' : null].filter(Boolean).join(' · ') || null,
+      /* a fresh node: v.spendNode is appended to the detail card below, and a DOM node can only live in one place */
+      valueNode: U.num(x.v.spend, { label: x.d.name + ' cost, ' + year, badge: false }),
+    }));
+    const left = h('div', null, U.scopeChip(year, 'Great Britain', status),
+      U.barList(rows, { unitHead: 'Total cost in ' + year + ', ' + top.v.basisWords }));
+    const right = h('div');
+    if (top.v.share) {
+      const n = Math.round(top.v.share.value);
+      right.appendChild(U.squares({ on: n, bracket: '£' + n, title: top.d.name + ': about £' + n + ' of every £100 of benefit spending',
+        caption: top.d.name + ': £' + n + ' of every £100 spent on benefits', keyOn: top.d.name, keyOff: 'All other benefits',
+        source: 'Source: Department for Work and Pensions, ' + (top.d.edition || '') + '.' }));
+    }
+    host.appendChild(h('div', { class: 'side' }, left, right));
+
+    /* every benefit's details, folded away */
+    const grid = h('div', { class: 'grid grid-2' });
+    views.forEach(({ d, v }) => {
+      const card = h('article', { class: 'card', 'aria-labelledby': 'b-' + d.slug });
+      card.appendChild(h('h3', { id: 'b-' + d.slug }, h('a', { href: href(d) }, d.name)));
+      const kv = h('dl', { class: 'kv' });
+      const row = (label, node) => { kv.appendChild(h('dt', null, label)); kv.appendChild(h('dd', null, node)); };
+      row('Total cost', v.spendNode);
+      row('People getting it', v.claimants ? U.num(v.claimants, { label: 'People getting ' + d.name + ', ' + year, badge: false }) : U.num(null));
+      row('Cost for each person getting it', v.perClaimant.point ? h('span', null, v.perClaimant.node, ' a year') : U.num(null));
+      row('Out of every £100 of benefit spending', v.share ? U.num(v.share, { text: U.per100Text(v.share.value), label: d.name + ' share of benefit spending, ' + year, badge: false }) : U.num(null));
+      card.appendChild(kv);
+      card.appendChild(h('p', { class: 'small' }, h('a', { class: 'go', href: href(d) }, 'What is ' + d.name + '? →')));
       grid.appendChild(card);
     });
-    defHost.appendChild(grid);
+    host.appendChild(h('details', { class: 'more-detail' }, h('summary', null, 'Show details for every benefit'), h('p', { class: 'small muted' }, 'All amounts ' + top.v.basisWords + ', ' + year + '.'), grid));
+    host.appendChild(U.tableView('Benefits in Great Britain, ' + year + ', ' + top.v.basisWords,
+      ['Benefit', 'Total cost', 'People getting it', 'Cost for each person (a year)', 'Out of every £100 of benefit spending'],
+      views.map(({ d, v }) => [h('a', { href: href(d) }, d.name), U.num(v.spend, { label: d.name + ' cost', badge: false }),
+        v.claimants ? U.num(v.claimants, { label: d.name + ' people', badge: false }) : 'Not published yet',
+        v.perClaimant.point ? U.benefitView(d, year).perClaimant.node : 'Not published yet',
+        v.share ? U.num(v.share, { text: U.per100Text(v.share.value), label: d.name + ' share', badge: false }) : 'Not published yet'])));
   }
-  function append(n, kids) { if (kids) U.append(n, [kids]); }
+  render();
+  U.onBasis(render);
 
-  /* --- by benefit (Table 1a, GB) --- */
-  const linesHost = $('#lines');
-  function renderLines() {
-    U.clear(linesHost);
-    const totSer = data[TOTAL_1A];
-    const totNom = totSer && U.pointFor(totSer, 'nominal', year);
-    if (!totNom) { U.state(linesHost, 'No Table 1a total for ' + year + (totSer && U.gapFor(totSer, year) ? ': ' + U.gapFor(totSer, year).reason : '.')); return; }
-    const totVf = U.variantFor(totSer);
-    linesHost.appendChild(h('p', null, 'Total benefit expenditure, Great Britain, ', h('strong', null, year), ': ',
-      U.num(U.pointFor(totSer, totVf.variant, year), { label: 'Total benefit expenditure GB ' + year })));
-    if (totVf.fallback) linesHost.appendChild(U.note('warn', totVf.fallback));
-    let sum = 0;
-    const rows = lineIds.map((id) => data[id]).filter(Boolean).map((ser) => {
-      const nom = U.pointFor(ser, 'nominal', year);
-      const vf = U.variantFor(ser);
-      if (nom) sum += nom.value;
-      return { label: humanTitle(ser), fullLabel: humanTitle(ser) + ', GB, ' + year, point: U.pointFor(ser, vf.variant, year), barValue: nom ? nom.value : 0, forecast: nom && nom.status === 'forecast', sub: nom ? null : 'No figure for ' + year };
-    }).sort((a, b) => b.barValue - a.barValue);
-    const rest = totNom.value - sum;
-    if (Math.abs(rest) > 0.0005) {
-      rows.push({
-        label: 'Not in the lines above', sub: 'Total minus the lines in this build',
-        barValue: Math.max(rest, 0),
-        valueNode: U.derivedNum(U.fmt(rest, 'GBP_bn') + ' (cash)', {
-          title: 'Spending not covered by the lines shown',
-          formula: 'Total benefit expenditure − sum of the ' + lineIds.length + ' benefit lines, cash, ' + year,
-          text: 'Reconciliation rule R7 flags this: the build’s benefit lines do not add up to the table total.',
-          inputs: [{ label: 'Total benefit expenditure ' + year, id: totNom.provenance_id, value: U.fmt(totNom.value, totNom.unit) }]
-            .concat(lineIds.map((id) => data[id]).filter(Boolean).map((ser) => { const p = U.pointFor(ser, 'nominal', year); return p ? { label: humanTitle(ser), id: p.provenance_id, value: U.fmt(p.value, p.unit) } : null; }).filter(Boolean)),
-        }),
-      });
-    }
-    linesHost.appendChild(U.barList(rows, { max: totNom.value }));
-    linesHost.appendChild(h('p', { class: 'small muted' }, 'Bars are drawn against the GB total (cash), so a full-width bar would be all benefit spending.'));
-    if (Math.abs(rest) > 0.0005) {
-      linesHost.appendChild(U.note('bad', h('strong', null, 'These lines do not add up to the total. '),
-        'The cause is under investigation. See rule R7 on the ', h('a', { href: 'reconciliation.html#R7' }, 'reconciliation page'), '.'));
-    }
+  const gaps = bx.gaps || [];
+  if (gaps.length) {
+    $('#gaps').appendChild(h('details', { class: 'gaps-note small' },
+      h('summary', null, 'Not shown: ' + gaps.map((g) => g.name).join(', ') + '. Why?'),
+      h('ul', { class: 'notes-list' }, gaps.map((g) => h('li', null, g.name + ': ' + g.reason)))));
   }
 
-  /* --- UK welfare over time --- */
-  const overHost = $('#over');
-  function renderOver() {
-    U.clear(overHost);
-    const ser = data[UK_TOTAL];
-    if (!ser) { U.state(overHost, 'UK welfare total is not in this build.', 'error'); return; }
-    const vf = U.variantFor(ser);
-    if (vf.fallback) overHost.appendChild(U.note('warn', vf.fallback));
-    overHost.appendChild(U.columnChart(ser, vf.points, { heading: 'UK welfare spending', sub: U.basisCaption(vf.variant, ix) + '. Source: DWP benefit expenditure tables, UK welfare tab.' }));
-    const gn = U.gapsNote(ser); if (gn) overHost.appendChild(gn);
-    overHost.appendChild(U.seriesTable(ser, vf.points, 'UK welfare spending'));
-  }
+  /* why welfare has more than one total */
+  const tHost = $('#totals-host');
+  async function renderTotals() { const node = await U.welfareRuler(year); U.clear(tHost).appendChild(node); }
+  await renderTotals();
+  U.onBasis(renderTotals);
 
-  const cl = $('#caseloads');
-  U.clear(cl);
-  if (caseloads.length) {
-    cl.appendChild(h('ul', null, caseloads.map((x) => h('li', null, x.title))));
-  } else {
-    cl.appendChild(h('p', { class: 'muted' }, 'This build has no caseload series (how many people receive each benefit). They are not shown until a published table is parsed; we do not estimate them.'));
-  }
-
-  renderDefs(); renderLines(); renderOver();
-  U.onBasis(() => { renderDefs(); renderLines(); renderOver(); });
+  const topD = docs.slice().sort((a, b) => (((b.spend || []).find((p) => p.fiscal_year === year) || {}).value || 0) - (((a.spend || []).find((p) => p.fiscal_year === year) || {}).value || 0)).slice(0, 3);
+  const at = (arr) => (arr || []).find((p) => p.fiscal_year === year) || null;
+  U.mountCheckers({
+    figures: topD.flatMap((d) => [
+      { label: d.name + ' cost, ' + year, point: at(d.spend) },
+      { label: d.name + ' cost per claimant, ' + year, point: at(d.cost_per_claimant) },
+    ]).concat(total && U.pointFor(total, 'nominal', year) ? [{ label: 'All DWP benefit spending, ' + year, point: U.pointFor(total, 'nominal', year) }] : []),
+    recon: ['R7', 'R8', 'R9'],
+    method: [
+      'Spending is from DWP Benefit expenditure and caseload tables, Table 1a. It covers Great Britain.',
+      'The number of people getting a benefit (the caseload) is from Table 1c. It is a yearly average, rounded to the nearest 1,000.',
+      'Cost per claimant is the spending divided by the caseload, for the same year and the same release. DWP publishes it as spent at the time; adjusted for rising prices, we scale it by the benefit’s own real ÷ cash ratio.',
+      'Share of benefit spending is the benefit’s cost divided by the Table 1a total, shown out of every £100.',
+      'The three welfare totals are DWP total benefit expenditure (Great Britain), the UK welfare total in the DWP tables, and social protection in HM Treasury’s PESA. All are for ' + year + '.',
+    ],
+  });
 });

@@ -9,6 +9,27 @@ UKPM.page(async () => {
   fill('[data-fill="latest_outturn"]', (ix.fiscal_years && ix.fiscal_years.latest_outturn) || '?');
   fill('[data-fill="from_year"]', (ix.fiscal_years && ix.fiscal_years.from) || '?');
 
+  let ruleRange = 'the rules';
+  try {
+    const ids = ((await U.getJSON('reconciliation.json')).rules || []).map((r) => r.id);
+    if (ids.length) ruleRange = ids[0] + ' to ' + ids[ids.length - 1];
+  } catch (e) { /* keep the generic wording */ }
+  fill('[data-fill="rule_range"]', ruleRange);
+
+  const here = location.pathname.split('/').pop();
+  if (here === 'about.html') {
+    U.setSummary(['This site shows where UK public money comes from and where it goes. It uses only official figures, and every number can be checked.'], 'Last updated ' + U.updatedText(ix));
+    U.mountCheckers({ method: ['Every number has a record of the publisher, file, SHA-256 hash, sheet, cell and each step we applied.', 'Source data is under the Open Government Licence v3.0.'] });
+  } else if (here === 'methodology.html') {
+    U.setSummary(['We show each official number as published, then label whether it is actual or forecast, and whether prices are adjusted.'], 'Last updated ' + U.updatedText(ix));
+    U.mountCheckers({ method: ['Real-terms figures use the OBR GDP deflator at market prices. Percent of GDP uses nominal GDP from the same OBR edition.', 'Cross-check rules (' + ruleRange + ') are listed on the reconciliation page.'] });
+  } else if (here === 'corrections.html') {
+    let n = null;
+    try { n = ((await U.getJSON('corrections.json')).corrections || []).length; } catch (e) { n = null; }
+    U.setSummary([n == null ? 'We could not load the corrections log just now.' : (n === 0 ? 'We have not had to correct a number so far.' : 'We have corrected ' + n + (n === 1 ? ' number' : ' numbers') + ' so far. Each fix says what was wrong.')], 'Last updated ' + U.updatedText(ix));
+    U.mountCheckers({ method: ['Corrections are appended to api/v1/corrections.json. Entries are never removed.'] });
+  }
+
   const srcHost = $('#sources');
   if (srcHost) {
     U.clear(srcHost);
@@ -51,4 +72,5 @@ UKPM.page(async () => {
     corrHost.appendChild(h('div', { class: 'table-wrap' }, h('table', null, h('caption', null, 'Newest first.'),
       h('thead', null, h('tr', null, ['Date', 'Series', 'What was wrong', 'What changed', 'Old', 'New'].map((t, i) => h('th', { scope: 'col', class: i >= 4 ? 'r' : null }, t)))), tb)));
   }
+
 });

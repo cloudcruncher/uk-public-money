@@ -1,0 +1,607 @@
+Ref,Departmental Family,Entity,Date,Expense Type,Expense Area,Supplier,Transaction number,Amount
+,CAB,Cabinet Office,13-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS,COD CENTRAL DIGITAL DELIVERY (INTEGRATIONS),CHAKRAY UK LTD,,"27,750.00"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GREAT - HQ MCB,ACCENTURE UK LTD,,"31,891.36"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CLOUD & APPS,SOFTCAT PLC,,"33,363.13"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - PERSONNEL RELATED - RECRUITMENT ADVERTISING,GPG - DG RECRUITMENT,WITHHELD (fixture),,"30,000.00"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - INSIGNIA OVERHEAD COSTS,MEDALS & INSIGNIA (PROG),CENTRAL CHANCERY OF THE ORDERS OF KNIGHTHOOD,,"85,000.00"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CLOUD & APPS,WITHHELD (fixture),,"74,960.00"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CLOUD & APPS,WITHHELD (fixture),,"355,742.67"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CLOUD & APPS,WITHHELD (fixture),,"71,148.53"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GREAT - HQ MCB,ACCENTURE UK LTD,,"451,838.37"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GREAT - HQ MCB,ACCENTURE UK LTD,,"54,597.54"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GREAT - HQ MCB,ACCENTURE UK LTD,,"51,454.97"
+,CAB,Cabinet Office,04-Aug-26,Exp - Purchase Of Goods/Services - Consultancy,CO MATRIX ADMIN,COVOXA LTD,,"302,125.00"
+,CAB,Cabinet Office,04-Aug-26,Exp - Purchase Of Goods/Services - Consultancy,CO MATRIX ADMIN,COVOXA LTD,,"60,425.00"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CTO FUNCTION,WITHHELD (fixture),,"298,555.02"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CTO FUNCTION,WITHHELD (fixture),,"59,711.01"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"45,321.99"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"29,158.67"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"40,691.83"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"52,405.11"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"81,195.83"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"111,081.53"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"158,268.20"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"33,012.58"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"70,817.43"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WITHHELD (fixture),,"105,500.00"
+,CAB,Cabinet Office,04-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WITHHELD (fixture),,"168,000.00"
+,CAB,Cabinet Office,05-Aug-26,Exp - Purchase Of Goods/Services - Consultancy,CO MATRIX ADMIN,BLOOM PROCUREMENT SERVICES LTD,,"31,900.00"
+,CAB,Cabinet Office,05-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,OGP - DATA & ANALYSIS ,WITHHELD (fixture),,"29,490.00"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,STERIA SHARED SERVICES,SHARED SERVICES CONNECTED LTD,,"25,380.68"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,STERIA SHARED SERVICES,SHARED SERVICES CONNECTED LTD,,"63,505.63"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,STERIA SHARED SERVICES,SHARED SERVICES CONNECTED LTD,,"72,809.81"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,STERIA SHARED SERVICES,SHARED SERVICES CONNECTED LTD,,"322,929.89"
+,CAB,Cabinet Office,07-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,STERIA SHARED SERVICES,SHARED SERVICES CONNECTED LTD,,"43,813.84"
+,CAB,Cabinet Office,07-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,STERIA SHARED SERVICES,SHARED SERVICES CONNECTED LTD,,"71,256.35"
+,CAB,Cabinet Office,10-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS,COD CENTRAL DIGITAL DELIVERY (INTEGRATIONS),CHAKRAY UK LTD,,"30,800.00"
+,CAB,Cabinet Office,10-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WAVEMAKER LTD T/A WPP650,,"25,301.52"
+,CAB,Cabinet Office,10-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WAVEMAKER LTD T/A WPP650,,"133,042.39"
+,CAB,Cabinet Office,10-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WAVEMAKER LTD T/A WPP650,,"25,730.96"
+,CAB,Cabinet Office,10-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - PERSONNEL RELATED,DEPT OVERHEADS MISC,SME HCI LTD (TRADING AS VIVUP),,"150,000.00"
+,CAB,Cabinet Office,10-Aug-26,Exp - Purchase Of Goods/Services - Consultancy,QEII MEMORIALISATION,FOSTER + PARTNERS,,"661,618.82"
+,CAB,Cabinet Office,10-Aug-26,Exp - Purchase Of Goods/Services - Consultancy,QEII MEMORIALISATION,FOSTER + PARTNERS,,"132,323.76"
+,CAB,Cabinet Office,11-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CLOUD & APPS,SOFTCAT PLC,,"78,705.89"
+,CAB,Cabinet Office,11-Aug-26,Exp - Purchase Of Goods/Services - Consultancy,HEAD OF CABINET SECRETARYS GROUP,WITHHELD (fixture),,"33,419.80"
+,CAB,Cabinet Office,11-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD STRATEGY AND TRANSFORMATION,WITHHELD (fixture),,"41,718.75"
+,CAB,Cabinet Office,12-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,CO MATRIX ADMIN,SHARED SERVICES CONNECTED LTD,,"51,172.22"
+,CAB,Cabinet Office,12-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CTO FUNCTION,XMA LTD,,"100,540.28"
+,CAB,Cabinet Office,12-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CTO FUNCTION,XMA LTD,,"119,996.96"
+,CAB,Cabinet Office,12-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - PERSONNEL RELATED - PENSIONS PAYROLL CONTRACTOR (FIXED FEE),GBS - PCSPS PENSIONS (ADMIN),CAPITA PENSION SOLUTIONS LTD,,"1,892,946.98"
+,CAB,Cabinet Office,12-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - LEGAL,OFFICE OF THE SECRETARY OF THE CABINET,WITHHELD (fixture),,"25,000.00"
+,CAB,Cabinet Office,12-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS,"FSET - ATTRACTION, SELECTION & ONBOARDING",WITHHELD (fixture),,"40,614.40"
+,CAB,Cabinet Office,13-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - RESEARCH AND DEVELOPMENT,PM PRESS OFFICE NEWS,WITHHELD (fixture),,"29,800.00"
+,CAB,Cabinet Office,13-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - SERVICE PAYMENTS,COD PLATFORM & SERVICES OPERATIONS,CGI IT UK LTD,,"133,554.53"
+,CAB,Cabinet Office,13-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - SERVICE PAYMENTS,COD PLATFORM & SERVICES OPERATIONS,CGI IT UK LTD,,"26,710.91"
+,CAB,Cabinet Office,13-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - TRAINING & DEVELOPMENT,GPG - DESIGN & DELIVERY TEAM TRANSFORMATION,KPMG,,"452,342.43"
+,CAB,Cabinet Office,14-Aug-26,EXP - PERMANENT UK STAFF - EMPLOYER'S SOCIAL SECURITY COSTS - APPRENTICESHIP LEVY,APPRENTICESHIP LEVY,INLAND REVENUE SHIPLEY PAYE,,"272,703.00"
+,CAB,Cabinet Office,14-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - TRAINING & DEVELOPMENT,GPG - ACCELERATED DEVELOPMENT SCHEMES,CSL KPMG LLP,,"39,593.70"
+,CAB,Cabinet Office,14-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - TRAINING & DEVELOPMENT,GPG - ACCELERATED DEVELOPMENT SCHEMES,CSL KPMG LLP,,"304,570.36"
+,CAB,Cabinet Office,14-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CLOUD & APPS,SOFTCAT PLC,,"30,558.20"
+,CAB,Cabinet Office,17-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - ACCOMMODATION & BLDNG MANAGEMENT - INSURANCE,GCO ADMIN,WITHHELD (fixture),,"67,674.98"
+,CAB,Cabinet Office,17-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER PROFESSIONAL SERVICES,COD DIGITAL RECRUITMENT PLATFORMS,OLEEO PLC,,"180,000.00"
+,CAB,Cabinet Office,17-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - STRATEGY CONSULTANCY,PSFA ENFORCEMENT AND INTELLIGENCE,DELOITTE LLP,,"33,180.00"
+,CAB,Cabinet Office,17-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WAVEMAKER LTD T/A WPP650,,"436,536.56"
+,CAB,Cabinet Office,17-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WAVEMAKER LTD T/A WPP650,,"660,999.23"
+,CAB,Cabinet Office,18-Aug-26,EXP - SHORT-TERM CONTRACT & AGENCY STAFF - FULL COST,TLG CENTRAL SUPPORT OFFICE,BLOOM PROCUREMENT SERVICES LTD,,"100,000.00"
+,CAB,Cabinet Office,18-Aug-26,EXP - SHORT-TERM CONTRACT & AGENCY STAFF - FULL COST,TLG CENTRAL SUPPORT OFFICE,BLOOM PROCUREMENT SERVICES LTD,,"190,000.00"
+,CAB,Cabinet Office,18-Aug-26,EXP - SHORT-TERM CONTRACT & AGENCY STAFF - FULL COST,TLG CENTRAL SUPPORT OFFICE,BLOOM PROCUREMENT SERVICES LTD,,"220,000.00"
+,CAB,Cabinet Office,18-Aug-26,EXP - SHORT-TERM CONTRACT & AGENCY STAFF - FULL COST,TLG CENTRAL SUPPORT OFFICE,BLOOM PROCUREMENT SERVICES LTD,,"38,000.00"
+,CAB,Cabinet Office,18-Aug-26,EXP - SHORT-TERM CONTRACT & AGENCY STAFF - FULL COST,TLG CENTRAL SUPPORT OFFICE,BLOOM PROCUREMENT SERVICES LTD,,"44,000.00"
+,CAB,Cabinet Office,18-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - SERVICE PAYMENTS,COD SINGLE DELIVERY PARTNER,CGI IT UK LTD,,"79,493.14"
+,CAB,Cabinet Office,18-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - SERVICE PAYMENTS,COD SINGLE DELIVERY PARTNER,CGI IT UK LTD,,"37,336.04"
+,CAB,Cabinet Office,18-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - TRAINING & DEVELOPMENT,GPG - ACCELERATED DEVELOPMENT SCHEMES,CSL KPMG LLP,,"138,563.33"
+,CAB,Cabinet Office,19-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - SERVICE PAYMENTS,EFT Programme,WITHHELD (fixture),,"107,714.00"
+,CAB,Cabinet Office,20-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER PROFESSIONAL SERVICES,GBS - PCSPS PENSIONS - FUTURE SERVICES,MYCSP LTD,,"64,454.05"
+,CAB,Cabinet Office,20-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CTO FUNCTION,XMA LTD,,"37,950.00"
+,CAB,Cabinet Office,21-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - CONSULTANCY - TECHNICAL,PSFA DATA,DELOITTE LLP,,"53,450.72"
+,CAB,Cabinet Office,21-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER PROFESSIONAL SERVICES,GBS - PCSPS PENSIONS - FUTURE SERVICES,MYCSP LTD,,"82,203.48"
+,CAB,Cabinet Office,24-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER FACILITIES COSTS - MEETING ROOM HIRE,CIVIL SERVICE LIVE,WITHHELD (fixture),,"62,077.50"
+,CAB,Cabinet Office,24-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,CO MATRIX ADMIN,SHARED SERVICES CONNECTED LTD,,"28,998.73"
+,CAB,Cabinet Office,24-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - PERSONNEL RELATED - PENSIONS PAYROLL CONTRACTOR (FIXED FEE),GBS - RM PENSIONS (ADMIN),CAPITA PENSION SOLUTIONS LTD,,"589,539.46"
+,CAB,Cabinet Office,25-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,GOVERNMENT GRANTS MANAGED SERVÍCE,WITHHELD (fixture),,"159,474.60"
+,CAB,Cabinet Office,25-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - PERSONNEL RELATED,GPG - GOVERNMENT CHIEF PEOPLE OFFICER,WITHHELD (fixture),,"67,500.00"
+,CAB,Cabinet Office,25-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,MANNING GOTTLIEB OMD,,"26,299.59"
+,CAB,Cabinet Office,25-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - MARKETING & MEDIA - ADVERTISING,GCS NEW MEDIA UNIT PROG,WITHHELD (fixture),,"35,166.66"
+,CAB,Cabinet Office,26-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,26-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER - RESEARCH AND DEVELOPMENT,AID PEOPLE SURVEY,WITHHELD (fixture),,"514,093.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,TLG CENTRAL SUPPORT OFFICE,WITHHELD (fixture),,"90,000.00"
+,CAB,Cabinet Office,27-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - EXPERT ADVISORS,CONTRACT MGMT - DELIVERY,KPMG,,"42,598.32"
+,CAB,Cabinet Office,28-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CENTRAL DIGITAL DELIVERY (INTEGRATIONS),FUJITSU SERVICES LTD,,"32,051.60"
+,CAB,Cabinet Office,28-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CENTRAL DIGITAL DELIVERY (INTEGRATIONS),FUJITSU SERVICES LTD,,"45,250.00"
+,CAB,Cabinet Office,28-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS - COMPUTER SOFTWARE,COD CTO FUNCTION,WITHHELD (fixture),,"47,002.07"
+,CAB,Cabinet Office,28-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER PROFESSIONAL SERVICES,GRS - SURGE CONTRACT,WITHHELD (fixture),,"27,460.00"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - SHARED SERVICES OUTSOURCING,CO MATRIX ADMIN,WITHHELD (fixture),,"187,477.38"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - LEGAL,MANSTON INQUIRY RESPONSE,GOVERNMENT LEGAL DEPARTMENT,,"84,358.39"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - LEGAL,MANSTON INQUIRY RESPONSE,GOVERNMENT LEGAL DEPARTMENT,,"86,227.20"
+,CAB,Cabinet Office,03-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER TRAVEL,PMO OVERSEAS VISITS,FOREIGN COMMONWEALTH & DEVELOPMENT OFFICE,,"61,197.23"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - ACCOMMODATION & BLDNG MANAGEMENT,CABINET OFFICE LONDON OFFICES,GOVERNMENT PROPERTY AGENCY GPA,,"31,092.76"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - ACCOMMODATION & BLDNG MANAGEMENT,CABINET OFFICE LONDON OFFICES,GOVERNMENT PROPERTY AGENCY GPA,,"10,263,164.19"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - ACCOMMODATION & BLDNG MANAGEMENT,CABINET OFFICE LONDON OFFICES,GOVERNMENT PROPERTY AGENCY GPA,,"3,548,385.38"
+,CAB,Cabinet Office,06-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - ACCOMMODATION & BLDNG MANAGEMENT,CABINET OFFICE REGIONAL OFFICES,GOVERNMENT PROPERTY AGENCY GPA,,"115,866.01"
+,CAB,Cabinet Office,14-Aug-26,EXP - RENTALS UNDER NON-PFI OPERATING LEASES - PLANT & MACHINERY,COD NETWORK OPS,GOVERNMENT PROPERTY AGENCY GPA,,"57,367.45"
+,CAB,Cabinet Office,18-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER PROFESSIONAL SERVICES - LEGAL ADVICE FROM GOVT LEGAL DEPT,DIRECTOR'S OFFICE,GOVERNMENT LEGAL DEPARTMENT,,"1,083,000.00"
+,CAB,Cabinet Office,18-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - LEGAL,GPG - POLICY & PRACTICE,GOVERNMENT LEGAL DEPARTMENT,,"99,000.00"
+,CAB,Cabinet Office,19-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - LEGAL,COMMERCIAL,GOVERNMENT LEGAL DEPARTMENT,,"267,000.00"
+,CAB,Cabinet Office,19-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - LEGAL,COMMERCIAL,GOVERNMENT LEGAL DEPARTMENT,,"267,000.00"
+,CAB,Cabinet Office,19-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER TRAVEL,PMO OVERSEAS VISITS,FOREIGN COMMONWEALTH & DEVELOPMENT OFFICE,,"58,016.17"
+,CAB,Cabinet Office,19-Aug-26,EXP - RENTALS UNDER NON-PFI OPERATING LEASES - OTHER RENTALS - RENT,ESTATES MANAGEMENT COSTS,GOVERNMENT PROPERTY AGENCY-2WM,,"430,995.20"
+,CAB,Cabinet Office,24-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - PERSONNEL RELATED - RECRUITMENT ADVERTISING,GRS - SECURITY CHECKS,WITHHELD (fixture),,"44,505.00"
+,CAB,Cabinet Office,26-Aug-26,EXP - CURRENT GRANTS TO LOCAL GOVERNMENT,THE REGISTRAR OF CONSULTANT LOBBYISTS BAU (0372),HM TREASURY,,"250,997.18"
+,CAB,Cabinet Office,06-Aug-26,EXP - MISCELLANEOUS EXPENDITURE,FINANCIAL CONTROL & OPERATIONS,WITHHELD (fixture),,"30,000.00"
+,CAB,Cabinet Office,10-Aug-26,EXP - PURCHASE OF GOODS/SERVICES -OTHER PROFESSIONAL SERVICES - EXPERT ADVISORS,CONTRACT MGMT - DELIVERY,KPMG,,"32,928.32"
+,CAB,Cabinet Office,20-Aug-26,EXP - PURCHASE OF GOODS/SERVICES - OTHER ICT COSTS,PSFA ENFORCEMENT AND INTELLIGENCE,WITHHELD (fixture),,"29,900.00"
+,CAB,Goverment Commercial Agency,03-Aug-26,Accommodation Costs,Finance,WITHHELD (fixture),,"116,381.56"
+,CAB,Goverment Commercial Agency,04-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"59,686.31"
+,CAB,Goverment Commercial Agency,04-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"81,536.00"
+,CAB,Goverment Commercial Agency,04-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"81,536.00"
+,CAB,Goverment Commercial Agency,04-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"101,120.00"
+,CAB,Goverment Commercial Agency,05-Aug-26,MOU Commission Share - Technology,Hardware,WITHHELD (fixture),,"33,900.55"
+,CAB,Goverment Commercial Agency,06-Aug-26,Licence Costs,Service Management,WITHHELD (fixture),,"58,710.00"
+,CAB,Goverment Commercial Agency,10-Aug-26,IT - AWS,Service Management,WITHHELD (fixture),,"63,267.67"
+,CAB,Goverment Commercial Agency,10-Aug-26,MOU Commission Share - Technology,Digital and Technology Services,Ministry of Defence,,"376,762.80"
+,CAB,Goverment Commercial Agency,11-Aug-26,Third Party Service Delivery,Operations Committee,Alexander Mann Solutions Limited,,"30,000.00"
+,CAB,Goverment Commercial Agency,11-Aug-26,Third Party Service Delivery,FTS and Tier 1 Procurement,Arvato Ltd,,"100,000.00"
+,CAB,Goverment Commercial Agency,11-Aug-26,Media Buying Related Costs,Professional and Business Services,WITHHELD (fixture),,"176,278.80"
+,CAB,Goverment Commercial Agency,12-Aug-26,Third Party Service Delivery,Operations Committee,Alexander Mann Solutions Limited,,"30,000.00"
+,CAB,Goverment Commercial Agency,12-Aug-26,Third Party Service Delivery,Operations Committee,Alexander Mann Solutions Limited,,"41,187.60"
+,CAB,Goverment Commercial Agency,12-Aug-26,Third Party Service Delivery,Operations Committee,Alexander Mann Solutions Limited,,"42,000.00"
+,CAB,Goverment Commercial Agency,12-Aug-26,Licence Costs,Service Management,WITHHELD (fixture),,"91,320.00"
+,CAB,Goverment Commercial Agency,18-Aug-26,GCO Staff Charges from CO,HR,CABINET OFFICE,,"7,315,258.36"
+,CAB,Goverment Commercial Agency,19-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Alexander Mann Solutions Limited,,"31,063.20"
+,CAB,Goverment Commercial Agency,19-Aug-26,Legal Fees Non Standard,Disputes & Policy Implementation,WITHHELD (fixture),,"37,908.60"
+,CAB,Goverment Commercial Agency,19-Aug-26,"Publications, Periodicals & Subscriptions",Business Operations Research Analysis,WITHHELD (fixture),,"44,100.00"
+,CAB,Goverment Commercial Agency,19-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"58,516.76"
+,CAB,Goverment Commercial Agency,19-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Alexander Mann Solutions Limited,,"155,318.40"
+,CAB,Goverment Commercial Agency,19-Aug-26,MOU Commission Share - Technology,Digital and Technology Services,Ministry of Defence,,"337,389.22"
+,CAB,Goverment Commercial Agency,21-Aug-26,Estates - GPA Management Fee Charges,Workplace Services Team,GPA c/o Montagu Evans LLP,,"85,682.65"
+,CAB,Goverment Commercial Agency,21-Aug-26,Estates - GPA Management Fee Charges,Workplace Services Team,GPA c/o Montagu Evans LLP,,"162,104.82"
+,CAB,Goverment Commercial Agency,21-Aug-26,Estates - GPA Management Fee Charges,Workplace Services Team,GPA c/o Montagu Evans LLP,,"195,081.12"
+,CAB,Goverment Commercial Agency,24-Aug-26,MOU Commission Share - Technology,Hardware,WITHHELD (fixture),,"33,900.55"
+,CAB,Goverment Commercial Agency,24-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Alexander Mann Solutions Limited,,"61,454.40"
+,CAB,Goverment Commercial Agency,24-Aug-26,Third Party Service Delivery,Project Management,Alexander Mann Solutions Limited,,"77,748.00"
+,CAB,Goverment Commercial Agency,24-Aug-26,IT Development Costs,GCG Digital Services Team,WITHHELD (fixture),,"84,000.00"
+,CAB,Goverment Commercial Agency,24-Aug-26,IT Development Costs,GCG Digital Services Team,WITHHELD (fixture),,"94,711.20"
+,CAB,Goverment Commercial Agency,24-Aug-26,Third Party Service Delivery,Data Management,Alexander Mann Solutions Limited,,"95,178.60"
+,CAB,Goverment Commercial Agency,24-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Alexander Mann Solutions Limited,,"102,600.00"
+,CAB,Goverment Commercial Agency,24-Aug-26,IT Development Costs,GCG Digital Services Team,WITHHELD (fixture),,"182,126.40"
+,CAB,Goverment Commercial Agency,24-Aug-26,Procurement Capability,Portfolio Investment Committee,Improvement & Development Agency,,"508,126.80"
+,CAB,Goverment Commercial Agency,25-Aug-26,GCO Hub Recruitment Costs,HR,CABINET OFFICE,,"45,600.00"
+,CAB,Goverment Commercial Agency,25-Aug-26,Third Party Service Delivery,GCG Digital Services Team,WITHHELD (fixture),,"55,098.00"
+,CAB,Goverment Commercial Agency,25-Aug-26,Third Party Service Delivery,GCG Digital Services Team,WITHHELD (fixture),,"96,512.40"
+,CAB,Goverment Commercial Agency,25-Aug-26,IT Development Costs,GCG Digital Services Team,WITHHELD (fixture),,"194,985.60"
+,CAB,Goverment Commercial Agency,27-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"80,244.00"
+,CAB,Goverment Commercial Agency,31-Aug-26,Third Party Service Delivery,Complex Transactions,WITHHELD (fixture),,"71,280.00"
+,CAB,Goverment Commercial Agency,31-Aug-26,Third Party Service Delivery,Portfolio Investment Committee,Olive Jar Digital Limited,,"81,535.99"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000024 Westminster City Council,,"6,547,412.00"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000134 Willmott Dixon Construction Limited,,"6,429,980.58"
+,CAB,Government Property Agency,10-Aug-26,Transformational Services Expenditure,Capital Projects,10000043 Mace Construct Ltd,,"4,595,442.20"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000521 Croydon Council,,"4,505,144.33"
+,CAB,Government Property Agency,03-Aug-26,PFI Service Charge Expenditure - Client Requested,Landlord Services,00000588 Exchequer Partnership No.2 Plc,,"3,699,382.66"
+,CAB,Government Property Agency,03-Aug-26,PFI Service Charge Expenditure - Client Requested,Landlord Services,00000587 Exchequer Partnership Plc,,"3,653,861.23"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000014 20 Cabot Square I Unit Trust,,"2,091,931.06"
+,CAB,Government Property Agency,11-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000163 Kier Construction - North & Scotland,,"1,889,300.59"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000014 PIC Real Estate (Ruskin Square) LP,,"1,061,322.16"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000397 Workman LLP - Central Receipts Account No 4,,"931,011.27"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000864 CBRE Ltd M&G Account,,"847,464.90"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000259 Colliers International Managing Agents,,"772,128.40"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"705,470.01"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000047 London Borough of Tower Hamlets,,"635,916.00"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"581,702.78"
+,CAB,Government Property Agency,11-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000593 BAM Construction Ltd,,"573,627.28"
+,CAB,Government Property Agency,26-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000022 BNP Paribas Real Estate Advisory & Property Mngmt UK Ltd,,"544,540.41"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000696 Workman LLP Client Common Receipts A/c No.4,,"500,523.69"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"429,361.66"
+,CAB,Government Property Agency,01-Aug-26,Fixed FM Expenditure - Full Building Recharge,Workplace Services,00000016 JLL,,"397,287.40"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000509 Morris & Spottiswood Limited,,"385,650.88"
+,CAB,Government Property Agency,18-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,WITHHELD (fixture),,"382,800.00"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"373,938.71"
+,CAB,Government Property Agency,01-Aug-26,Digital and Technology Services - GovPrint Expenditure,Workplace Services,00000777 Xerox (UK) Limited,,"367,614.04"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000509 Morris & Spottiswood Limited,,"364,022.99"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"359,432.66"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000143 Sunstone Investments Limited,,"353,142.67"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000547 The City and County of Cardiff,,"348,741.40"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000588 Exchequer Partnership No.2 Plc,,"311,461.70"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000501 Wework,,"302,679.60"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000270 PIC Real Estate (First St) Limited Partnership,,"301,209.61"
+,CAB,Government Property Agency,14-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000156 Tetra Tech Limited,,"285,487.82"
+,CAB,Government Property Agency,12-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000157 Stone Group,,"272,945.75"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000042 Birmingham City Council,,"272,003.00"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"265,309.48"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000248 JLL (HSBC account),,"258,563.46"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000015 Canary Wharf Management Limited,,"249,546.39"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"245,392.49"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"238,095.12"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000261 JLL Rent Account,,"229,186.51"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000147 ATRI7 Limited,,"225,309.27"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"223,202.56"
+,CAB,Government Property Agency,07-Aug-26,Professional Services Expenditure,Other Operating Expenditure,10000295 Bridewell Consulting Limited,,"219,187.50"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000117 Sheffield City Council,,"217,941.99"
+,CAB,Government Property Agency,14-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,00000428 Deloitte LLP - No3 Acc,,"216,652.80"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000288 Kier Facilities Services Ltd,,"214,506.48"
+,CAB,Government Property Agency,18-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",WITHHELD (fixture),,"207,421.24"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"205,582.96"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"203,866.16"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000119 Avison Young (GVA Grimley) - RC's & utilities,,"203,866.16"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000044 Manchester City Council,,"192,126.00"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"184,125.36"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000088 Avison Young (Client A/c re London & Continental Railways),,"182,880.47"
+,CAB,Government Property Agency,28-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000619 Swift Strategies Limited,,"180,000.00"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"177,117.68"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000727 GMPF Soapworks Estates Management for GMPF,,"177,011.27"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000521 Croydon Council,,"175,375.89"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"171,214.35"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"166,233.03"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"165,219.22"
+,CAB,Government Property Agency,19-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"162,867.98"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"157,650.08"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"155,463.96"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000193 Leeds City Council,,"153,556.00"
+,CAB,Government Property Agency,12-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000157 Stone Group,,"153,390.22"
+,CAB,Government Property Agency,20-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",WITHHELD (fixture),,"153,122.46"
+,CAB,Government Property Agency,01-Aug-26,Variable FM Expenditure - Full Building Recharge,Workplace Services,00000207 ISS Mediclean Ltd,,"150,041.18"
+,CAB,Government Property Agency,18-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000587 Exchequer Partnership Plc,,"147,599.51"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"145,883.50"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"144,609.27"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"143,186.99"
+,CAB,Government Property Agency,12-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000076 e-Zest Solutions Limited,,"141,681.60"
+,CAB,Government Property Agency,07-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000305 HM Land Registry,,"138,869.63"
+,CAB,Government Property Agency,11-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000157 Stone Group,,"138,839.76"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000611 Wagstaff Bros Limited,,"137,425.56"
+,CAB,Government Property Agency,20-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"137,082.74"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000104 Derwent Valley Central Ltd,,"134,685.08"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000696 Workman LLP Client Common Receipts A/c No.4,,"133,096.99"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000207 ISS Mediclean Ltd,,"132,075.78"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000288 Kier Facilities Services Ltd,,"132,043.78"
+,CAB,Government Property Agency,13-Aug-26,ICT Expenditure,Other Operating Expenditure,00000126 Cabinet Office,,"129,373.49"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"124,276.76"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"123,893.71"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000288 Kier Facilities Services Ltd,,"123,526.74"
+,CAB,Government Property Agency,05-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000076 e-Zest Solutions Limited,,"123,364.80"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"119,600.69"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000021 Eastbrook Facilities Limited,,"118,512.64"
+,CAB,Government Property Agency,26-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000080 Arcadis (UK) Ltd,,"117,672.65"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"117,150.24"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"115,338.07"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"113,522.38"
+,CAB,Government Property Agency,21-Aug-26,Transformational Services Expenditure,Capital Projects,00000197 AtkinsRéalis UK Limited,,"113,396.69"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"113,380.15"
+,CAB,Government Property Agency,24-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"111,632.14"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000848 Ashdown Phillips RENT AC,,"111,600.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"109,555.34"
+,CAB,Government Property Agency,24-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000197 AtkinsRéalis UK Limited,,"108,085.67"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"107,119.88"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000397 Workman LLP - Central Receipts Account No 4,,"104,609.66"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"104,202.49"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000384 CBRE Ltd - Client A/C,,"103,779.84"
+,CAB,Government Property Agency,26-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"103,546.75"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000619 Swift Strategies Limited,,"98,400.00"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"98,336.05"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000119 Avison Young (GVA Grimley) - RC's & utilities,,"97,357.67"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"97,357.67"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000288 Kier Facilities Services Ltd,,"96,965.02"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000259 Colliers International Managing Agents,,"96,484.96"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000634 Equitix Cheylesmore 2021 LLP,,"95,876.29"
+,CAB,Government Property Agency,07-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000431 M4 Digital Group Limited,,"95,861.10"
+,CAB,Government Property Agency,12-Aug-26,Professional Services Expenditure,Other Operating Expenditure,10000076 e-Zest Solutions Limited,,"94,454.40"
+,CAB,Government Property Agency,14-Aug-26,PPE - IT Hardware (Owned) Additions,"Property , Plant & EquipmentAdditions",00000527 Cinos Limited,,"94,140.16"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"93,468.83"
+,CAB,Government Property Agency,01-Aug-26,Digital and Technology Services - GovPrint Expenditure,Workplace Services,00000777 Xerox (UK) Limited,,"92,758.56"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"92,583.42"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000377 Bristol City Council,,"92,474.00"
+,CAB,Government Property Agency,19-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"92,216.81"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000344 Secretary of State for Defence,,"91,018.66"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"90,136.40"
+,CAB,Government Property Agency,28-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000619 Swift Strategies Limited,,"90,000.00"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"89,902.07"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"89,391.87"
+,CAB,Government Property Agency,01-Aug-26,Digital and Technology Services Expenditure - Standard,Workplace Services,00000551 Telefonica Tech Northern Ireland Limited,,"88,680.30"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"87,698.55"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000256 Coventry City Council,,"87,081.00"
+,CAB,Government Property Agency,24-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"86,800.80"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,10000213 Financial Ombudsman Service Limited,,"86,633.57"
+,CAB,Government Property Agency,06-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",WITHHELD (fixture),,"86,287.42"
+,CAB,Government Property Agency,01-Aug-26,Variable FM Expenditure - Full Building Recharge,Workplace Services,00000016 JLL,,"85,510.02"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"84,958.53"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"83,074.00"
+,CAB,Government Property Agency,05-Aug-26,Professional Services Expenditure,Other Operating Expenditure,10000076 e-Zest Solutions Limited,,"82,243.20"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"81,978.41"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"81,894.33"
+,CAB,Government Property Agency,18-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"81,802.57"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"80,166.00"
+,CAB,Government Property Agency,21-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000022 BNP Paribas Real Estate Advisory & Property Mngmt UK Ltd,,"79,143.00"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"78,991.35"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"78,654.43"
+,CAB,Government Property Agency,03-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"77,716.93"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"77,589.05"
+,CAB,Government Property Agency,24-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"77,574.88"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"77,060.56"
+,CAB,Government Property Agency,01-Aug-26,Digital and Technology Services - GovPrint Expenditure,Workplace Services,00000777 Xerox (UK) Limited,,"76,652.70"
+,CAB,Government Property Agency,18-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000156 Tetra Tech Limited,,"76,073.96"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000088 Avison Young (Client A/c re London & Continental Railways),,"75,626.09"
+,CAB,Government Property Agency,05-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000611 Wagstaff Bros Limited,,"74,952.00"
+,CAB,Government Property Agency,19-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"73,959.10"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"72,779.32"
+,CAB,Government Property Agency,01-Aug-26,Variable FM Expenditure - Full Building Recharge,Workplace Services,10000204 OCS Group UK Limited,,"71,251.02"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"70,455.17"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"70,043.51"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"69,494.35"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"69,367.88"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"68,949.92"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000197 AtkinsRéalis UK Limited,,"68,455.19"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"68,039.84"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"67,592.78"
+,CAB,Government Property Agency,05-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"67,273.25"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000282 Darlington Borough Council,,"66,815.00"
+,CAB,Government Property Agency,12-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"66,449.71"
+,CAB,Government Property Agency,07-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000533 MPH Construction Ltd,,"65,970.84"
+,CAB,Government Property Agency,18-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000157 Stone Group,,"65,219.70"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"65,195.88"
+,CAB,Government Property Agency,10-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000279 Turner and Townsend Project Management Limited,,"64,371.31"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"63,388.25"
+,CAB,Government Property Agency,01-Aug-26,Non Onboarded Workplace Services Expenditure,Workplace Services,00000841 G4S Secure Solutions (UK) Ltd,,"63,383.32"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"61,645.19"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"61,169.06"
+,CAB,Government Property Agency,24-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"60,319.20"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000282 Darlington Borough Council,,"60,192.67"
+,CAB,Government Property Agency,04-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,10000207 Showcase PSR Portsdown Ltd,,"60,167.56"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000810 Stoke on Trent City Council,,"59,932.76"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"59,645.60"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"59,056.69"
+,CAB,Government Property Agency,24-Aug-26,ICT Expenditure,Other Operating Expenditure,WITHHELD (fixture),,"58,800.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"56,761.19"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"56,761.19"
+,CAB,Government Property Agency,26-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"56,660.40"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000047 London Borough of Tower Hamlets,,"56,490.00"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"56,437.53"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"56,434.55"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000619 Swift Strategies Limited,,"55,200.00"
+,CAB,Government Property Agency,28-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000619 Swift Strategies Limited,,"54,900.00"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"54,649.49"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"54,379.06"
+,CAB,Government Property Agency,03-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"54,028.67"
+,CAB,Government Property Agency,26-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000619 Swift Strategies Limited,,"54,000.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"53,633.16"
+,CAB,Government Property Agency,11-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000527 Cinos Limited,,"52,649.84"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"52,440.00"
+,CAB,Government Property Agency,19-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000588 Exchequer Partnership No.2 Plc,,"51,988.60"
+,CAB,Government Property Agency,26-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"51,788.26"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000042 Birmingham City Council,,"51,784.98"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"51,760.15"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000104 Derwent Valley Central Ltd,,"51,220.31"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"51,185.95"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"51,134.02"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"51,134.02"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"51,022.09"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"50,390.00"
+,CAB,Government Property Agency,04-Aug-26,Transformational Services Expenditure,Capital Projects,10000145 Gleeds Cost Management Limited,,"50,275.80"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"50,143.30"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"49,622.34"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"49,015.05"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"48,619.93"
+,CAB,Government Property Agency,10-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000279 Turner and Townsend Project Management Limited,,"48,402.70"
+,CAB,Government Property Agency,13-Aug-26,Professional Services Expenditure,Other Operating Expenditure,WITHHELD (fixture),,"48,000.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000181 Cushman & Wakefield DTZ DTL re UKBA (Rent),,"47,936.40"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"47,230.85"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"46,843.05"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"46,425.22"
+,CAB,Government Property Agency,21-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000080 Arcadis (UK) Ltd,,"45,809.28"
+,CAB,Government Property Agency,01-Aug-26,Variable FM Expenditure - Full Building Recharge,Workplace Services,00000207 ISS Mediclean Ltd,,"45,298.10"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"44,928.52"
+,CAB,Government Property Agency,25-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000380 OCS Technical Services Ltd,,"44,928.52"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"44,597.21"
+,CAB,Government Property Agency,06-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000619 Swift Strategies Limited,,"44,353.20"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000197 AtkinsRéalis UK Limited,,"43,954.03"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000282 Darlington Borough Council,,"43,712.02"
+,CAB,Government Property Agency,07-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"43,406.94"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"42,217.00"
+,CAB,Government Property Agency,14-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000513 Logan Construction,,"42,205.51"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,10000213 Financial Ombudsman Service Limited,,"41,915.59"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"41,642.81"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"41,453.40"
+,CAB,Government Property Agency,28-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000157 Stone Group,,"41,050.48"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000288 Kier Facilities Services Ltd,,"40,687.86"
+,CAB,Government Property Agency,13-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"40,422.11"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"40,327.96"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"40,283.75"
+,CAB,Government Property Agency,13-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000155 Keystream Group Limited,,"40,259.99"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000024 Westminster City Council,,"40,195.20"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"39,674.94"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"39,548.93"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"39,309.27"
+,CAB,Government Property Agency,06-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"39,258.52"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000511 Conamar Building Services Limited,,"39,248.76"
+,CAB,Government Property Agency,04-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000587 Exchequer Partnership Plc,,"38,895.32"
+,CAB,Government Property Agency,18-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,00000721 Planon Limited,,"38,714.40"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"38,478.75"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"38,422.14"
+,CAB,Government Property Agency,14-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",WITHHELD (fixture),,"38,361.60"
+,CAB,Government Property Agency,14-Aug-26,Transformational Services Expenditure,Capital Projects,10000145 Gleeds Cost Management Limited,,"37,801.34"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"37,702.66"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000810 Stoke on Trent City Council,,"37,621.84"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"37,391.00"
+,CAB,Government Property Agency,20-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000527 Cinos Limited,,"37,198.38"
+,CAB,Government Property Agency,12-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000157 Stone Group,,"37,145.68"
+,CAB,Government Property Agency,13-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000155 Keystream Group Limited,,"36,993.00"
+,CAB,Government Property Agency,14-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000513 Logan Construction,,"36,598.92"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,10000021 Eastbrook Facilities Limited,,"36,598.37"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"36,467.05"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"36,374.82"
+,CAB,Government Property Agency,04-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,WITHHELD (fixture),,"36,340.80"
+,CAB,Government Property Agency,12-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000157 Stone Group,,"36,101.15"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"36,068.61"
+,CAB,Government Property Agency,13-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000155 Keystream Group Limited,,"35,380.80"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"34,965.00"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"34,701.00"
+,CAB,Government Property Agency,28-Aug-26,PPE - IT Hardware (Owned) Additions,"Property , Plant & EquipmentAdditions",00000527 Cinos Limited,,"34,537.40"
+,CAB,Government Property Agency,03-Aug-26,Transformational Services Expenditure,Capital Projects,WITHHELD (fixture),,"34,200.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"33,959.95"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"33,894.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"33,889.39"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"33,787.00"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000397 Workman LLP - Central Receipts Account No 4,,"33,554.21"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000157 Stone Group,,"33,463.98"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"33,441.94"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000384 CBRE Ltd - Client A/C,,"33,149.07"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"32,986.02"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"32,937.16"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000256 Coventry City Council,,"32,848.42"
+,CAB,Government Property Agency,28-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000157 Stone Group,,"32,533.60"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000014 20 Cabot Square I Unit Trust,,"32,451.06"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"32,436.79"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000856 WSP UK Ltd,,"32,343.36"
+,CAB,Government Property Agency,20-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000588 Exchequer Partnership No.2 Plc,,"32,246.86"
+,CAB,Government Property Agency,12-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000155 Keystream Group Limited,,"32,194.80"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"31,958.76"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000259 Colliers International Managing Agents,,"31,819.26"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"31,777.91"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"31,628.08"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"31,608.00"
+,CAB,Government Property Agency,07-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",10000145 Gleeds Cost Management Limited,,"31,604.32"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"31,440.14"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"31,171.76"
+,CAB,Government Property Agency,12-Aug-26,ICT Expenditure,Other Operating Expenditure,WITHHELD (fixture),,"31,140.00"
+,CAB,Government Property Agency,27-Aug-26,Professional Services Expenditure,Other Operating Expenditure,10000145 Gleeds Cost Management Limited,,"30,684.04"
+,CAB,Government Property Agency,07-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000431 M4 Digital Group Limited,,"30,180.00"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"30,067.70"
+,CAB,Government Property Agency,27-Aug-26,Professional Services Expenditure,Other Operating Expenditure,WITHHELD (fixture),,"30,000.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000384 CBRE Ltd - Client A/C,,"29,587.59"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"29,496.34"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"28,978.26"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000397 Workman LLP - Central Receipts Account No 4,,"28,810.83"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"28,762.89"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"28,614.37"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000303 Savills (RC's Rent & SC),,"28,609.87"
+,CAB,Government Property Agency,04-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000509 Morris & Spottiswood Limited,,"28,521.05"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"28,490.00"
+,CAB,Government Property Agency,27-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000588 Exchequer Partnership No.2 Plc,,"28,470.28"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000181 Cushman & Wakefield DTZ DTL re UKBA (Rent),,"28,443.40"
+,CAB,Government Property Agency,27-Aug-26,Workplace Projects Expenditure L5,Workplace Projects Expenditure,00000080 Arcadis (UK) Ltd,,"28,365.61"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,10000248 JLL (HSBC account),,"28,365.21"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"27,972.00"
+,CAB,Government Property Agency,27-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000856 WSP UK Ltd,,"27,533.88"
+,CAB,Government Property Agency,13-Aug-26,Intangible Assets - AUC Additions,Intangible Asset Additions,10000155 Keystream Group Limited,,"27,142.50"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"26,900.00"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,00000071 HM Revenue & Customs (HMRC),,"26,865.55"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,10000213 Financial Ombudsman Service Limited,,"26,808.25"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"26,668.90"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,WITHHELD (fixture),,"26,345.53"
+,CAB,Government Property Agency,01-Aug-26,Rent Expenditure,Landlord Services,WITHHELD (fixture),,"26,197.00"
+,CAB,Government Property Agency,01-Aug-26,Rates Expenditure,Landlord Services,WITHHELD (fixture),,"26,159.00"
+,CAB,Government Property Agency,28-Aug-26,Professional Services Expenditure,Other Operating Expenditure,00000279 Turner and Townsend Project Management Limited,,"25,408.74"
+,CAB,Government Property Agency,07-Aug-26,PPE - AUC Additions,"Property , Plant & EquipmentAdditions",00000431 M4 Digital Group Limited,,"25,380.00"
+,CAB,Government Property Agency,01-Aug-26,Head Lease Service Charge Expenditure,Landlord Services,00000305 HM Land Registry,,"25,088.83"
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,

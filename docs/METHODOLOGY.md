@@ -32,6 +32,11 @@ Values are never interpolated, carried forward, or back-cast.
 - **Real terms:** deflated with the OBR GDP deflator (fiscal-year basis, same databank vintage) to the base year
   stated in `index.json`.
 - **% of GDP:** value divided by OBR nominal GDP for the same fiscal year.
+- **Per person:** value divided by the ONS UK mid-year population estimate, mapped to the fiscal year it falls in. Never projected beyond published estimates.
+- **Per household:** value divided by the ONS count of private households (Labour Force Survey, April to June quarter; a sample estimate). Published from 2011 only.
+- **Out of every £100:** a function's share of total managed expenditure multiplied by 100, from `shares.json`. The revenue page computes its shares in the browser.
+- **Cost per claimant:** DWP Table 1a spend divided by Table 1c caseload for the same benefit and year. Caseloads count cases or claims, so for benefits with credits-only cases (ESA, JSA) the figure understates what a paid claimant receives.
+- Calendar-year and stock series (for example debt) get no per-person, per-household or share variants.
 
 Each derived value has its own provenance record listing its inputs. A derived value is `forecast` if any input is.
 If the deflator cannot be confirmed, no real-terms variant is published and `index.json` says so.
@@ -43,27 +48,34 @@ fiscal years are labelled and never silently aligned.
 
 ## Reconciliation
 
-Rules R1 to R7 are published in `reconciliation.json` and shown on the site. A failure does not fail the build.
+Rules R1 to R14 are published in `reconciliation.json` and shown on the site. A failure does not fail the build.
 
 | Rule | Check | Status now |
 |---|---|---|
 | R1 | PESA 10.1: COFOG functions sum to the table total (same edition) | Implemented |
 | R2 | PESA 10.1 total vs TME (4.1); TES-to-TME gap shown as `info` if the label is TES | Implemented |
 | R3 | PESA TME vs OBR TME, per outturn year (rel tolerance 1.0%) | Implemented |
-| R4 | PESA TME vs ONS PSF TME | `not_run` (ONS PSF is a stub) |
+| R4 | ONS PSF central government TME vs PESA/OBR public sector TME (different scope, stated) | Implemented |
 | R5 | Our real-terms TME vs the databank real-terms sheet | `not_run` |
-| R6 | HMRC receipts vs OBR current receipts (`info` for definitional gaps) | Implemented |
-| R7 | DWP UK welfare total vs sum of Table 1a benefit lines | Implemented; **currently fails on real data** |
+| R6 | HMRC receipts vs OBR current receipts (`info`) | Implemented |
+| R7 | DWP total benefit expenditure vs sum of Table 1a lines (memo rows below the total excluded) | Implemented |
+| R8 | OBR EFO Universal Credit vs DWP Spring Forecast, 1% tolerance | 2024-25 fails at 1.09%; cause unconfirmed |
+| R9 | OBR EFO welfare cap vs DWP UK welfare total | Implemented |
+| R10 | Cabinet Office monthly payments within plausibility bounds | Implemented |
+| R11 | PESA UK COFOG 5.2 total vs headline TME | Implemented |
+| R12 | PESA 5.2 functions plus EU transactions vs TES, rounding 1.5 | Implemented |
+| R13 | HMRC receipts vs OBR EFO 3.8, both cash basis | Implemented |
+| R14 | PSF gross expenditure minus receipts equals net borrowing | Implemented |
 
 Statuses are `pass`, `fail`, `info`, and `not_run`.
 
 ## Known limits
 
-- **ONS Public Sector Finances:** a stub. No verified URL or hash, so it is disabled.
+- **ONS URLs:** PSF, households and GDP files are replaced in place by ONS; see SOURCES.md for how the pin is kept.
 - **COFOG (PESA 10.1):** covers 2015-16 to 2024-25. 2025-26 has aggregates only.
-- **PESA 10.1:** England-only TES (total expenditure on services), not TME.
+- **PESA 10.1:** England-only TES; the UK-wide view uses PESA 5.2.
 - **HMRC income tax (Table 2.5):** current edition starts 2023-24. Earlier years need the historic tables, not yet sourced.
 - **DWP Table 1a:** GB geography. Values from 2025-26 onward are forecasts.
 - **Stat-Xplore, ONS labour market, PAYE RTI:** deferred.
-- **R7** currently fails on real data; the cause is not yet resolved.
+- **R8** fails for 2024-25 (1.09%); the files give no reason.
 - **Claims:** `data/claims.yml` ships empty, so no claims are shown.

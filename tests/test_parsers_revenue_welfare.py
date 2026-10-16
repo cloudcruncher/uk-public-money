@@ -273,7 +273,7 @@ DWP_YEARS = {"2015-16", "2023-24", "2025-26", "2026-27"}
 def test_dwp_every_row_matches_its_recorded_cell(dwp):
     _check_all(dwp, lambda r: PATHS["dwp_spring_2026"])
     assert {r.fiscal_year for r in dwp} == DWP_YEARS
-    assert {r.prov.sheet for r in dwp} == {"Table 1a", "UK welfare "}
+    assert {r.prov.sheet for r in dwp} == {"Table 1a", "Table 1c", "UK welfare "}
 
 
 GB_TOTAL = {

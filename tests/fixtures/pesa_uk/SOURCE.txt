@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-15.
+Licence: Open Government Licence v3.0 (gov.uk). Published 2026-07-16.
+
+pesa_2026_ch5.trimmed.xlsx  (sheet 5_2 rows 1-6 and the function totals, EU, services, adjustments, TME rows)
+  sha256 806bed91304a3c78c9cc4ba879b6634f3294ed18c51f4065cd5919fc39aa7f2d
+  original https://assets.publishing.service.gov.uk/media/6a5772f59e63154454413701/PESA_2026_CP_Chapter_5_tables.xlsx
+  original sha256 ccb4539bb837c2b6a7f9509da49bd409eb9e5a910f3332311b494291fbd33107

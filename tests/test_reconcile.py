@@ -16,7 +16,7 @@ from ukpm.registry import load
 ROOT = Path(__file__).resolve().parent.parent
 SPEND = ROOT / "tests/fixtures/spend"
 FUNCS = list(pesa.COFOG_TOTALS.values())[:-1]
-RULE_IDS = ["R1", "R2", "R3", "R4", "R5", "R6", "R7"]
+RULE_IDS = [f"R{i}" for i in range(1, 15)]
 
 
 def pid(r):
@@ -121,7 +121,7 @@ def test_every_rule_always_present_even_with_no_rows():
     for r in out["rules"]:
         assert r["title"] and r["description"] and r["tolerance"]
         assert r["results"] and all(x["status"] == "not_run" and x["reason"] for x in r["results"])
-    assert out["summary"] == {"pass": 0, "fail": 0, "info": 0, "not_run": 7}
+    assert out["summary"] == {"pass": 0, "fail": 0, "info": 0, "not_run": 14}
 
 
 def test_summary_counts_match_result_statuses(cofog):
@@ -133,11 +133,84 @@ def test_summary_counts_match_result_statuses(cofog):
     assert out["summary"] == counts
 
 
-def test_r4_reason_reflects_disabled_or_enabled_psf():
-    off = _rule(_run([], sources={"ons_psf": {"enabled": False, "verdict": "BLOCKED"}}), "R4")
-    on = _rule(_run([], sources={"ons_psf": {"enabled": True, "verdict": "USABLE"}}), "R4")
-    assert "disabled" in off[0]["reason"] and "BLOCKED" in off[0]["reason"]
-    assert "enabled but has no rows" in on[0]["reason"]
+def test_r4_central_govt_vs_public_sector_is_information(make_row):
+    rows = [
+        make_row("ons_psf.cg_tme", value=1250.0),
+        make_row("pesa.tme", value=1360.0),
+        make_row("obr.psf.tme", value=1365.0),
+    ]
+    res = _rule(_run(rows), "R4")
+    assert len(res) == 2 and all(r["status"] == "info" for r in res)
+    assert "definition" in res[0]["reason"] and res[0]["delta"] == pytest.approx(-110.0)
+
+
+def test_r4_fails_if_central_govt_exceeds_public_sector(make_row):
+    rows = [make_row("ons_psf.cg_tme", value=1400.0), make_row("pesa.tme", value=1360.0)]
+    assert _rule(_run(rows), "R4")[0]["status"] == "fail"
+
+
+def test_r4_not_run_without_rows():
+    assert _rule(_run([]), "R4")[0]["status"] == "not_run"
+
+
+def test_r11_pesa_uk_tme_matches_pesa_tme(make_row):
+    ok = _rule(
+        _run([make_row("pesa_uk.tme", value=1360.122), make_row("pesa.tme", value=1360.1)]), "R11"
+    )
+    bad = _rule(
+        _run([make_row("pesa_uk.tme", value=1400.0), make_row("pesa.tme", value=1360.1)]), "R11"
+    )
+    assert ok[0]["status"] == "pass" and bad[0]["status"] == "fail"
+
+
+def test_r12_table_5_2_sums(make_row):
+    funcs = "general_public_services defence health".split()
+    rows = [make_row(f"pesa_uk.{f}", value=10.0) for f in funcs]
+    rows += [
+        make_row(f"pesa_uk.{f}", value=0.0)
+        for f in "public_order_and_safety economic_affairs environment_protection "
+        "housing_and_community_amenities recreation_culture_religion education "
+        "social_protection eu_transactions".split()
+    ]
+    rows += [
+        make_row("pesa_uk.services", value=30.0),
+        make_row("pesa_uk.accounting_adjustments", value=5.0),
+        make_row("pesa_uk.tme", value=35.0),
+    ]
+    res = _rule(_run(rows), "R12")
+    assert [r["status"] for r in res] == ["pass", "pass"]
+    rows[-3] = make_row("pesa_uk.services", value=33.0)
+    assert _rule(_run(rows), "R12")[0]["status"] == "fail"
+
+
+def test_r13_receipts_pass_fail_and_forecast_info(make_row):
+    rows = [
+        make_row("hmrc_receipts.vat", value=100.0),
+        make_row("obr_efo_receipts.vat", value=100.2),
+        make_row("hmrc_receipts.nics", value=100.0),
+        make_row("obr_efo_receipts.nics", value=120.0),
+        make_row("hmrc_receipts.income_tax", year="2025-26", value=100.0),
+        make_row("obr_efo_receipts.income_tax", year="2025-26", value=101.0, status="forecast"),
+    ]
+    by = {r["left"]["series_id"]: r["status"] for r in _rule(_run(rows), "R13")}
+    assert by == {
+        "hmrc_receipts.vat": "pass",
+        "hmrc_receipts.nics": "fail",
+        "hmrc_receipts.income_tax": "info",
+    }
+
+
+def test_r14_identity_and_definition_gap(make_row):
+    rows = [
+        make_row("ons_psf.cg_total_expenditure_gross", value=1300.0),
+        make_row("ons_psf.cg_receipts", value=1175.0),
+        make_row("ons_psf.cg_net_borrowing", value=125.0),
+        make_row("ons_psf.cg_tme", value=1250.0),
+    ]
+    res = _rule(_run(rows), "R14")
+    assert [r["status"] for r in res] == ["pass", "info"]
+    rows[2] = make_row("ons_psf.cg_net_borrowing", value=130.0)
+    assert _rule(_run(rows), "R14")[0]["status"] == "fail"
 
 
 # ---- R2 / R3 / R6 / R7 --------------------------------------------------------------------
@@ -261,6 +334,21 @@ def test_r7_sums_top_level_lines_only(make_row):
     assert res["uk_welfare_tab_lines"]["status"] == "pass"
 
 
+def test_r7_ignores_memo_rows_printed_below_the_total(make_row):
+    rows = _dwp(
+        make_row,
+        total_gb=300.0,
+        lines={
+            "state_pension": 200.0,
+            "universal_credit": 100.0,
+            "expenditure_covered_by_departmental_expenditure_limit": 7.0,
+            "benefits_funded_by_local_authorities": 9.0,
+        },
+    )
+    (res,) = _rule(_run(rows), "R7")
+    assert res["status"] == "pass" and res["left"]["value"] == pytest.approx(300.0)
+
+
 def test_r7_broken_total_fails_with_delta(make_row):
     rows = _dwp(
         make_row,
@@ -358,3 +446,83 @@ def test_broken_pesa_fixture_produces_fail_record_with_delta(pesa_rows, tmp_path
     assert broken["delta"] == pytest.approx(-1.0, abs=0.01)
     assert broken["right"]["provenance_id"] == "pesa.cofog.total_services@PESA 2026/2024-25"
     assert all(r["status"] == "pass" for fy, r in by_year.items() if fy != "2024-25")
+
+
+# ---- R8-R10 ---------------------------------------------------------------------------------
+
+
+def _efo_dwp(make_row, efo, dwp, efo_vint=reconcile.EFO_VINTAGE, dwp_vint=reconcile.DWP_VINTAGE):
+    return [
+        make_row(reconcile.EFO_UC, "2025-26", efo, edition=efo_vint, vintage=efo_vint),
+        make_row(reconcile.DWP_UC, "2025-26", dwp, edition=dwp_vint, vintage=dwp_vint),
+    ]
+
+
+def test_r8_passes_within_one_percent(make_row):
+    res = _rule(_run(_efo_dwp(make_row, 100.5, 100.0)), "R8")
+    assert [x["status"] for x in res] == ["pass"]
+
+
+def test_r8_fails_beyond_one_percent(make_row):
+    res = _rule(_run(_efo_dwp(make_row, 102.0, 100.0)), "R8")
+    assert [x["status"] for x in res] == ["fail"]
+
+
+def test_r8_other_vintages_are_info(make_row):
+    res = _rule(_run(_efo_dwp(make_row, 150.0, 100.0, dwp_vint="DWP Autumn 2025")), "R8")
+    assert [x["status"] for x in res] == ["info"]
+
+
+def test_r8_r9_not_run_when_a_side_is_missing(make_row):
+    rows = _efo_dwp(make_row, 100.0, 100.0)[:1]
+    out = _run(rows)
+    assert _rule(out, "R8")[0]["status"] == "not_run"
+    assert _rule(out, "R9")[0]["status"] == "not_run"
+
+
+def test_r9_compares_ni_social_security(make_row):
+    v, w = reconcile.EFO_VINTAGE, reconcile.DWP_VINTAGE
+    rows = [
+        make_row(reconcile.EFO_NI, "2025-26", 3.0, edition=v, vintage=v),
+        make_row(reconcile.DWP_NI, "2025-26", 3.0, edition=w, vintage=w),
+    ]
+    assert [x["status"] for x in _rule(_run(rows), "R9")] == ["pass"]
+
+
+def _co(make_row, n, value=1.5e8, start=(2025, 4)):
+    rows = []
+    for i in range(n):
+        k = start[0] * 12 + start[1] - 1 + i
+        y, m = divmod(k, 12)
+        rows.append(
+            make_row(
+                f"{reconcile.CO_TOTAL}{y}_{m + 1:02d}",
+                "2025-26",
+                value,
+                unit="gbp",
+                edition=f"{y}-{m + 1:02d}",
+            )
+        )
+    return rows
+
+
+def test_r10_not_run_without_rows():
+    assert _rule(reconcile.run([], pid, {}, {}, co_rows=[]), "R10")[0]["status"] == "not_run"
+
+
+def test_r10_twelve_months_pass(make_row):
+    res = _rule(reconcile.run([], pid, {}, {}, co_rows=_co(make_row, 12)), "R10")
+    assert len(res) == 13 and all(x["status"] == "pass" for x in res)
+
+
+def test_r10_month_out_of_bounds_fails(make_row):
+    rows = _co(make_row, 12)
+    rows[3] = replace(rows[3], value=1.0)
+    res = _rule(reconcile.run([], pid, {}, {}, co_rows=rows), "R10")
+    assert any(x["status"] == "fail" for x in res)
+
+
+def test_r10_window_not_run_with_fewer_than_twelve_months(make_row):
+    res = _rule(reconcile.run([], pid, {}, {}, co_rows=_co(make_row, 5)), "R10")
+    assert res[-1]["status"] == "not_run"
+    assert all(x["status"] == "pass" for x in res[:-1])

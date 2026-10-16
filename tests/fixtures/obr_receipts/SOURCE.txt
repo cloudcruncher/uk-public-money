@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-15.
+Licence: Open Government Licence (obr.uk copyright page). March 2026 Economic and fiscal outlook.
+
+efo_march_2026_receipts.trimmed.xlsx  (sheet 3.8 rows 1-14, 51, 52, 64)
+  sha256 cab04ca8eea088c02dee9b231f06f353677745ddd8a5594896c81e444e4d79a4
+  original https://obr.uk/docs/d055fbf02d5b3g6jq8l2/efo-march-2026-detailed-forecast-tables-receipts.xlsx
+  original sha256 f65b6cb7f96931d4abd85940794eb60f6f65afca8bbf16c74a4548bf92766a28

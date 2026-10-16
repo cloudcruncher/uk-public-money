@@ -107,4 +107,8 @@ UKPM.page(async () => {
   renderResults();
   renderLookup(false);
   U.onBasis(() => renderLookup(false));
+
+  U.setSummary(['Search ' + ix.series.length + ' official series to find the figure behind a number you have heard. Each one shows its source file.'],
+    'Last updated ' + U.updatedText(ix));
+  U.mountCheckers({ method: ['A claim is “consistent” when it is within a small margin of the official figure for the same year, place and price basis. If the definitions differ we say “not comparable” instead of picking a side.', 'Search matches series titles. Every result links to the publisher’s own file, sheet and cell.'] });
 });

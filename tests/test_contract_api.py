@@ -112,12 +112,21 @@ def test_series_file_shape(api, index, series):
         for k in ("title", "source_id", "period_type", "variants", "gaps", "notes"):
             assert k in s
         assert "nominal" in s["variants"]
-        assert set(s["variants"]) <= {"nominal", "real", "pct_gdp"}
+        assert set(s["variants"]) <= {
+            "nominal",
+            "real",
+            "pct_gdp",
+            "per_person",
+            "per_person_real",
+            "per_household",
+            "per_household_real",
+            "per_100",
+        }
         for pts in s["variants"].values():
             for p in pts:
                 for k in ("fiscal_year", "value", "unit", "status", "vintage", "provenance_id"):
                     assert k in p
-                assert re.match(r"^\d{4}-\d{2}$", p["fiscal_year"])
+                assert re.match(r"^\d{4}(-\d{2})?$", p["fiscal_year"])  # calendar series: "2025"
                 assert p["status"] in ("outturn", "forecast")
 
 
@@ -249,8 +258,8 @@ def test_obr_series_forecast_years_come_after_outturn(series):
 def test_reconciliation_lists_all_rules_including_failures(api):
     r = J(api / "reconciliation.json")
     ids = [x["id"] for x in r["rules"]]
-    # ARCHITECTURE.md section 10 and check_api.RULE_IDS define R1..R7
-    assert ids == [f"R{i}" for i in range(1, 8)]
+    # check_api.RULE_IDS defines R1..R14
+    assert ids == [f"R{i}" for i in range(1, 15)]
     statuses = [res["status"] for x in r["rules"] for res in x["results"]]
     assert set(statuses) <= {"pass", "fail", "info", "not_run"}
     assert "fail" in statuses, "failures must be published, not hidden"
@@ -448,3 +457,92 @@ def test_check_api_live_rejects_fixture_offline_build(api):
 def test_cli_check_api_live_flag_on_offline_build(api, capsys):
     assert cli_main(["check-api", str(api), "--live"]) == 1
     assert "requires a live build" in capsys.readouterr().err
+
+
+# ---- layman files: negative cases ------------------------------------------------------------
+
+
+def _edit(path: Path, fn):
+    d = J(path)
+    fn(d)
+    path.write_text(json.dumps(d))
+
+
+def _first_available_set(d):
+    return next(s for s in d["sets"] if s.get("available") is not False)
+
+
+def test_check_api_fails_when_shares_do_not_sum_to_100(tampered):
+    _edit(
+        tampered / "shares.json",
+        lambda d: _first_available_set(d)["parts"][0]["per_100"].update(value=99.0),
+    )
+    assert any("not 100" in e for e in check_api.check(tampered))
+
+
+def test_check_api_fails_on_bad_benefit_slug_and_missing_path(tampered):
+    def bad(d):
+        d["benefits"][0]["slug"] = "Bad Slug!"
+        d["benefits"][1]["path"] = "benefits/missing.json"
+
+    _edit(tampered / "benefits" / "index.json", bad)
+    errs = check_api.check(tampered)
+    assert any("bad slug" in e for e in errs)
+    assert any("does not exist" in e for e in errs)
+
+
+def test_check_api_fails_on_glossary_figure_and_bad_see_also(tampered):
+    def bad(d):
+        d["terms"][0]["plain"] = "It was 12.5 billion last year."
+        d["terms"][0]["see_also"] = ["no-such-term"]
+
+    _edit(tampered / "glossary.json", bad)
+    errs = check_api.check(tampered)
+    assert any("contains a figure" in e for e in errs)
+    assert any("does not exist" in e for e in errs)
+
+
+def test_check_api_fails_on_cabinet_office_forbidden_key(tampered):
+    _edit(tampered / "cabinet_office" / "summary.json", lambda d: d.update(transaction_number="1"))
+    assert any("forbidden keys" in e for e in check_api.check(tampered))
+
+
+def test_check_api_fails_on_oversize_cabinet_office_summary(tampered):
+    _edit(tampered / "cabinet_office" / "summary.json", lambda d: d.update(pad="x" * 300_000))
+    assert any("exceeds" in e for e in check_api.check(tampered))
+
+
+def test_check_api_fails_on_supplier_below_floor(tampered):
+    def low(d):
+        d["top_suppliers"][0]["point"]["value"] = 10.0
+
+    _edit(tampered / "cabinet_office" / "summary.json", low)
+    assert any("below the floor" in e for e in check_api.check(tampered))
+
+
+def test_check_api_fails_on_orphan_supplier_record(tampered):
+    _edit(tampered / "cabinet_office" / "summary.json", lambda d: d.update(top_suppliers=[]))
+    assert any("orphan supplier" in e for e in check_api.check(tampered))
+
+
+def test_check_api_fails_on_unresolvable_value_in_benefits(tampered):
+    def bad(d):
+        d["benefits"][0]["headline"]["spend"]["provenance_id"] = "dwp_benefits.000000000000"
+
+    _edit(tampered / "benefits" / "index.json", bad)
+    assert any("no resolvable provenance_id" in e for e in check_api.check(tampered))
+
+
+def test_check_api_fails_on_per_person_without_population_input(tampered):
+    f = tampered / "series" / "pesa.tme.json"
+    pt = J(f)["variants"]["per_person"][0]
+    pf = tampered / "provenance" / "pesa.json"
+
+    def strip(d):
+        rec = d["records"][pt["provenance_id"]]
+        rec["inputs"] = [i for i in rec.get("inputs", []) if not i.startswith("ons_population.")]
+        for t in rec.get("transformations", []):
+            t["inputs"] = []
+
+    _edit(pf, strip)
+    assert any("population" in e for e in check_api.check(tampered))
