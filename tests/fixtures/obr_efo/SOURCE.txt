@@ -1,0 +1,3 @@
+OBR EFO March 2026 detailed forecast tables, expenditure. Unmodified copy, fetched 2026-10-15 with a browser User-Agent. OGL v3.0.
+  origin https://obr.uk/docs/d055fbf02d5b3g6jq8l2/efo-march-2026-detailed-forecast-tables-expenditure.xlsx
+  sha256 700bfd700c872794e5fe8cf164086cd38a63850db26427b9d4b2e363d177d9a1

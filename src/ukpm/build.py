@@ -31,6 +31,8 @@ from . import claims as claims_mod
 from . import fetch as fetch_mod
 from . import reconcile, units
 from .parsers import FileMeta, LayoutError
+from .parsers.cabinet_office_spend import label_of
+from .parsers.dwp_benefits import BENEFIT_PAIRS
 from .provenance import Row, problems, provenance_id
 from .registry import FileEntry, Source, load
 
@@ -38,6 +40,7 @@ SOURCES = Path("data/sources.yml")
 DEFINITIONS = Path("data/definitions.yml")
 CLAIMS = Path("data/claims.yml")
 CORRECTIONS = Path("data/corrections.yml")
+GLOSSARY = Path("data/glossary.yml")
 WORK = Path("work")
 FIRST_YEAR = "2015-16"
 # Fixtures are trimmed copies of files fetched on this date (see tests/fixtures/*/SOURCE.txt).
@@ -48,11 +51,149 @@ LICENCE_URLS = {
 UNIT_LABEL = {
     "gbp_m": "GBP_m",
     "gbp_bn": "GBP_bn",
+    "gbp": "GBP",
     "thousand_persons": "thousand_persons",
+    "thousand_cases": "thousand_cases",
     "persons": "persons",
+    "count": "count",
     "index": "index",
     "percent": "percent",
+    "pct": "percent",
+    "thousands": "thousands",
+    "pct_gdp": "percent",
+    "gbp_per_person": "GBP_per_person",
+    "gbp_per_household": "GBP_per_household",
+    "gbp_per_100": "GBP_per_100",
+    "gbp_per_claimant": "GBP_per_claimant",
 }
+CO_PREFIX = "cabinet_office_spend."
+POP_SERIES = {
+    "UK": "ons_population.uk",
+    "GB": "ons_population.gb",
+    "England": "ons_population.england",
+}
+HH_SERIES = "ons_households.uk"
+GDP_FISCAL = "obr.gdp_nominal"
+GDP_CALENDAR = "ons_gdp.nominal"
+# Stocks at 31 March: no real, % of GDP (ONS publishes its own ratio, ons_psf.ps_net_debt_pct_gdp,
+# on a 12-month centred GDP) or per-head variants, because a stock is not a flow for the year.
+STOCK_SERIES = frozenset({"ons_psf.ps_net_debt_gbp_bn"})
+# Derived variants are built only for series labelled by fiscal year. Calendar-year and
+# quarter-based series (ons_gdp.nominal) are published as they come.
+DERIVED_BASES = frozenset({"fiscal_year"})
+# One part out of every GBP 100 of a total, outside the fixed sets: part -> total.
+EXTRA_PER_100 = {"ons_psf.cg_debt_interest": "ons_psf.cg_receipts"}
+PER_UNIT_EXTRA = frozenset(
+    {
+        "ons_psf.cg_debt_interest",
+        "ons_psf.cg_receipts",
+        "ons_psf.cg_tme",
+        "pesa_uk.services",
+        "pesa_uk.tme",
+        "pesa_uk.public_debt_transactions",
+    }
+)
+_COFOG = (
+    "general_public_services",
+    "defence",
+    "public_order_safety",
+    "economic_affairs",
+    "environment_protection",
+    "housing_community_amenities",
+    "health",
+    "recreation_culture_religion",
+    "education",
+    "social_protection",
+)
+_COFOG_UK = (
+    "general_public_services",
+    "defence",
+    "public_order_and_safety",
+    "economic_affairs",
+    "environment_protection",
+    "housing_and_community_amenities",
+    "health",
+    "recreation_culture_religion",
+    "education",
+    "social_protection",
+)
+PER_100_SETS = {
+    "spending_uk": {
+        "title": "Public spending on services, UK",
+        "scope": "UK",
+        "role": "primary",
+        "note": "PESA 2026 table 5.2, UK-wide public sector expenditure on services by function. "
+        "The ten functions sum to the total except for EU transactions and rounding, which "
+        "make up the remainder.",
+        "other_label": "EU transactions and rounding",
+        "total": "pesa_uk.services",
+        "parts": [f"pesa_uk.{f}" for f in _COFOG_UK],
+    },
+    "spending_england": {
+        "title": "Spending on services in England",
+        "scope": "England",
+        "role": "fallback",
+        "note": "England only (PESA chapter 10, table 10.1). Superseded by spending_uk; kept so "
+        "that older pages keep working.",
+        "superseded_by": "spending_uk",
+        "other_label": "everything else (and rounding)",
+        "total": "pesa.cofog.total_services",
+        "parts": [f"pesa.cofog.{f}" for f in _COFOG],
+    },
+    "revenue_hmrc": {
+        "title": "Tax collected by HMRC",
+        "scope": "UK",
+        "role": "primary",
+        "note": "HMRC cash receipts by tax (NS_Table, table 2).",
+        "other_label": "everything else (and rounding)",
+        "total": "hmrc_receipts.total",
+        "parts": [
+            "hmrc_receipts.income_tax",
+            "hmrc_receipts.nics",
+            "hmrc_receipts.vat",
+            "hmrc_receipts.corporation_tax",
+            "hmrc_receipts.hydrocarbon_oil_fuel_duties",
+            "hmrc_receipts.stamp_duty_land_tax",
+        ],
+    },
+}
+BENEFIT_SPEND_IDS = {p["spend"] for p in BENEFIT_PAIRS}
+BENEFIT_GAPS = [
+    {
+        "name": "Child Benefit",
+        "reason": "Table 1a shows 0 and Table 1c is blank in this edition.",
+    },
+    {
+        "name": "Income Support",
+        "reason": "Caseload in payment is 0 in recent years, so a cost per claimant is undefined.",
+    },
+    {
+        "name": "Incapacity Benefit",
+        "reason": "Caseload in payment is 0 in recent years, so a cost per claimant is undefined.",
+    },
+]
+CO_CAPS = {
+    "months": 24,
+    "expense_types_per_month": 10,
+    "suppliers": 20,
+    "supplier_floor_gbp": 1_000_000,
+    "max_bytes": 262_144,
+    "max_provenance_bytes": 1_048_576,
+}
+_VENDOR_NUMBER = re.compile(r"^\d{6,}\s+")
+
+
+def clean_supplier(name: str) -> str:
+    """Drop a leading vendor number ('1234567 Acme Ltd' -> 'Acme Ltd') so a supplier groups once."""
+    return _VENDOR_NUMBER.sub("", name.strip())
+
+
+_SUPPLIER_DENY = re.compile(
+    r"(?i)redact|withheld|personal|individual|employee|private|name not|^n/?a$"
+)
+_FIGURE = re.compile(r"£\s?\d|\d\s?%|\d[\d,]*\s?(million|billion|bn|m)\b")
+_SLUG_RE = re.compile(r"^[a-z0-9-]+$")
+_CSV_RANGE = re.compile(r'^([A-Z]+)(\d+):([A-Z]+)(\d+)(?: where ([A-Z]+)="((?:[^"]|"")*)")?$')
 HEADLINE = (
     "pesa.tme",
     "obr.psf.tme",
@@ -88,8 +229,29 @@ def _pub(core_id: str) -> str:
 # --------------------------------------------------------------------------- file resolution
 
 
+def _manifest_fixture(src: Source, f: FileEntry) -> Path | None:
+    """MANIFEST.yml is a list of entries, or a mapping with them under 'fixtures'."""
+    if not src.fixture_dir:
+        return None
+    manifest = Path(src.fixture_dir) / "MANIFEST.yml"
+    if not manifest.exists():
+        return None
+    data = yaml.safe_load(manifest.read_text()) or []
+    entries = data.get("fixtures", []) if isinstance(data, dict) else data
+    for e in entries:
+        if (
+            isinstance(e, dict)
+            and e.get("source_id") == src.id
+            and e.get("original_sha256") == f.sha256
+        ):
+            p = manifest.parent / e["fixture"]
+            if p.exists():
+                return p
+    return None
+
+
 def _fixture_path(src: Source, f: FileEntry) -> Path | None:
-    hit = fetch_mod._fixture(src, f)
+    hit = _manifest_fixture(src, f)
     if hit is not None:
         return hit
     if not src.fixture_dir:
@@ -233,6 +395,7 @@ class Records:
             **d,
             "provenance_id": pid,
             "source_id": source_id,
+            "series_id": row.series_id,
             "transformations": trans,
             "licence_url": LICENCE_URLS.get(row.prov.licence),
             "retrieval": self.retrieval.get(row.prov.file_sha256, "live"),
@@ -256,21 +419,38 @@ class Records:
                 "published_unit": UNIT_LABEL.get(raw_unit, raw_unit),
                 "derived_from": inputs,
             }
-        text = (
-            f"Download the file, open sheet '{d['sheet']}' and go to cell {d['cell_or_range']}. "
-            f"To confirm you have the same file: shasum -a 256 <file> should print "
-            f"{d['file_sha256']}."
-        )
+        csv_m = _CSV_RANGE.match(d["cell_or_range"] or "") if d["sheet"] == "CSV" else None
+        if csv_m:
+            col, a, last, fcol, ftext = csv_m.group(1, 2, 4, 5, 6)
+            if raw_unit == "count":
+                what = (
+                    f"Count the data rows from row {a} to row {last} (rows with no Amount are "
+                    "padding and are not counted)"
+                )
+            else:
+                what = f"Add up column {col} (Amount) for rows {a} to {last}"
+            if fcol:
+                what += f' where column {fcol} is "{ftext.replace(chr(34) * 2, chr(34))}"'
+            text = (
+                f"Download the CSV and open it. {what}. To confirm you have the same file: "
+                f"shasum -a 256 <file> should print {d['file_sha256']}."
+            )
+        else:
+            text = (
+                f"Download the file, open sheet '{d['sheet']}' and go to cell "
+                f"{d['cell_or_range']}. To confirm you have the same file: shasum -a 256 <file> "
+                f"should print {d['file_sha256']}."
+            )
         if steps:
             text += f" The published figure is then derived: {steps}."
+        # Aliases of the record fields, kept so the v1 check block stays complete. row_label and
+        # column_label are not emitted: no parser records header text, so they were always null.
         return {
             "kind": "spreadsheet",
             "download_url": d["source_url"],
             "landing_url": d["landing_url"],
             "sheet": d["sheet"],
             "cell": d["cell_or_range"],
-            "row_label": None,
-            "column_label": None,
             "sha256": d["file_sha256"],
             "published_value": raw_value,
             "published_unit": UNIT_LABEL.get(raw_unit, raw_unit),
@@ -298,6 +478,26 @@ def _point(row: Row, unit: str, pid: str) -> dict[str, Any]:
     }
 
 
+def _emit(
+    records: Records,
+    rejected: list[dict[str, Any]],
+    row: Row,
+    primary: Row,
+    unit_label: str,
+    **ctx: Any,
+) -> dict[str, Any] | None:
+    """The one write path: gate the row, register its record, return its point (or None)."""
+    why = problems(row.prov)
+    if not isinstance(row.value, int | float) or not math.isfinite(row.value):
+        why.append("value missing or not finite")
+    if why:
+        rejected.append(
+            {"series_id": row.series_id, "fiscal_year": row.fiscal_year, **ctx, "problems": why}
+        )
+        return None
+    return _point(row, unit_label, records.add(row, primary))
+
+
 def _title(sid: str, src: Source, meta: dict[str, Any]) -> str:
     if meta.get("title"):
         return meta["title"]
@@ -313,6 +513,7 @@ def build_series(
     rejected: list[dict[str, Any]],
     retrieval: dict[str, str],
     definition_of: dict[str, str],
+    nom_by: dict[str, list[Row]],
 ) -> tuple[dict[str, dict[str, Any]], str | None]:
     by: dict[str, list[Row]] = defaultdict(list)
     for (sid, _), r in sorted(chosen.items()):
@@ -333,12 +534,20 @@ def build_series(
         monetary = bool(meta.get("monetary", first.unit in ("gbp_m", "gbp_bn")))
         monetary = monetary and first.unit == "gbp_bn"
         tax_year = first.period_basis == "tax_year"
+        # calendar-year and other non-fiscal bases, and stocks, get no derived variants
+        plain = first.period_basis not in ("fiscal_year", "tax_year") or sid in STOCK_SERIES
+        monetary_derive = monetary and not plain
         variants: dict[str, list[dict[str, Any]]] = {
-            "nominal": [_point(r, UNIT_LABEL.get(r.unit, r.unit), records.add(r, r)) for r in rs]
+            "nominal": [
+                pt
+                for r in rs
+                if (pt := _emit(records, rejected, r, r, UNIT_LABEL.get(r.unit, r.unit)))
+            ]
         }
         gaps: list[dict[str, Any]] = []
         notes: list[str] = []
-        if monetary and base:
+        real_rows: list[tuple[Row, Row]] = []
+        if monetary_derive and base:
             real = []
             for r in rs:
                 try:
@@ -356,20 +565,12 @@ def build_series(
                 except units.MissingDenominator as e:
                     gaps.append({"fiscal_year": r.fiscal_year, "variant": "real", "reason": str(e)})
                     continue
-                if problems(dr.prov):
-                    rejected.append(
-                        {
-                            "series_id": sid,
-                            "fiscal_year": r.fiscal_year,
-                            "variant": "real",
-                            "problems": problems(dr.prov),
-                        }
-                    )
-                    continue
-                real.append(_point(dr, f"GBP_bn_{base}", records.add(dr, r)))
+                if pt := _emit(records, rejected, dr, r, f"GBP_bn_{base}", variant="real"):
+                    real.append(pt)
+                    real_rows.append((r, dr))
             if real:
                 variants["real"] = real
-        if monetary and first.geography == "UK" and not tax_year and gdp:
+        if monetary_derive and first.geography == "UK" and not tax_year and gdp:
             pct = []
             for r in rs:
                 try:
@@ -379,23 +580,113 @@ def build_series(
                         {"fiscal_year": r.fiscal_year, "variant": "pct_gdp", "reason": str(e)}
                     )
                     continue
-                if problems(pr.prov):
-                    rejected.append(
+                if pt := _emit(records, rejected, pr, r, "percent", variant="pct_gdp"):
+                    pct.append(pt)
+            if pct:
+                variants["pct_gdp"] = pct
+        pop = by.get(POP_SERIES.get(first.geography, ""), [])
+        if monetary_derive and not tax_year and pop and _per_person_ok(sid):
+            for variant, pairs, label in (
+                ("per_person", [(r, r) for r in rs], "GBP_per_person"),
+                ("per_person_real", real_rows, f"GBP_per_person_{base}"),
+            ):
+                pts = []
+                for primary, r in pairs:
+                    try:
+                        pp = units.per_person(r, pop)
+                    except units.MissingDenominator:
+                        gaps.append(
+                            {
+                                "fiscal_year": r.fiscal_year,
+                                "variant": variant,
+                                "reason": "no ONS mid-year estimate for this year; "
+                                "projections are not used",
+                            }
+                        )
+                        continue
+                    if pt := _emit(records, rejected, pp, primary, label, variant=variant):
+                        pts.append(pt)
+                if pts:
+                    variants[variant] = pts
+        hh = by.get(HH_SERIES, [])
+        if (
+            monetary_derive
+            and not tax_year
+            and first.geography == "UK"
+            and hh
+            and _per_person_ok(sid)
+        ):
+            hh_years = sorted(r.fiscal_year for r in hh)
+            for variant, pairs, label in (
+                ("per_household", [(r, r) for r in rs], "GBP_per_household"),
+                ("per_household_real", real_rows, f"GBP_per_household_{base}"),
+            ):
+                pts = []
+                for primary, r in pairs:
+                    try:
+                        ph = units.per_household(r, hh)
+                    except units.MissingDenominator:
+                        if hh_years[0] <= r.fiscal_year <= hh_years[-1]:
+                            gaps.append(
+                                {
+                                    "fiscal_year": r.fiscal_year,
+                                    "variant": variant,
+                                    "reason": "no ONS household estimate for this year",
+                                }
+                            )
+                        continue
+                    if pt := _emit(records, rejected, ph, primary, label, variant=variant):
+                        pts.append(pt)
+                if pts:
+                    variants[variant] = pts
+            if "per_household" in variants:
+                notes.append(
+                    f"Per-household values exist for fiscal years {hh_years[0]} to {hh_years[-1]} "
+                    "only (the ONS household count; spend over the fiscal year divided by the "
+                    "April-June household count of its first quarter)."
+                )
+        total_id = _per100_total(sid)
+        if total_id and not plain:
+            pts = []
+            totals = _edition_index(nom_by.get(total_id, []))
+            for r in rs:
+                tot = totals.get((r.prov.edition, r.fiscal_year))
+                if tot is None:
+                    gaps.append(
                         {
-                            "series_id": sid,
                             "fiscal_year": r.fiscal_year,
-                            "variant": "pct_gdp",
-                            "problems": problems(pr.prov),
+                            "variant": "per_100",
+                            "reason": "the total is not published in the same edition",
                         }
                     )
                     continue
-                pct.append(_point(pr, "percent", records.add(pr, r)))
-            if pct:
-                variants["pct_gdp"] = pct
+                try:
+                    sr = units.share(r, tot)
+                except units.MissingDenominator as e:
+                    gaps.append(
+                        {"fiscal_year": r.fiscal_year, "variant": "per_100", "reason": str(e)}
+                    )
+                    continue
+                if pt := _emit(records, rejected, sr, r, "GBP_per_100", variant="per_100"):
+                    pts.append(pt)
+            if pts:
+                variants["per_100"] = pts
         if first.geography != "UK":
             notes.append(f"Scope: {first.geography} only, not UK-wide.")
             if monetary:
                 notes.append("No % of GDP variant: the numerator is not UK-wide but GDP is.")
+        if first.period_basis == "calendar_year":
+            notes.append(
+                "Calendar-year series: the label is the calendar year, not a fiscal year. It gets "
+                "no real-terms, % of GDP or per-head variant, because a fiscal year (April to "
+                "March) and a calendar year do not line up. Fiscal-year series use the OBR "
+                "fiscal-year GDP for their % of GDP."
+            )
+        if sid in STOCK_SERIES:
+            notes.append(
+                "A stock at 31 March, not a flow over the year: nominal only. The ratio to GDP "
+                "is published by the ONS as ons_psf.ps_net_debt_pct_gdp."
+            )
         if tax_year:
             notes.append(
                 "Tax-year series. Real terms use the fiscal-year deflator; "
@@ -426,6 +717,38 @@ def build_series(
     return series, base
 
 
+def _per_person_ok(sid: str) -> bool:
+    return (
+        sid in HEADLINE
+        or sid.startswith("pesa.cofog.")
+        or sid in BENEFIT_SPEND_IDS
+        or sid in PER_UNIT_EXTRA
+        or _share_set_of(sid) is not None
+    )
+
+
+def _share_set_of(sid: str) -> str | None:
+    return next((k for k, v in PER_100_SETS.items() if sid in v["parts"]), None)
+
+
+def _per100_total(sid: str) -> str | None:
+    """The total a series is expressed against for its per_100 variant, if it has one."""
+    if sid in EXTRA_PER_100:
+        return EXTRA_PER_100[sid]
+    st = _share_set_of(sid)
+    return PER_100_SETS[st]["total"] if st else None
+
+
+def _edition_index(rows: list[Row]) -> dict[tuple[str, str], Row]:
+    return {(r.prov.edition, r.fiscal_year): r for r in rows}
+
+
+def _first_year(src: Source) -> str:
+    """First fiscal year a source claims to cover, but never earlier than FIRST_YEAR."""
+    claimed = str(src.coverage.get("from", ""))
+    return claimed if re.fullmatch(r"\d{4}-\d{2}", claimed) and claimed > FIRST_YEAR else FIRST_YEAR
+
+
 def _gaps(sid: str, rs: list[Row], src: Source, retrieval: dict[str, str]) -> list[dict[str, Any]]:
     have = {r.fiscal_year for r in rs}
     declared: dict[str, str] = {}
@@ -436,7 +759,10 @@ def _gaps(sid: str, rs: list[Row], src: Source, retrieval: dict[str, str]) -> li
     default = "not published in any fetched edition"
     if any(retrieval.get(f.sha256) == "fixture" for f in src.files):
         default += " (offline build from trimmed fixtures)"
-    span = set(_fy_range(FIRST_YEAR, max(have))) | set(declared)
+    if rs[0].period_basis == "calendar_year":
+        span = {str(y) for y in range(int(FIRST_YEAR[:4]), int(max(have)) + 1)} | set(declared)
+    else:
+        span = set(_fy_range(_first_year(src), max(have))) | set(declared)
     return [{"fiscal_year": y, "reason": declared.get(y, default)} for y in sorted(span - have)]
 
 
@@ -475,6 +801,521 @@ def build_definitions(
             }
         )
     return {"groups": list(groups.values())}, definition_of, defs_by_series
+
+
+# --------------------------------------------------------------------------- shares
+
+
+def _check_hmrc_parts() -> None:
+    """Every HMRC part must be a top-level column, never one 'included within' another."""
+    from .parsers import hmrc_receipts
+
+    nested = {slug for h, slug in hmrc_receipts._SLUGS.items() if "included within" in h.lower()}
+    for part in PER_100_SETS["revenue_hmrc"]["parts"]:
+        slug = part.split(".", 1)[1]
+        if slug in nested or "included_within" in slug:
+            raise RuntimeError(f"{part} is not a top-level HMRC column; it cannot be a share part")
+
+
+def build_shares(
+    series: dict[str, dict[str, Any]],
+    nom_by: dict[str, list[Row]],
+    chosen_by: dict[str, list[Row]],
+    records: Records,
+    rejected: list[dict[str, Any]],
+    generated: str,
+) -> dict[str, Any]:
+    _check_hmrc_parts()
+    sets = []
+    for set_id, spec in PER_100_SETS.items():
+        entry: dict[str, Any] = {
+            "id": set_id,
+            "title": spec["title"],
+            "scope": spec["scope"],
+            "role": spec["role"],
+            "note": spec["note"],
+            "total_series_id": spec["total"],
+            **({"superseded_by": spec["superseded_by"]} if "superseded_by" in spec else {}),
+        }
+        totals = _edition_index(nom_by.get(spec["total"], []))
+        part_idx = {p: _edition_index(nom_by.get(p, [])) for p in spec["parts"]}
+        cands = [
+            k
+            for k, t in totals.items()
+            if t.prov.status == "outturn"
+            and all(k in m and m[k].prov.status == "outturn" for m in part_idx.values())
+        ]
+        if not cands:
+            sets.append(
+                {
+                    **entry,
+                    "available": False,
+                    "reason": "no year has the total and every "
+                    "part, as actual figures, in one edition",
+                }
+            )
+            continue
+        edition, fy = max(cands, key=lambda k: (k[1], totals[k].prov.publication_date))
+        total = totals[(edition, fy)]
+        pop_id = POP_SERIES.get(total.geography)
+        pop = chosen_by.get(pop_id, []) if pop_id else []
+        hh = chosen_by.get(HH_SERIES, []) if total.geography == "UK" else []
+        parts_out, part_rows, failed = [], [], False
+        for pid_ in spec["parts"]:
+            row = part_idx[pid_][(edition, fy)]
+            part_rows.append(row)
+            try:
+                sr = units.share(row, total)
+            except units.MissingDenominator:
+                failed = True
+                continue
+            p100 = _emit(records, rejected, sr, row, "GBP_per_100", variant="per_100")
+            pp = None
+            if pop and row.unit == "gbp_bn":
+                try:
+                    pp = _emit(
+                        records,
+                        rejected,
+                        units.per_person(row, pop),
+                        row,
+                        "GBP_per_person",
+                        variant="per_person",
+                    )
+                except units.MissingDenominator:
+                    pp = None
+            phh = None
+            if hh and row.unit == "gbp_bn":
+                try:
+                    phh = _emit(
+                        records,
+                        rejected,
+                        units.per_household(row, hh),
+                        row,
+                        "GBP_per_household",
+                        variant="per_household",
+                    )
+                except units.MissingDenominator:
+                    phh = None
+            if p100 is None:
+                failed = True
+                continue
+            parts_out.append(
+                {
+                    "series_id": pid_,
+                    "title": series[pid_]["title"] if pid_ in series else pid_,
+                    "per_100": p100,
+                    "per_person": pp,
+                    "per_household": phh,
+                }
+            )
+        other = None
+        if not failed:
+            orow = units.remainder(total, part_rows, spec["other_label"])
+            try:
+                other = _emit(
+                    records,
+                    rejected,
+                    units.share(orow, total),
+                    total,
+                    "GBP_per_100",
+                    variant="per_100",
+                )
+            except units.MissingDenominator:
+                other = None
+        if failed or other is None:
+            sets.append({**entry, "available": False, "reason": "a share could not be derived"})
+            continue
+        sets.append(
+            {
+                **entry,
+                "available": True,
+                "fiscal_year": fy,
+                "edition": edition,
+                "other_label": spec["other_label"],
+                "parts": parts_out,
+                "other": other,
+            }
+        )
+    return {"generated_at": generated, "sets": sets}
+
+
+# --------------------------------------------------------------------------- benefits
+
+CLAIMANT_NOTE = "Claimant numbers are yearly averages, rounded to the nearest 1,000."
+
+
+def build_benefits(
+    series: dict[str, dict[str, Any]],
+    nom_by: dict[str, list[Row]],
+    chosen_by: dict[str, list[Row]],
+    records: Records,
+    rejected: list[dict[str, Any]],
+    generated: str,
+) -> dict[str, dict[str, Any]]:
+    """Return {relative path: JSON object} for benefits/index.json and benefits/<slug>.json."""
+    total_id = "dwp_benefits.exp.total_benefit_expenditure"
+    totals = _edition_index(nom_by.get(total_id, []))
+    files: dict[str, dict[str, Any]] = {}
+    index_entries: list[dict[str, Any]] = []
+    gaps = [dict(g) for g in BENEFIT_GAPS]
+    edition = None
+    for pair in BENEFIT_PAIRS:
+        slug = pair["slug"]
+        if not _SLUG_RE.match(slug):
+            raise RuntimeError(f"bad benefit slug {slug!r}")
+        sid, cid = pair["spend"], pair["caseload"]
+        if sid not in series or cid not in series:
+            gaps.append(
+                {
+                    "name": pair["name"],
+                    "reason": "the spend or caseload series is not in this build",
+                }
+            )
+            continue
+        caseloads = _edition_index(nom_by.get(cid, []))
+        cpc_pts, share_pts, fgaps = [], [], []
+        for r in chosen_by[sid]:
+            edition = edition or r.prov.edition
+            c = caseloads.get((r.prov.edition, r.fiscal_year))
+            if c is None:
+                fgaps.append(
+                    {
+                        "fiscal_year": r.fiscal_year,
+                        "field": "cost_per_claimant",
+                        "reason": "no caseload published for this year",
+                    }
+                )
+            else:
+                try:
+                    pt = _emit(
+                        records,
+                        rejected,
+                        units.per_claimant(r, c),
+                        r,
+                        "GBP_per_claimant",
+                        variant="cost_per_claimant",
+                    )
+                    if pt:
+                        cpc_pts.append(pt)
+                except units.MissingDenominator as e:
+                    fgaps.append(
+                        {
+                            "fiscal_year": r.fiscal_year,
+                            "field": "cost_per_claimant",
+                            "reason": str(e),
+                        }
+                    )
+            t = totals.get((r.prov.edition, r.fiscal_year))
+            if t is None:
+                fgaps.append(
+                    {
+                        "fiscal_year": r.fiscal_year,
+                        "field": "share_of_welfare",
+                        "reason": "the welfare total is not published in the same edition",
+                    }
+                )
+            else:
+                try:
+                    pt = _emit(
+                        records,
+                        rejected,
+                        units.share(r, t, op="share_of_total"),
+                        r,
+                        "percent",
+                        variant="share_of_welfare",
+                    )
+                    if pt:
+                        share_pts.append(pt)
+                except units.MissingDenominator as e:
+                    fgaps.append(
+                        {
+                            "fiscal_year": r.fiscal_year,
+                            "field": "share_of_welfare",
+                            "reason": str(e),
+                        }
+                    )
+        spend_pts = series[sid]["variants"]["nominal"]
+        claim_pts = series[cid]["variants"]["nominal"]
+        have = [
+            {p["fiscal_year"] for p in pts} for pts in (spend_pts, claim_pts, cpc_pts, share_pts)
+        ]
+        full = sorted(set.intersection(*have))
+        by_fy = [
+            {p["fiscal_year"]: p for p in pts} for pts in (spend_pts, claim_pts, cpc_pts, share_pts)
+        ]
+        outturn = [fy for fy in full if all(m[fy]["status"] == "outturn" for m in by_fy)]
+        head_fy = outturn[-1] if outturn else (full[-1] if full else None)
+        headline = None
+        if head_fy:
+            sp, cl, cp, sh = (m[head_fy] for m in by_fy)
+            real_pt = next(
+                (p for p in series[sid]["variants"].get("real", []) if p["fiscal_year"] == head_fy),
+                None,
+            )
+            headline = {
+                "fiscal_year": head_fy,
+                "status": "outturn" if head_fy in outturn else "forecast",
+                "spend": sp,
+                "spend_real": real_pt,
+                "claimants": cl,
+                "cost_per_claimant": cp,
+                "share_of_welfare": sh,
+            }
+        notes = list(pair["notes"])
+        if pair.get("basis_note"):
+            notes.append(pair["basis_note"])
+        notes.append(CLAIMANT_NOTE)
+        files[f"benefits/{slug}.json"] = {
+            "slug": slug,
+            "name": pair["name"],
+            "geography": "GB",
+            "edition": edition,
+            "spend_series_id": sid,
+            "caseload_series_id": cid,
+            "caseload_basis": pair["basis"],
+            "headline_year": head_fy,
+            "spend": spend_pts,
+            "spend_real": series[sid]["variants"].get("real", []),
+            "spend_per_person": series[sid]["variants"].get("per_person", []),
+            "claimants": claim_pts,
+            "cost_per_claimant": cpc_pts,
+            "share_of_welfare": share_pts,
+            "gaps": sorted(fgaps, key=lambda g: (g["fiscal_year"], g["field"])),
+            "notes": notes,
+        }
+        index_entries.append(
+            {
+                "slug": slug,
+                "name": pair["name"],
+                "path": f"benefits/{slug}.json",
+                "caseload_basis": pair["basis"],
+                "headline": headline,
+            }
+        )
+    files["benefits/index.json"] = {
+        "generated_at": generated,
+        "edition": edition,
+        "geography": "GB",
+        "total_series_id": total_id,
+        "benefits": index_entries,
+        "gaps": gaps,
+    }
+    return files
+
+
+# --------------------------------------------------------------------------- Cabinet Office
+
+
+def _co_parts(sid: str) -> tuple[str, str]:
+    """('total'|'transactions'|'expense_type'|'supplier', 'YYYY_MM') from a series id."""
+    kind, mm = sid[len(CO_PREFIX) :].split(".")[:2]
+    return kind, mm
+
+
+def _month_label(mm: str) -> str:
+    return mm.replace("_", "-")
+
+
+def build_cabinet_office(
+    co_rows: list[Row],
+    enabled: bool,
+    records: Records,
+    rejected: list[dict[str, Any]],
+) -> tuple[dict[str, Any], list[Row]]:
+    """Aggregates only. Returns (summary.json object, month total rows that were published)."""
+    base = {"source_id": "cabinet_office_spend", "entity": "Cabinet Office (core)"}
+    if not enabled or not co_rows:
+        return (
+            {
+                **base,
+                "available": False,
+                "reason": "the source is disabled or produced no rows in this build",
+            },
+            [],
+        )
+    by_month: dict[str, dict[str, list[Row]]] = defaultdict(lambda: defaultdict(list))
+    for r in co_rows:
+        kind, mm = _co_parts(r.series_id)
+        by_month[mm][kind].append(r)
+    keep = sorted(by_month, reverse=True)[: CO_CAPS["months"]]
+    months_out, total_rows = [], []
+    for mm in keep:  # newest first
+        kinds = by_month[mm]
+        total = kinds["total"][0]
+        tp = _emit(records, rejected, total, total, "GBP")
+        if tp is None:
+            continue
+        total_rows.append(total)
+        tx = kinds["transactions"][0] if kinds["transactions"] else None
+        txp = _emit(records, rejected, tx, tx, "count") if tx else None
+        ets = sorted(kinds["expense_type"], key=lambda r: -r.value)
+        top = ets[: CO_CAPS["expense_types_per_month"]]
+        et_out, top_ok = [], []
+        for r in top:
+            name = label_of(r)
+            pt = _emit(records, rejected, r, r, "GBP")
+            if pt and name:
+                et_out.append({"name": name, "point": pt})
+                top_ok.append(r)
+        other = None
+        if len(ets) > len(top) and len(top_ok) == len(top):
+            orow = units.remainder(total, top_ok, "other expense types")
+            other = _emit(records, rejected, orow, total, "GBP")
+        months_out.append(
+            {
+                "month": _month_label(mm),
+                "fiscal_year": total.fiscal_year,
+                "total": tp,
+                "transactions": txp,
+                "expense_types": et_out,
+                "other_expense_types": other,
+            }
+        )
+    window_out: dict[str, Any] = {
+        "from": None,
+        "to": None,
+        "months": 0,
+        "complete": False,
+        "total": None,
+    }
+    top_suppliers: list[dict[str, Any]] = []
+    other_suppliers = None
+    win = reconcile.co_window(total_rows)
+    if win is not None:
+        wrow, wmonths = win
+        wp = _emit(records, rejected, wrow, wmonths[0], "GBP")
+        # a window total that fails the gate leaves the window unavailable
+        if wp:
+            for m in wmonths[1:]:
+                records.add(m, m)
+            window_out = {
+                "from": _month_label(_co_parts(wmonths[0].series_id)[1]),
+                "to": _month_label(_co_parts(wmonths[-1].series_id)[1]),
+                "months": len(wmonths),
+                "complete": True,
+                "total": wp,
+            }
+            wm = [_co_parts(m.series_id)[1] for m in wmonths]
+            # rows are grouped by cleaned name, so one supplier written with and without a vendor
+            # number (or twice in a month) is one supplier; each input row keeps its own record
+            sup_months: dict[str, dict[str, list[Row]]] = defaultdict(lambda: defaultdict(list))
+            for mm in wm:
+                for r in by_month[mm]["supplier"]:
+                    name = label_of(r)
+                    if name is not None:
+                        sup_months[clean_supplier(name)][mm].append(r)
+            sup_total = {
+                n: sum(r.value for rs in d.values() for r in rs) for n, d in sup_months.items()
+            }
+            ranked = sorted(sup_total, key=lambda n: (-sup_total[n], n))[: CO_CAPS["suppliers"]]
+            named_rows = []
+            for name in ranked:
+                if (
+                    not name.strip()
+                    or _SUPPLIER_DENY.search(name)
+                    or sup_total[name] < CO_CAPS["supplier_floor_gbp"]
+                ):
+                    continue
+                months = [r for mm in wm for r in sup_months[name].get(mm, [])]
+                first, rest = months[0], months[1:]
+                n_months = len(sup_months[name])
+                srow = units.sum_rows(
+                    first,
+                    rest,
+                    "sum_months",
+                    f"sum of this supplier's monthly totals, {n_months} month(s) between "
+                    f"{window_out['from']} and {window_out['to']}; this record's own range is "
+                    "the first of those months, the other months are its inputs",
+                )
+                pt = _emit(records, rejected, srow, first, "GBP")
+                if pt is None:
+                    continue
+                for m in rest:
+                    records.add(m, m)
+                named_rows.append(srow)
+                top_suppliers.append({"name": name, "point": pt, "months_present": n_months})
+            if named_rows:
+                orow = units.remainder(
+                    wrow, named_rows, "suppliers not named individually", strict=False
+                )
+                other_suppliers = _emit(records, rejected, orow, wmonths[0], "GBP")
+    summary = {
+        **base,
+        "threshold_gbp": 25000,
+        "vat_basis": "unverified",
+        "available": True,
+        "window": window_out,
+        "months": months_out,
+        "top_suppliers": top_suppliers,
+        "other_suppliers": other_suppliers,
+        "caps": dict(CO_CAPS),
+        "notes": [
+            "Amounts as published; the files do not say whether VAT is included.",
+            "The 20 largest suppliers paid at least £1 million over the 12 months are named; "
+            "everyone else is grouped.",
+        ],
+    }
+    return summary, total_rows
+
+
+# --------------------------------------------------------------------------- glossary
+
+
+class GlossaryError(ValueError):
+    pass
+
+
+def _slugify(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", text.casefold()).strip("-")
+
+
+def build_glossary(source_ids: set[str], generated: str, path: Path = GLOSSARY) -> dict[str, Any]:
+    """Validate data/glossary.yml and return glossary.json. No figures are allowed in copy."""
+    raw = yaml.safe_load(path.read_text()) if path.exists() else None
+    if not isinstance(raw, list) or not raw:
+        raise GlossaryError(f"{path}: must be a non-empty list")
+    terms: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for i, e in enumerate(raw):
+        if not isinstance(e, dict):
+            raise GlossaryError(f"{path}: entry {i} is not a mapping")
+        name = e.get("id") or e.get("term") or f"#{i}"
+        for k in ("term", "plain", "long"):
+            if not isinstance(e.get(k), str) or not e[k].strip():
+                raise GlossaryError(f"glossary entry {name!r}: missing {k}")
+        gid = e.get("id") or _slugify(e["term"])
+        if not _SLUG_RE.match(gid):
+            raise GlossaryError(f"glossary entry {name!r}: bad id {gid!r}")
+        if gid in seen:
+            raise GlossaryError(f"glossary entry {name!r}: duplicate id {gid!r}")
+        seen.add(gid)
+        for k in ("plain", "long"):
+            m = _FIGURE.search(e[k])
+            if m:
+                raise GlossaryError(
+                    f"glossary entry {gid!r}: {k} contains a figure ({m.group(0)!r}); figures "
+                    "belong in the API with provenance"
+                )
+        if e.get("source_id") is not None and e["source_id"] not in source_ids:
+            raise GlossaryError(f"glossary entry {gid!r}: unknown source_id {e['source_id']!r}")
+        terms.append(
+            {
+                "id": gid,
+                "term": e["term"].strip(),
+                "aliases": list(e.get("aliases") or []),
+                "plain": e["plain"].strip(),
+                "long": e["long"].strip(),
+                "see_also": list(e.get("see_also") or []),
+                "source_id": e.get("source_id"),
+                "checker_only": bool(e.get("checker_only", False)),
+            }
+        )
+    for t in terms:
+        for ref in t["see_also"]:
+            if ref not in seen:
+                raise GlossaryError(f"glossary entry {t['id']!r}: see_also {ref!r} does not exist")
+    terms.sort(key=lambda t: t["term"].casefold())
+    return {"generated_at": generated, "terms": terms}
 
 
 # --------------------------------------------------------------------------- writing
@@ -530,6 +1371,71 @@ def _flatten_recon(recon: dict[str, Any]) -> list[dict[str, Any]]:
     return out
 
 
+def _per_household_block(chosen_by: dict[str, list[Row]]) -> dict[str, Any]:
+    rows = chosen_by.get(HH_SERIES)
+    if not rows:
+        return {
+            "available": False,
+            "reason": "the ONS household count is disabled or produced no rows in this build",
+        }
+    return {
+        "available": True,
+        "series_id": HH_SERIES,
+        "unit": "thousands",
+        "vintage": rows[-1].prov.vintage,
+        "years": [rows[0].fiscal_year, rows[-1].fiscal_year],
+        "variants": ["per_household", "per_household_real"],
+        "period_basis": "apr_jun_quarter",
+        "mapping": "Labour Force Survey April-June quarter of calendar year YYYY, labelled with "
+        "the fiscal year YYYY-(YY+1) that contains it; spend of that whole fiscal year is "
+        "divided by it",
+        "note": "A sample survey of private households, 2011 onwards (the definition changed "
+        "in 2011). Only UK-wide series have a per-household variant.",
+    }
+
+
+def _gdp_block(chosen_by: dict[str, list[Row]]) -> dict[str, Any]:
+    fiscal = chosen_by.get(GDP_FISCAL, [])
+    cal = chosen_by.get(GDP_CALENDAR, [])
+    return {
+        "fiscal_year": {
+            "series_id": GDP_FISCAL,
+            "vintage": fiscal[-1].prov.vintage if fiscal else None,
+            "used_for": "the pct_gdp variant of every UK fiscal-year monetary series: value of "
+            "fiscal year Y divided by nominal GDP of fiscal year Y",
+        },
+        "calendar_year": {
+            "series_id": GDP_CALENDAR if cal else None,
+            "vintage": cal[-1].prov.vintage if cal else None,
+            "years": [cal[0].fiscal_year, cal[-1].fiscal_year] if cal else None,
+            "used_for": None,
+            "note": "ONS calendar-year GDP is published for reference and cross-checks only. It "
+            "is not a divisor: an April-March fiscal year and a calendar year do not line up, "
+            "and the ONS public sector finances use their own 12-month centred GDP.",
+        },
+    }
+
+
+def _debt_interest_block(chosen_by: dict[str, list[Row]], series: dict[str, Any]) -> dict[str, Any]:
+    sid, total = "ons_psf.cg_debt_interest", EXTRA_PER_100["ons_psf.cg_debt_interest"]
+    rows = [r for r in chosen_by.get(sid, []) if r.prov.status == "outturn"]
+    if not rows:
+        return {
+            "available": False,
+            "reason": "the ONS public sector finances are not in this build",
+        }
+    return {
+        "available": True,
+        "series_id": sid,
+        "variants": sorted(series[sid]["variants"]) if sid in series else [],
+        "per_100_total_series_id": total,
+        "latest_outturn": rows[-1].fiscal_year,
+        "note": "Central government interest on its debt (includes investment income "
+        "attributable to insurance policy holders). per_100 is out of every GBP 100 of central "
+        "government revenue.",
+    }
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="ukpm build")
     ap.add_argument("--out", default="site/api/v1")
@@ -542,6 +1448,9 @@ def main(argv: list[str] | None = None) -> int:
     src_by_id = {s.id: s for s in sources}
     rows, retrieval, parser_series, status = collect(sources, args.offline)
     rows, rejected = gate(rows)
+    # Cabinet Office rows never enter stitching, series, observations or the vintage loop
+    co_rows = [r for r in rows if r.series_id.startswith(CO_PREFIX)]
+    rows = [r for r in rows if not r.series_id.startswith(CO_PREFIX)]
 
     # nominal GBP bn rows for every vintage; raw values stay in the check block
     records = Records(retrieval)
@@ -569,12 +1478,29 @@ def main(argv: list[str] | None = None) -> int:
     published = {sid for sid, _ in chosen}
     geography = {r.series_id: r.geography for r in nominal}
     definitions, definition_of, defs_by_series = build_definitions(published, geography)
+    nom_by: dict[str, list[Row]] = defaultdict(list)
+    for r in nominal:
+        nom_by[r.series_id].append(r)
+    chosen_by: dict[str, list[Row]] = defaultdict(list)
+    for (sid_, _), r in sorted(chosen.items()):
+        chosen_by[sid_].append(r)
     series, base = build_series(
-        chosen, parser_series, src_by_id, records, rejected, retrieval, definition_of
+        chosen, parser_series, src_by_id, records, rejected, retrieval, definition_of, nom_by
     )
     titles = {sid: s["title"] for sid, s in series.items()}
     for r in nominal:  # every vintage keeps its provenance record
         records.add(r, r)
+
+    shares = build_shares(series, nom_by, chosen_by, records, rejected, generated)
+    benefit_files = build_benefits(series, nom_by, chosen_by, records, rejected, generated)
+    co_summary, co_month_totals = build_cabinet_office(
+        co_rows, src_by_id["cabinet_office_spend"].enabled, records, rejected
+    )
+    try:
+        glossary = build_glossary(set(src_by_id), generated)
+    except GlossaryError as e:
+        print(f"build failed: {e}", file=sys.stderr)
+        return 1
 
     recon = reconcile.run(
         nominal,
@@ -584,6 +1510,7 @@ def main(argv: list[str] | None = None) -> int:
         frozenset(
             s.id for s in sources if any(f["retrieval"] == "fixture" for f in status[s.id]["files"])
         ),
+        co_month_totals,
     )
     recon["generated_at"] = generated
 
@@ -640,6 +1567,7 @@ def main(argv: list[str] | None = None) -> int:
                 "stale_since": None,
                 "deferred": None,
                 "notes": s.notes,
+                "verdict_reason": s.verdict_reason,
             }
             for s in sources
         ],
@@ -663,11 +1591,26 @@ def main(argv: list[str] | None = None) -> int:
             }
             for sid, s in sorted(series.items())
         ],
+        "population": {
+            "series": {g: sid for g, sid in POP_SERIES.items() if sid in series},
+            "vintage": next(
+                (r.prov.vintage for (sid, _), r in chosen.items() if sid.startswith("ons_pop")),
+                None,
+            ),
+            "mapping": "mid-year (30 June) estimate inside each April-March year",
+        },
+        "per_household": _per_household_block(chosen_by),
+        "gdp": _gdp_block(chosen_by),
+        "debt_interest": _debt_interest_block(chosen_by, series),
         "files": {
             "observations": "observations.parquet",
             "provenance": "provenance.parquet",
             "all_vintages": "observations_all_vintages.parquet",
             "reconciliation": "reconciliation.parquet",
+            "glossary": "glossary.json",
+            "shares": "shares.json",
+            "benefits": "benefits/index.json",
+            "cabinet_office": "cabinet_office/summary.json",
         },
     }
 
@@ -686,13 +1629,24 @@ def main(argv: list[str] | None = None) -> int:
     _dump(tmp / "definitions.json", definitions)
     _dump(tmp / "claims.json", claim_out)
     _dump(tmp / "corrections.json", {"corrections": corrections})
+    _dump(tmp / "glossary.json", glossary)
+    _dump(tmp / "shares.json", shares)
+    for rel, obj in benefit_files.items():
+        _dump(tmp / rel, obj)
+    _dump(tmp / "cabinet_office" / "summary.json", co_summary)
 
     obs, vint = [], []
     for sid, s in series.items():
         for v, pts in s["variants"].items():
-            basis = (
-                "nominal" if v == "nominal" else ("pct_gdp" if v == "pct_gdp" else f"real_{base}")
-            )
+            basis = {
+                "nominal": "nominal",
+                "pct_gdp": "pct_gdp",
+                "per_person": "per_person",
+                "per_person_real": f"per_person_real_{base}",
+                "per_household": "per_household",
+                "per_household_real": f"per_household_real_{base}",
+                "per_100": "per_100",
+            }.get(v, f"real_{base}")
             obs += [
                 {
                     "series_id": sid,

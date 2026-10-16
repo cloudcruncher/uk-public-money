@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Methodology · UK Public Money</title>
+<title>How we work out the numbers · UK Public Money</title>
 <meta name="description" content="How UK Public Money converts, labels and checks official figures.">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/app.css">
@@ -17,20 +17,20 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head"><div class="head-inner">
 <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">£</span><span>UK Public Money</span></a>
-<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li></ul><ul class="secondary"><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html" aria-current="page">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul></nav>
+<nav class="nav" aria-label="Main"><ul><li><a href="index.html">Home</a></li><li><a href="spending.html">Where your money goes</a></li><li><a href="revenue.html">Where the money comes from</a></li><li><a href="benefits.html">Benefits explained</a></li><li><a href="who-pays.html">Who pays tax</a></li><li><a href="claims.html">Check a number</a></li></ul><ul class="secondary"><li><a href="glossary.html">Words explained</a></li><li><a href="reconciliation.html">Why totals differ</a></li><li><a href="methodology.html" aria-current="page">How we work it out</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About us</a></li></ul></nav>
 </div></header>
-<div class="controls"><div class="controls-inner"><div></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
+<div class="controls"><div class="controls-inner"><div id="basis-host"></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
 <main id="main" tabindex="-1" data-page-root>
 
-<h1>Methodology</h1>
-<p class="lede">How the numbers are read, converted, labelled and checked.</p>
+<h1>How we work out the numbers</h1>
+<section class="summary" aria-labelledby="summary-h"><h2 id="summary-h" class="visually-hidden">In one sentence</h2><div id="summary-body"><p class="state" role="status">Loading…</p></div></section>
 <h2>Cash, real terms and % of GDP</h2>
 <p><strong>Cash</strong> figures are as published, scaled to £ billion where needed (the scaling is recorded in each number’s source).</p>
 <p><strong>Real terms</strong> figures are in <span data-fill="real_base_year">…</span> prices: cash × deflator in the base year ÷ deflator in that
 year, using the OBR GDP deflator at market prices (<span data-fill="deflator_vintage">…</span>). Tax-year series are deflated with the
 financial-year deflator, and say so. Counts of people are never deflated.</p>
 <p><strong>% of GDP</strong> is the value ÷ nominal GDP for the same financial year from the same OBR vintage × 100. It is not published for
-series that are not UK-wide (such as PESA Table 10.1, England only) or for tax-year series.</p>
+series that are not UK-wide (such as PESA Table 10.1, England only; the site's main spending split now uses UK-wide PESA Table 5.2) or for tax-year series.</p>
 <p>When a view is not available for a series, the page says so and shows cash instead.</p>
 <h2>Outturn and forecast</h2>
 <p><strong>Outturn</strong> is what was actually spent or received. <strong>Forecast</strong> covers forecasts, plans and projections from the publisher
@@ -43,26 +43,40 @@ Older values are kept in the published all-vintages file. Years that no fetched 
 interpolate, carry values forward or back-cast. Coverage starts in <span data-fill="from_year">…</span>.</p>
 <h2>Known limits of this slice</h2>
 <ul>
-<li>PESA Table 10.1 (spending by function) is <strong>England-only</strong> identifiable spending on services (TES), not UK TME, and the COFOG split <strong>ends in 2024-25</strong>.</li>
+<li>PESA Table 10.1 is <strong>England-only</strong> spending on services and is kept as a fallback. The main spending split uses UK-wide PESA Table 5.2 (<strong>2021-22 to 2025-26</strong>).</li>
 <li>HMRC income tax Table 2.5 <strong>starts in 2023-24</strong>; historic Table 2.5a editions are not yet read.</li>
 <li>DWP Table 1a is Great Britain; the “UK welfare” tab is UK. They are different totals.</li>
-<li>HMRC receipts are cash; OBR receipts are accrued and broader.</li>
-<li>ONS Public Sector Finances, DWP Stat-Xplore caseloads, PAYE RTI and household incidence data are not yet included.</li>
+<li>HMRC receipts and the OBR receipts we use (EFO table 3.8) are both cash. OBR “current receipts” is broader than HMRC’s total because it also includes receipts HMRC does not collect, such as business rates and council tax.</li>
+<li>DWP Stat-Xplore caseloads, PAYE RTI and household incidence data are not included. The ONS public sector finances and the DWP Table 1c caseloads are included.</li>
 </ul>
-<h2>Pence in every £1</h2>
-<p>The “pence in every £1” and “share” figures are computed in your browser by dividing one published cash figure by its
-published total for the same year and edition. They are not published figures themselves; clicking one shows the formula and
-links to both inputs.</p>
+<h2>Shares: out of every £100</h2>
+<p>A share says how much of every £100 of a total goes to one thing. Most shares on this site (spending, the home page,
+debt interest) are built with the rest of the data: the build divides one published figure by the published total for the same
+year and edition and publishes the result with its own record. The few that are worked out in your browser, such as on the
+revenue page, use the same division. Either way a share is not a published figure itself, and clicking it shows the formula
+and links to both inputs.</p>
+<h2>Per person</h2>
+<p>“Per person” divides a year’s spending by the ONS mid-year population estimate (30 June) that falls inside that April to March
+year. We use estimates only, never population projections, so years without an estimate have no per-person figure.</p>
+<h2>Per household</h2>
+<p>“Per household” divides a year’s spending by the number of UK households from the ONS Families and households release, which
+comes from the Labour Force Survey April to June quarter of the calendar year that starts the fiscal year. It counts private
+households only and is a sample estimate, not a census count. Only UK-wide series get a per-household figure.</p>
+<h2>Calendar-year and stock series</h2>
+<p>Some figures are for a calendar year (for example ONS GDP) or are a stock at a date (for example debt at 31 March). An April to
+March year and a calendar year do not line up, and a stock is not spending over the year, so these series get no real-terms,
+per-person, per-household or share versions. They are shown as published.</p>
 <h2>Cross-checks</h2>
-<p>Each build runs reconciliation rules R1 to R7 (for example: do the COFOG functions add up to the table total; does PESA TME agree
+<p>Each build runs reconciliation rules <span data-fill="rule_range">…</span> (for example: do the COFOG functions add up to the table total; does PESA TME agree
 with the OBR). Results, including failures, are on the <a href="reconciliation.html">reconciliation page</a>.</p>
 <h2>Checking a number yourself</h2>
 <p>Spreadsheets cannot be linked to a single cell, so the check page gives the file link, its SHA-256 hash (to confirm you have the
-same file), the sheet, the cell and the row and column labels.</p>
-
+same file), the sheet, the cell and the steps we applied.</p>
+<h2 class="visually-hidden">For checkers</h2>
+<div id="checkers"></div>
 </main>
 <footer class="site-foot"><div class="foot-inner">
-<ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul>
+<ul><li><a href="index.html">Home</a></li><li><a href="spending.html">Where your money goes</a></li><li><a href="revenue.html">Where the money comes from</a></li><li><a href="benefits.html">Benefits explained</a></li><li><a href="who-pays.html">Who pays tax</a></li><li><a href="claims.html">Check a number</a></li><li><a href="glossary.html">Words explained</a></li><li><a href="reconciliation.html">Why totals differ</a></li><li><a href="methodology.html">How we work it out</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About us</a></li></ul>
 <p>Every number links to the publisher’s own file. No tracking, no cookies, no third-party scripts. Data: Open Government Licence v3.0.</p>
 <p id="build-host">Loading build information…</p>
 </div></footer>

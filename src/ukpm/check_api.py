@@ -29,8 +29,33 @@ REQUIRED_FILES = (
     "observations_all_vintages.parquet",
     "provenance.parquet",
     "reconciliation.parquet",
+    "glossary.json",
+    "shares.json",
+    "benefits/index.json",
+    "cabinet_office/summary.json",
 )
-RULE_IDS = [f"R{i}" for i in range(1, 8)]
+RULE_IDS = [f"R{i}" for i in range(1, 15)]
+VARIANTS = {
+    "nominal",
+    "real",
+    "pct_gdp",
+    "per_person",
+    "per_person_real",
+    "per_household",
+    "per_household_real",
+    "per_100",
+}
+SLUG_RE = re.compile(r"^[a-z0-9-]+$")
+FIGURE_RE = re.compile(r"£\s?\d|\d\s?%|\d[\d,]*\s?(million|billion|bn|m)\b")
+PER_100_TOTALS = {
+    "pesa.cofog.total_services",
+    "pesa_uk.services",
+    "hmrc_receipts.total",
+    "ons_psf.cg_receipts",
+}
+FORBIDDEN_CO_KEYS = {"ref", "transaction_number", "date", "expense_area"}
+CO_MAX_BYTES = 262144
+CO_MAX_PROVENANCE_BYTES = 1048576
 STATUSES = {"pass", "fail", "info", "not_run"}
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 INDEX_KEYS = ("api_version", "generated_at", "build", "fiscal_years", "sources", "series", "files")
@@ -69,6 +94,194 @@ def _as_prov(rec: dict[str, Any]) -> Provenance:
         for t in rec.get("transformations") or []
     )
     return Provenance(**{**{k: rec.get(k) for k in PROV_FIELDS}, "transformations": trans})
+
+
+def _walk_values(obj: Any, where: str, records: dict[str, dict[str, Any]], errs: list[str]) -> None:
+    """Every dict with a `value` key must resolve to a complete provenance record."""
+    if isinstance(obj, dict):
+        if "value" in obj:
+            pid = obj.get("provenance_id")
+            rec = records.get(pid) if isinstance(pid, str) else None
+            v = obj["value"]
+            if rec is None:
+                errs.append(f"{where}: value has no resolvable provenance_id")
+            elif not isinstance(v, int | float) or isinstance(v, bool) or not math.isfinite(v):
+                errs.append(f"{where}: value not a finite number")
+            elif rec.get("status") != obj.get("status"):
+                errs.append(f"{where}: status differs from its provenance record")
+        for k, v in obj.items():
+            if k != "value":
+                _walk_values(v, f"{where}.{k}", records, errs)
+    elif isinstance(obj, list):
+        for i, v in enumerate(obj):
+            _walk_values(v, f"{where}[{i}]", records, errs)
+
+
+def _keys(obj: Any):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            yield k
+            yield from _keys(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            yield from _keys(v)
+
+
+def _pids(obj: Any):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k == "provenance_id" and isinstance(v, str):
+                yield v
+            else:
+                yield from _pids(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            yield from _pids(v)
+
+
+def _input_series(rec: dict[str, Any], records: dict[str, dict[str, Any]]) -> list[str]:
+    return [str(records[i].get("series_id") or "") for i in rec.get("inputs") or [] if i in records]
+
+
+def _check_layman(root: Path, records: dict[str, dict[str, Any]], errs: list[str]) -> None:
+    # shares
+    shares = _load(root / "shares.json", errs)
+    if isinstance(shares, dict) and isinstance(shares.get("sets"), list):
+        _walk_values(shares, "shares.json", records, errs)
+        for st in shares["sets"]:
+            if st.get("available") is False:
+                continue
+            tot = sum(p["per_100"]["value"] for p in st.get("parts", []))
+            tot += (st.get("other") or {}).get("value", 0.0)
+            if abs(tot - 100) > 1e-9 or not st.get("other"):
+                errs.append(f"shares.json: set {st.get('id')} adds up to {tot}, not 100")
+            if st.get("role") not in ("primary", "fallback"):
+                errs.append(f"shares.json: set {st.get('id')} has no role (primary or fallback)")
+            if st.get("role") == "fallback" and not st.get("superseded_by"):
+                errs.append(
+                    f"shares.json: fallback set {st.get('id')} says nothing about its successor"
+                )
+            for part in st.get("parts", []):
+                ph = part.get("per_household")
+                rec = records.get((ph or {}).get("provenance_id", "")) if ph else None
+                if ph and (rec is None or "ons_households.uk" not in _input_series(rec, records)):
+                    errs.append(
+                        f"shares.json: {part.get('series_id')} per_household lacks household input"
+                    )
+    else:
+        errs.append("shares.json: bad shape")
+    # index blocks that describe the denominators
+    idx = _load(root / "index.json", errs)
+    if isinstance(idx, dict):
+        ids = {e["id"] for e in idx.get("series", [])}
+        phb = idx.get("per_household")
+        if not isinstance(phb, dict) or not isinstance(phb.get("available"), bool):
+            errs.append("index.json: per_household block is missing or has no 'available'")
+        elif phb["available"] and phb.get("series_id") not in ids:
+            errs.append("index.json: per_household.series_id is not a published series")
+        gdpb = idx.get("gdp")
+        if not isinstance(gdpb, dict) or not {"fiscal_year", "calendar_year"} <= set(gdpb):
+            errs.append("index.json: gdp block must describe fiscal_year and calendar_year GDP")
+        elif (gdpb["calendar_year"] or {}).get("used_for") is not None:
+            errs.append("index.json: calendar-year GDP must not be used as a divisor")
+        dib = idx.get("debt_interest")
+        if not isinstance(dib, dict) or not isinstance(dib.get("available"), bool):
+            errs.append("index.json: debt_interest block is missing or has no 'available'")
+        elif dib["available"] and dib.get("series_id") not in ids:
+            errs.append("index.json: debt_interest.series_id is not a published series")
+    # benefits
+    ben = _load(root / "benefits" / "index.json", errs)
+    if isinstance(ben, dict) and isinstance(ben.get("benefits"), list):
+        _walk_values(ben, "benefits/index.json", records, errs)
+        for b in ben["benefits"]:
+            slug = str(b.get("slug", ""))
+            path = root / str(b.get("path", ""))
+            if not SLUG_RE.match(slug):
+                errs.append(f"benefits/index.json: bad slug {slug!r}")
+            if not path.is_file():
+                errs.append(f"benefits/index.json: {b.get('path')} does not exist")
+                continue
+            data = _load(path, errs)
+            if isinstance(data, dict):
+                _walk_values(data, f"benefits/{slug}.json", records, errs)
+                for p in data.get("cost_per_claimant", []):
+                    rec = records.get(p.get("provenance_id", ""))
+                    if rec is not None and not any(
+                        x.startswith("dwp_benefits.caseload.") for x in _input_series(rec, records)
+                    ):
+                        errs.append(
+                            f"benefits/{slug}.json: cost_per_claimant lacks a caseload input"
+                        )
+    else:
+        errs.append("benefits/index.json: bad shape")
+    # glossary
+    g = _load(root / "glossary.json", errs)
+    if isinstance(g, dict) and isinstance(g.get("terms"), list):
+        ids = [t.get("id") for t in g["terms"]]
+        if len(set(ids)) != len(ids):
+            errs.append("glossary.json: duplicate ids")
+        for t in g["terms"]:
+            for k in (
+                "id",
+                "term",
+                "aliases",
+                "plain",
+                "long",
+                "see_also",
+                "source_id",
+                "checker_only",
+            ):
+                if k not in t:
+                    errs.append(f"glossary.json: {t.get('id')} missing {k}")
+            for ref in t.get("see_also") or []:
+                if ref not in ids:
+                    errs.append(f"glossary.json: {t.get('id')} see_also {ref} does not exist")
+            for k in ("plain", "long"):
+                if FIGURE_RE.search(str(t.get(k, ""))):
+                    errs.append(f"glossary.json: {t.get('id')} {k} contains a figure")
+    else:
+        errs.append("glossary.json: bad shape")
+    # Cabinet Office
+    cp = root / "cabinet_office" / "summary.json"
+    co = _load(cp, errs)
+    if not isinstance(co, dict):
+        return
+    if cp.stat().st_size > CO_MAX_BYTES:
+        errs.append(
+            f"cabinet_office/summary.json: {cp.stat().st_size} bytes exceeds {CO_MAX_BYTES}"
+        )
+    pp = root / "provenance" / "cabinet_office_spend.json"
+    if pp.exists() and pp.stat().st_size > CO_MAX_PROVENANCE_BYTES:
+        errs.append(f"provenance/cabinet_office_spend.json exceeds {CO_MAX_PROVENANCE_BYTES} bytes")
+    bad_keys = {str(k).lower() for k in _keys(co)} & FORBIDDEN_CO_KEYS
+    if bad_keys:
+        errs.append(f"cabinet_office/summary.json: forbidden keys {sorted(bad_keys)}")
+    if co.get("available") is False:
+        return
+    _walk_values(co, "cabinet_office/summary.json", records, errs)
+    caps = co.get("caps") or {}
+    if len(co.get("months", [])) > caps.get("months", 24):
+        errs.append("cabinet_office/summary.json: too many months")
+    for m in co.get("months", []):
+        if len(m.get("expense_types", [])) > caps.get("expense_types_per_month", 10):
+            errs.append(f"cabinet_office/summary.json: too many expense types in {m.get('month')}")
+    sup = co.get("top_suppliers", [])
+    if len(sup) > caps.get("suppliers", 20):
+        errs.append("cabinet_office/summary.json: too many suppliers")
+    for x in sup:
+        if (x.get("point") or {}).get("value", 0) < caps.get("supplier_floor_gbp", 1_000_000):
+            errs.append(f"cabinet_office/summary.json: supplier {x.get('name')} is below the floor")
+    # no orphan supplier records
+    referenced = set(_pids(co))
+    reach = set(referenced)
+    for pid in referenced:
+        reach.update((records.get(pid) or {}).get("inputs") or [])
+    for pid, rec in records.items():
+        if rec.get("source_id") != "cabinet_office_spend":
+            continue
+        parts = str(rec.get("series_id", "")).split(".")
+        if len(parts) > 1 and parts[1] == "supplier" and pid not in reach:
+            errs.append(f"{pid}: orphan supplier record (not referenced by summary.json)")
 
 
 def check(root: Path, live: bool = False) -> list[str]:
@@ -167,7 +380,11 @@ def check(root: Path, live: bool = False) -> list[str]:
             need = {"nominal", "pct_gdp"} | ({"real"} if index.get("real_base_year") else set())
             for v in sorted(need - set(variants)):
                 errs.append(f"{sid}: headline series lacks the {v} variant")
+        if s.get("period_type") == "calendar_year" and set(variants) != {"nominal"}:
+            errs.append(f"{sid}: calendar-year series must be nominal only, not converted")
         for v, pts in variants.items():
+            if v not in VARIANTS:
+                errs.append(f"{sid}: unknown variant {v}")
             if v != "nominal" and not s.get("monetary"):
                 errs.append(f"{sid}: non-monetary series has a {v} variant")
             for p in pts:
@@ -186,6 +403,24 @@ def check(root: Path, live: bool = False) -> list[str]:
                     errs.append(f"{sid}/{v}/{p['fiscal_year']}: forecast not marked forecast")
                 if v != "nominal" and not rec.get("inputs"):
                     errs.append(f"{sid}/{v}/{p['fiscal_year']}: derived value lists no inputs")
+                if v.startswith("per_person") and not any(
+                    x.startswith("ons_population.") for x in _input_series(rec, records)
+                ):
+                    errs.append(
+                        f"{sid}/{v}/{p['fiscal_year']}: per-person value lacks a population input"
+                    )
+                if v.startswith("per_household") and not any(
+                    x == "ons_households.uk" for x in _input_series(rec, records)
+                ):
+                    errs.append(
+                        f"{sid}/{v}/{p['fiscal_year']}: per-household value lacks a household input"
+                    )
+                if v == "per_100" and not any(
+                    x in PER_100_TOTALS for x in _input_series(rec, records)
+                ):
+                    errs.append(
+                        f"{sid}/{v}/{p['fiscal_year']}: per_100 value lacks its total as input"
+                    )
                 points[(sid, v, p["fiscal_year"])] = p
 
     # reconciliation
@@ -241,6 +476,7 @@ def check(root: Path, live: bool = False) -> list[str]:
                 errs.append(f"claims.json: {c['id']} does not resolve to a real point")
             if not str(c.get("said_url", "")).startswith("https://"):
                 errs.append(f"claims.json: {c['id']} said_url not https")
+    _check_layman(root, records, errs)
     return errs
 
 

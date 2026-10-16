@@ -3,25 +3,25 @@
 
 - id: welfare_dwp_ame
   label: DWP benefit spending (AME)
-  short: "Benefits paid by DWP from the demand-led (AME) budget"
+  short: "Benefits paid by the Department for Work and Pensions, as set out in its own spending table"
   includes: [State Pension, Universal Credit, PIP, Housing Benefit]
   excludes: [Tax credits (HMRC, pre-UC), departmental admin]
   source_id: dwp_benefits
-  series_ids: [dwp_benefits.total_uk_welfare]
+  series_ids: [dwp_benefits.exp.total_benefit_expenditure]
   notes: "DWP Table 1a (nominal expenditure by benefit). Geography as stated in the table."
 
 - id: welfare_cap
   label: Welfare Cap
-  short: "DWP AME excluding State Pension and the most cyclical elements, plus some other departments and Northern Ireland"
+  short: "A government limit on welfare spending that leaves out the State Pension and the benefits that rise and fall most with the economy, but adds some spending from other departments and Northern Ireland"
   includes: [Some non-DWP welfare spending, Northern Ireland]
   excludes: [State Pension, JSA and the UC equivalent (cyclical)]
   source_id: dwp_benefits
-  series_ids: [dwp_benefits.total_uk_welfare]
+  series_ids: [dwp_benefits.uk_welfare.total.within_the_welfare_cap]
   notes: "Use for fiscal-rule purposes only; not a total of what is spent on welfare."
 
 - id: uk_welfare_total
   label: UK welfare (DWP tab)
-  short: "The broader welfare total on the DWP 'UK welfare' tab"
+  short: "A wider welfare total, taken from the tab labelled UK welfare in the Department for Work and Pensions tables"
   includes: [Benefits shown on the UK welfare tab]
   excludes: []
   source_id: dwp_benefits
@@ -30,7 +30,7 @@
 
 - id: cofog_social_protection
   label: COFOG social protection (function 10)
-  short: "Social protection as classified by the UN COFOG function, from PESA Table 10.1"
+  short: "Spending on pensions, benefits and other support, grouped by an international system that sorts spending by purpose"
   includes: [COFOG function 10]
   excludes: []
   source_id: pesa
@@ -39,7 +39,7 @@
 
 - id: tme
   label: Total managed expenditure (TME)
-  short: "Total public spending: departmental and annually managed expenditure"
+  short: "All public spending: what departments plan to spend plus spending that depends on need, such as benefits"
   includes: [DEL, AME]
   excludes: []
   source_id: pesa
@@ -48,7 +48,7 @@
 
 - id: tes
   label: Total expenditure on services (TES)
-  short: "Spending by function in PESA Table 10.1; differs from TME by accounting adjustments"
+  short: "Spending grouped by what it is for; it differs from total government spending by some accounting adjustments"
   includes: [COFOG functions]
   excludes: [Accounting adjustments between TES and TME]
   source_id: pesa
@@ -57,7 +57,7 @@
 
 - id: public_sector_current_receipts
   label: Public sector current receipts
-  short: "All current receipts of the public sector, including non-HMRC items"
+  short: "All the money the public sector takes in, including items that HM Revenue and Customs does not collect"
   includes: [Taxes, NICs, council tax, business rates, other receipts]
   excludes: []
   source_id: obr
@@ -66,7 +66,7 @@
 
 - id: hmrc_receipts
   label: HMRC tax and NICs receipts
-  short: "Tax and National Insurance receipts collected by HMRC"
+  short: "Tax and National Insurance collected by HM Revenue and Customs"
   includes: [Income tax, NICs, VAT, Corporation tax, other HMRC taxes]
   excludes: [Council tax, business rates, other non-HMRC receipts]
   source_id: hmrc_receipts
@@ -75,9 +75,72 @@
 
 - id: income_tax_liabilities
   label: Income tax liabilities
-  short: "Income tax only (no NICs), tax-year basis, by income range"
+  short: "Income tax owed, shown by tax year and income range; National Insurance is not included"
   includes: [Income tax]
   excludes: [NICs, welfare]
   source_id: hmrc_income_tax
   series_ids: [hmrc_income_tax.liabilities_total]
   notes: "Tax years, not fiscal years. 2023-24 onward in the current edition."
+
+- id: central_govt_tme
+  label: Central government total managed expenditure (ONS)
+  short: "What central government spends, net of some receipts, on the ONS definition; local government is not included"
+  includes: [Central government current and capital spending on the ONS TME basis]
+  excludes: [Local government, public corporations]
+  source_id: ons_psf
+  series_ids: [ons_psf.cg_tme]
+  notes: "Narrower than PESA and OBR public sector TME, and a different basis from gross central government expenditure. Never mixed with them."
+
+- id: central_govt_gross_expenditure
+  label: Central government total expenditure, gross (ONS)
+  short: "Everything central government pays out, before netting off any receipts"
+  includes: [Central government current and capital spending, gross]
+  excludes: [Local government, public corporations]
+  source_id: ons_psf
+  series_ids: [ons_psf.cg_total_expenditure_gross]
+  notes: "Gross expenditure minus receipts equals net borrowing. Differs from cg_tme."
+
+- id: central_govt_debt_interest
+  label: Central government debt interest
+  short: "Interest the government pays on what it has borrowed"
+  includes: [Interest on gilts and other central government debt]
+  excludes: [Repayment of the debt itself]
+  source_id: ons_psf
+  series_ids: [ons_psf.cg_debt_interest]
+  notes: "Shown as a share of central government receipts (out of every 100 pounds received)."
+
+- id: pesa_uk_services
+  label: UK total expenditure on services (PESA Table 5.2)
+  short: "UK public spending on services, split by function, before accounting adjustments"
+  includes: [The ten COFOG functions, EU transactions]
+  excludes: [Accounting adjustments]
+  source_id: pesa_uk
+  series_ids: [pesa_uk.services]
+  notes: "Services plus accounting adjustments equals TME. UK-wide, replacing the England-only chapter 10 split."
+
+- id: pesa_uk_tme
+  label: UK total managed expenditure (PESA Table 5.2)
+  short: "All UK public sector spending, on the PESA definition"
+  includes: [Services, accounting adjustments]
+  excludes: []
+  source_id: pesa_uk
+  series_ids: [pesa_uk.tme]
+  notes: "Agrees with PESA Table 4.1 TME in the same edition."
+
+- id: households
+  label: Households (ONS Labour Force Survey)
+  short: "The number of households in the UK, used to show spending per household"
+  includes: [UK private households, April to June quarter]
+  excludes: []
+  source_id: ons_households
+  series_ids: [ons_households.uk]
+  notes: "Private households only; a Labour Force Survey sample estimate, not a census count. Calendar-year April to June figure matched to the fiscal year that contains it; spending covers the whole fiscal year."
+
+- id: nominal_gdp_calendar
+  label: Nominal GDP, calendar year (ONS)
+  short: "The size of the UK economy in cash terms, by calendar year"
+  includes: [GDP at current market prices]
+  excludes: []
+  source_id: ons_gdp
+  series_ids: [ons_gdp.nominal]
+  notes: "Calendar years do not line up with fiscal years, so it is not used for percent-of-GDP; the OBR fiscal-year GDP is used there."

@@ -1,0 +1,7 @@
+# Committed unmodified (236,965 bytes, under the 1 MB rule); fixture_sha256 == original_sha256.
+fixtures:
+  - source_id: obr_efo
+    original_sha256: 700bfd700c872794e5fe8cf164086cd38a63850db26427b9d4b2e363d177d9a1
+    original_url: https://obr.uk/docs/d055fbf02d5b3g6jq8l2/efo-march-2026-detailed-forecast-tables-expenditure.xlsx
+    fixture: efo-march-2026-detailed-forecast-tables-expenditure.xlsx
+    fixture_sha256: 700bfd700c872794e5fe8cf164086cd38a63850db26427b9d4b2e363d177d9a1

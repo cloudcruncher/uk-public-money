@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses, converted ods -> xlsx.
+Fetched 2026-10-15. Licence: Open Government Licence v3.0 (gov.uk). Last updated 2026-09-22.
+
+NS_Table.trimmed.xlsx  (sheet Receipts_Annually rows 1-6 and 15-26, i.e. 2014-15..2025-26, all columns)
+  sha256 f65dbb2128335a3de0776b0e19ee9387b2fafa25fbe64c6df5bed0223254ed8d
+  original https://assets.publishing.service.gov.uk/media/6aa923f20420ac660805f7f2/NS_Table.ods
+  original sha256 2cadbec4c57e8626dae26c9f46975375eb2d0c07e40a94070a3c6ccc64403cab

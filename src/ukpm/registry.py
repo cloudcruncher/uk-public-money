@@ -62,6 +62,7 @@ class Source:
     files: tuple[FileEntry, ...]
     gaps: tuple[dict[str, Any], ...] = field(default_factory=tuple)
     notes: str | None = None
+    verdict_reason: str | None = None
 
 
 def _check_url(url: str, where: str, enforce_host: bool = True) -> None:
@@ -145,6 +146,7 @@ def _source(raw: dict[str, Any]) -> Source:
         files=files,
         gaps=tuple(raw.get("gaps") or ()),
         notes=raw.get("notes"),
+        verdict_reason=raw.get("verdict_reason"),
     )
 
 

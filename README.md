@@ -4,18 +4,19 @@ A static, open-data view of UK public spending and revenue, with a provenance re
 Each figure links to a "Check this number" page that gives the publisher's file, sheet, cell, and SHA-256 so a reader
 can find the same value in the original download.
 
-**Status:** first slice in development. The live site URL is not yet known. Nothing here is deployed by this README.
+**Live site:** https://cloudcruncher.github.io/uk-public-money/ (rebuilt daily). The idea: heard a number about UK public money? See what it means in plain English, then check it yourself.
 
-## What it covers (first slice)
+## What it covers
 
 - Spending by function (COFOG) from HM Treasury PESA, and total managed expenditure (TME).
 - Macro aggregates and the GDP deflator from the OBR Public Finances Databank (used for real-terms and % of GDP).
 - HMRC tax and NICs receipts, and income tax liabilities by income range.
 - DWP benefit expenditure and caseloads.
-- A reconciliation page (rules R1 to R7) and a corrections log.
+- Plain-English story homepage ("out of every £100", per person, per household), benefits explained one by one (cost, claimants, cost per claimant), and a glossary.
+- ONS population, households, GDP and Public Sector Finances; OBR outlook tables; Cabinet Office spend over £25k (aggregated).
+- A reconciliation page (rules R1 to R14) and a corrections log.
 
-Out of scope for now: spend over £25k, Contracts Finder, Stat-Xplore, ONS labour market, PAYE RTI, ONS household
-incidence, and debt stocks. The ONS Public Sector Finances parser is a stub (see [docs/SOURCES.md](docs/SOURCES.md)).
+Out of scope for now: Contracts Finder, Stat-Xplore, ONS labour market, PAYE RTI and debt stocks. Known gaps are in [docs/SOURCES.md](docs/SOURCES.md).
 
 ## Quick start
 
@@ -23,11 +24,11 @@ Requires [uv](https://docs.astral.sh/uv/).
 
 ```sh
 uv sync
-PYTHONPATH=src uv run python -m ukpm fetch          # download and parse enabled sources (needs network)
-PYTHONPATH=src uv run python -m ukpm build          # write site/api/v1 (use --offline for cached or fixture files)
-PYTHONPATH=src uv run python -m ukpm check-api site/api/v1
-uv run pytest -q
-uv run ruff check .
+PYTHONPATH=src uv run --no-active python -m ukpm fetch          # download and parse enabled sources (needs network)
+PYTHONPATH=src uv run --no-active python -m ukpm build          # write site/api/v1 (use --offline for cached or fixture files)
+PYTHONPATH=src uv run --no-active python -m ukpm check-api site/api/v1
+uv run --no-active pytest -q
+uv run --no-active ruff check .
 ```
 
 ## Documentation

@@ -1,0 +1,254 @@
+# Plain-English glossary. Built into api/v1/glossary.json. No figures in plain/long (the build rejects them).
+# Tooltips link to glossary.html#g-<id>. checker_only terms appear only in "For checkers" sections.
+
+- id: outturn
+  term: Actual figures
+  aliases: [outturn, actual spending]
+  plain: What was really spent or collected, counted after the year has ended.
+  long: Actual figures are the final counts once a year is over. They are different from forecasts and plans, which look ahead. Officials call these figures outturn. Actual figures can still be revised later when the publisher corrects its data.
+  see_also: [forecast, provisional, plan]
+
+- id: forecast
+  term: Forecast
+  plain: What official forecasters (the OBR, or departments using its forecast) expect to happen in future years, which can change.
+  long: The Office for Budget Responsibility (OBR) is an independent body that predicts government spending and tax, and departments such as the DWP publish forecasts built on its economic forecast. Forecasts are updated when the economy or government policy changes. On this site forecasts are always labelled, so you can tell them from actual figures.
+  see_also: [outturn, plan]
+  source_id: obr
+
+- id: provisional
+  term: First estimate
+  aliases: [provisional]
+  plain: An early count that is likely to be revised as more data comes in.
+  long: Some figures are published quickly, before all the information has arrived. The publisher then updates them later. We label these as first estimates so you know they may change.
+  see_also: [outturn]
+
+- id: plan
+  term: Plan
+  plain: What the government intends to spend, set out in budgets before the money is spent.
+  long: A plan is a promise about the future, not a record of what happened. Plans can change during the year, and the money actually spent can end up different. We always label plans so they are not mistaken for actual figures.
+  see_also: [outturn, forecast]
+  source_id: pesa
+
+- id: financial-year
+  term: Financial year
+  aliases: [fiscal year]
+  plain: The government's year, which runs from April to March for spending.
+  long: Government spending is counted from 1 April to 31 March. Tax is counted from 6 April to 5 April. We write a financial year like 2024-25, which means April 2024 to March 2025. Sources that use calendar years or tax years are labelled so they are not mixed up.
+
+- id: tme
+  term: Total government spending
+  aliases: [Total Managed Expenditure, TME]
+  plain: Everything the UK public sector spends in a year, including benefits, services, investment and debt interest.
+  long: This is the widest measure of public spending. Officials call it Total Managed Expenditure (TME). It adds together department budgets and demand-led spending. Other totals leave some of these parts out, which is one reason published totals differ.
+  see_also: [psce, del, ame, tes]
+  source_id: pesa
+  checker_only: true
+
+- id: tes
+  term: Total expenditure on services
+  aliases: [TES]
+  plain: Spending grouped by what it is for, which is close to total government spending but not the same.
+  long: This total is used in the tables that split spending by purpose. It differs from total government spending by some accounting adjustments. Because of that, the two totals should not be set side by side without explaining the difference.
+  see_also: [tme, cofog]
+  source_id: pesa
+  checker_only: true
+
+- id: psce
+  term: Day-to-day spending
+  aliases: [Public Sector Current Expenditure, PSCE]
+  plain: Spending on running services and paying benefits, leaving out investment in things like roads and buildings.
+  long: Officials call this Public Sector Current Expenditure (PSCE). It is the money used up in the year, as opposed to money spent on things that last. It is a narrower total than total government spending.
+  see_also: [tme]
+  source_id: obr
+  checker_only: true
+
+- id: del
+  term: Department budgets
+  aliases: [Departmental Expenditure Limits, DEL]
+  plain: Spending that government departments plan and control within a fixed limit.
+  long: Each department is given a limit for the years ahead. Officials call these Departmental Expenditure Limits (DEL). This covers things like running schools and hospitals, but not spending that depends on how many people need support.
+  see_also: [ame, tme]
+  source_id: pesa
+  checker_only: true
+
+- id: ame
+  term: Demand-led spending
+  aliases: [Annually Managed Expenditure, AME]
+  plain: Spending that depends on need, such as benefits and pensions, so it is managed year by year rather than capped.
+  long: Officials call this Annually Managed Expenditure (AME). The amount depends on things the government cannot set in advance, such as how many people claim a benefit. Most benefit spending sits here.
+  see_also: [del, tme, welfare]
+  source_id: dwp_benefits
+  checker_only: true
+
+- id: cofog
+  term: Spending by purpose
+  aliases: [COFOG, Classification of the Functions of Government]
+  plain: An international way of grouping spending by what it is for, such as health, education or defence.
+  long: The grouping is called the Classification of the Functions of Government (COFOG). Many countries use it, so spending can be compared between them. Its groups do not always match how a single department or report describes its own spending.
+  see_also: [tes, social-protection]
+  source_id: pesa
+  checker_only: true
+
+- id: pesa
+  term: PESA
+  aliases: [Public Expenditure Statistical Analyses]
+  plain: HM Treasury's yearly tables of public spending, called Public Expenditure Statistical Analyses.
+  long: HM Treasury publishes these tables each year. They are the main source on this site for spending by purpose. A new edition can change figures for earlier years.
+  see_also: [tme, cofog]
+  source_id: pesa
+  checker_only: true
+
+- id: receipts
+  term: Tax collected
+  aliases: [receipts, current receipts]
+  plain: Money the government takes in from taxes and other sources in a year.
+  long: Officials call this receipts. Some reports count only what HM Revenue and Customs (HMRC) collects. Others count all public sector income, which also includes things like council tax and business rates. We say which one a figure is.
+  see_also: [income-tax, nics, vat]
+  source_id: hmrc_receipts
+
+- id: income-tax
+  term: Income tax
+  plain: Tax on what people earn from jobs, pensions, savings and some benefits.
+  long: Income tax is paid by people and charged on their income above a tax-free amount. It is one of the biggest sources of money for the government. It is separate from National Insurance, which is charged on earnings in a different way.
+  see_also: [nics, receipts]
+  source_id: hmrc_income_tax
+
+- id: nics
+  term: National Insurance
+  aliases: [NICs, National Insurance contributions]
+  plain: A tax on earnings paid by workers and employers that helps pay for the State Pension and some benefits.
+  long: National Insurance contributions are collected with income tax from pay. Employers pay it too. Having paid it can decide whether someone can claim certain benefits and the State Pension.
+  see_also: [income-tax, state-pension]
+  source_id: hmrc_receipts
+
+- id: vat
+  term: VAT
+  aliases: [Value Added Tax]
+  plain: Value Added Tax, a tax added to the price of most things people buy.
+  long: Shops and businesses add VAT to the price and pass it on to the government. Some goods and services are charged at a lower rate or not charged at all. Everyone who buys these things pays it, whatever their income.
+  see_also: [receipts]
+  source_id: hmrc_receipts
+
+- id: deficit
+  term: Borrowing
+  aliases: [deficit, budget deficit]
+  plain: The gap in a year when the government spends more than it takes in, which it fills by borrowing.
+  long: Officials often call this the deficit. Borrowing in one year adds to the total debt. If the government takes in more than it spends, it has a surplus instead.
+  see_also: [debt, debt-interest]
+  source_id: obr
+
+- id: debt
+  term: Government debt
+  aliases: [national debt, public sector net debt]
+  plain: The total the government owes from all its past borrowing that has not yet been paid back.
+  long: Debt builds up over many years of borrowing. It is different from borrowing, which is the gap in one year. Reports measure debt in different ways, so we say which one a figure uses.
+  see_also: [deficit, debt-interest]
+  source_id: obr
+
+- id: debt-interest
+  term: Debt interest
+  plain: The yearly cost of interest on government debt, which does not pay off the debt itself.
+  long: When the government borrows, it pays interest to the people and organisations it borrowed from. The yearly cost depends on how much is owed and on interest rates. It is part of total government spending.
+  see_also: [debt, deficit]
+  source_id: obr
+
+- id: real-terms
+  term: Adjusted for rising prices
+  aliases: [real terms, real]
+  plain: Amounts changed so that a pound in an older year buys the same as a pound today, which lets years be compared fairly.
+  long: Prices usually rise over time, so a pound buys less than it used to. To compare years fairly, we restate older amounts in the prices of one chosen year. Officials call this real terms. The choice of year is shown wherever we use it.
+  see_also: [cash-terms, inflation, gdp-deflator]
+
+- id: cash-terms
+  term: As spent at the time
+  aliases: [cash terms, nominal]
+  plain: Amounts as they were paid in that year, not adjusted for rising prices.
+  long: These are the numbers in the original files. They are right for that year, but comparing them with other years can mislead because prices have changed. Officials call these nominal or cash terms.
+  see_also: [real-terms, inflation]
+
+- id: inflation
+  term: Inflation
+  plain: How fast prices are rising.
+  long: When inflation is high, money buys less than before. Inflation is why older amounts have to be adjusted before they are compared with newer ones.
+  see_also: [real-terms, gdp-deflator]
+
+- id: gdp-deflator
+  term: Price adjuster
+  aliases: [GDP deflator, deflator]
+  plain: The measure of rising prices across the whole economy that we use to adjust amounts.
+  long: Officials call it the GDP deflator. It follows the prices of everything the UK produces, not only the things a household buys. The Office for Budget Responsibility publishes the series we use.
+  see_also: [real-terms, inflation, gdp]
+  source_id: obr
+
+- id: gdp
+  term: GDP
+  aliases: [Gross Domestic Product, the size of the economy]
+  plain: The total value of everything the UK produces in a year.
+  long: GDP stands for Gross Domestic Product. It is the usual way to measure the size of the economy. It is used to compare government spending and tax with how big the economy is.
+  see_also: [percent-of-gdp]
+  source_id: obr
+
+- id: percent-of-gdp
+  term: Share of GDP
+  aliases: [percent of GDP, "% of GDP"]
+  plain: A figure shown as a share of everything the UK produces in a year, so it can be compared across years and countries.
+  long: A pound figure grows over time even if the economy only keeps pace. Showing it as a share of GDP removes that effect. It is a good way to see whether something is taking more or less of the economy than before.
+  see_also: [gdp]
+  source_id: obr
+
+- id: welfare
+  term: Welfare
+  plain: Money paid to people to support them, such as benefits and the State Pension, though different reports include different things.
+  long: There is no single official welfare total. Some reports count only benefits paid by the Department for Work and Pensions (DWP). Others use a wider group that includes other departments, or leave out the State Pension. We show them side by side and say what each includes.
+  see_also: [social-protection, state-pension, ame]
+  source_id: dwp_benefits
+
+- id: social-protection
+  term: Social protection
+  plain: The international spending group for pensions, benefits and other support for people, which is wider than DWP benefits.
+  long: This is one of the purpose groups in the international spending classification. It includes some support that the Department for Work and Pensions does not pay. Its total therefore differs from the DWP benefit total.
+  see_also: [welfare, cofog]
+  source_id: pesa
+
+- id: state-pension
+  term: State Pension
+  plain: A regular payment from the government to people who have reached State Pension age.
+  long: It is the largest single benefit paid by the Department for Work and Pensions. How much someone gets depends on their National Insurance record. Some welfare totals include it and some leave it out.
+  see_also: [nics, welfare]
+  source_id: dwp_benefits
+
+- id: universal-credit
+  term: Universal Credit
+  plain: A monthly payment for people on low incomes or out of work that replaced six older benefits.
+  long: Universal Credit is paid by the Department for Work and Pensions. It replaced several older benefits and tax credits, so figures before and after its roll-out are not always like for like. Part of the amount depends on a person's circumstances.
+  see_also: [means-tested, caseload]
+  source_id: dwp_benefits
+
+- id: means-tested
+  term: Means-tested
+  plain: Only paid if your income and savings are below a set level.
+  long: A means test checks what someone has before deciding whether and how much to pay. Universal Credit is means-tested. The State Pension is not.
+  see_also: [universal-credit, state-pension]
+
+- id: caseload
+  term: People getting it
+  aliases: [caseload, claimants]
+  plain: The number of people or claims for a benefit, usually an average across the year.
+  long: Officials call this the caseload. For some benefits (such as Attendance Allowance or Personal Independence Payment) it counts people being paid. For others (such as Universal Credit, Pension Credit, Housing Benefit, Employment and Support Allowance and Jobseeker's Allowance) it counts all open claims, and a claim can cover a couple or a household. Employment and Support Allowance and Jobseeker's Allowance also include cases that only get National Insurance credits. We use the same year for the caseload and the spending when we work out a cost per claim.
+  see_also: [cost-per-claimant]
+  source_id: dwp_benefits
+
+- id: cost-per-claimant
+  term: Cost per person getting it
+  aliases: [cost per claimant]
+  plain: The total cost of a benefit divided by the number of people or claims in the same year.
+  long: This is a simple average, so it does not tell you what any one person or household receives. It is only worked out when both the spending and the number of people are published for the same year. Where one is missing, we show a gap instead.
+  see_also: [caseload]
+  source_id: dwp_benefits
+
+- id: reconciliation
+  term: Why totals differ
+  aliases: [reconciliation, cross-check]
+  plain: Our check that figures from different official sources agree, and our explanation when they do not.
+  long: Different publishers count things in different ways, so their totals do not always match. We compare them using fixed rules and publish every result, including the ones that fail. Where a difference is expected, we say what causes it.
+  see_also: [tme, welfare]

@@ -81,4 +81,9 @@ UKPM.page(async () => {
   renderFilters();
   render();
   if (location.hash) { const t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); }
+
+  const totalChecks = (sm.pass || 0) + (sm.fail || 0) + (sm.info || 0) + (sm.not_run || 0);
+  U.setSummary(['We ran ' + totalChecks + ' checks comparing official totals. ' + (sm.pass || 0) + ' agree, ' + (sm.fail || 0) + ' do not, and ' + (sm.info || 0) + ' differ because they count different things.'],
+    'Checked on every build · last run ' + (r.generated_at || 'date not recorded'));
+  U.mountCheckers({ method: ['Rules R1 to R10 compare totals from different publishers, or the same total in two tables. Each result shows both numbers with a check link.', 'A failing check is published, not hidden. The site still shows each publisher’s own number.'] });
 });

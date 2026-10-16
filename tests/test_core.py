@@ -59,7 +59,7 @@ def test_real_registry_loads():
     s = registry.load(ROOT / "data" / "sources.yml")
     assert len(s) >= 4
     by_id = {x.id: x for x in s}
-    assert by_id["pesa"].enabled and not by_id["ons_psf"].enabled
+    assert by_id["pesa"].enabled and by_id["ons_psf"].enabled and not by_id["ons_lms"].enabled
     assert all(x.verdict in ("USABLE", "PARTIAL") for x in s if x.enabled)
 
 
@@ -211,3 +211,79 @@ def test_sheets_a1_mapping_matches_openpyxl(tmp_path):
         assert sheets.a1(cell.row - 1, cell.column - 1) == addr
     with pytest.raises(LookupError):
         book.find("T", "absent")
+
+
+# --- layman-and-sources units ---
+
+
+def test_per_person_scales_billions_to_pounds(make_row):
+    pop = make_row("ons_population.uk", "2024-25", 50_000_000.0, unit="persons")
+    out = units.per_person(make_row("pesa.tme", "2024-25", 100.0), [pop])
+    assert out.unit == "gbp_per_person" and out.value == pytest.approx(2000.0)
+    assert out.prov.transformations[-1].inputs == (units._pid(pop),)
+
+
+def test_per_person_without_population_year_raises(make_row):
+    with pytest.raises(MissingDenominator):
+        units.per_person(make_row("pesa.tme", "2024-25", 100.0), [])
+
+
+def test_share_per_100_and_share_of_total(make_row):
+    part, total = make_row("a", value=25.0), make_row("b", value=200.0)
+    assert units.share(part, total).unit == "gbp_per_100"
+    assert units.share(part, total).value == pytest.approx(12.5)
+    assert units.share(part, total, "share_of_total").unit == "pct"
+    with pytest.raises(ValueError):
+        units.share(part, total, "nope")
+    with pytest.raises(ValueError):
+        units.share(part, make_row("b", value=1.0, edition="PESA 2025"))
+
+
+def test_per_claimant(make_row):
+    spend = make_row("s", value=2.0)
+    case = make_row("c", value=500.0, unit="thousand_cases")
+    assert units.per_claimant(spend, case).value == pytest.approx(4000.0)
+    with pytest.raises(ValueError):
+        units.per_claimant(spend, make_row("c", value=500.0))
+    with pytest.raises(MissingDenominator):
+        units.per_claimant(spend, make_row("c", value=0.0, unit="thousand_cases"))
+
+
+def test_remainder_and_sum_rows(make_row):
+    total = make_row("t", value=100.0)
+    parts = [make_row("p1", value=30.0), make_row("p2", value=20.0)]
+    assert units.remainder(total, parts, "other").value == pytest.approx(50.0)
+    with pytest.raises(ValueError):
+        units.remainder(total, [make_row("p", value=1.0, edition="X")], "other")
+    assert units.remainder(total, [make_row("p", value=1.0, edition="X")], "o", strict=False)
+    s = units.sum_rows(parts[0], parts[1:], "sum_months", "d")
+    assert s.value == pytest.approx(50.0)
+    assert s.prov.transformations[-1].inputs == (units._pid(parts[1]),)
+
+
+def test_registry_verdict_reason_is_optional_and_loaded():
+    srcs = registry.load(ROOT / "data/sources.yml")
+    by = {s.id: s for s in srcs.values()} if isinstance(srcs, dict) else {s.id: s for s in srcs}
+    assert by["ons_psf"].verdict == "USABLE"
+    assert by["obr_efo"].verdict_reason
+    assert by["ons_population"].licence == "OGL-UK-3.0"
+
+
+def test_per_household_scales_and_cites_household_count(make_row):
+    hh = make_row("ons_households.uk", "2025-26", 29_003.0, unit="thousands")
+    out = units.per_household(make_row("pesa.tme", "2025-26", 29.003), [hh])
+    assert out.unit == "gbp_per_household" and out.value == pytest.approx(1000.0)
+    t = out.prov.transformations[-1]
+    assert t.op == "per_household" and t.inputs == (units._pid(hh),)
+    assert "April-June" in t.detail and "fiscal year" in t.detail
+
+
+def test_per_household_without_household_year_raises(make_row):
+    with pytest.raises(MissingDenominator):
+        units.per_household(make_row("pesa.tme", "2025-26", 100.0), [])
+
+
+def test_per_household_rejects_wrong_unit(make_row):
+    hh = make_row("ons_households.uk", "2025-26", 29_003_000.0, unit="persons")
+    with pytest.raises(ValueError):
+        units.per_household(make_row("pesa.tme", "2025-26", 100.0), [hh])

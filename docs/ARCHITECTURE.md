@@ -154,8 +154,14 @@ recording the check.
 ## 6. Parser contract (`ukpm.parsers.<id>`)
 
 ```python
-SERIES: dict[str, SeriesMeta]   # series_id -> {title, unit, period_type, monetary: bool, definition_id?, description}
+SERIES: dict[
+    str, SeriesMeta
+]  # series_id -> {title, unit, period_type, monetary: bool, definition_id?, description}
+
+
 def parse(path: Path, meta: FileMeta) -> list[Row]: ...
+
+
 # FileMeta: source (registry entry), file (files[] entry), sha256, url_final, retrieved_at, retrieval
 ```
 
@@ -174,7 +180,7 @@ Each `Row` (a dict or dataclass; written to `work/parsed/<source_id>.parquet`) h
 | sheet | str | sheet name exactly as in the file |
 | cell_or_range | str or null | A1 address of the value cell, e.g. `F12`. Exactly one of `cell_or_range` and `api_query` is set |
 | api_query | str or null | full https request URL, for API sources |
-| row_label, column_label | str | the text of the row and column headers that located the value (shown in the check view) |
+| row_label, column_label | str or null | not emitted by the current build (no parser records header text); the check view shows them only when present |
 | transformations | list | parser-level steps, e.g. `[{op:"scale", from:"GBP_m", to:"GBP_bn", factor:0.001}]`; `[]` if none |
 | status | str | `outturn` or `forecast`. Plans, projections and forecasts are all `forecast`; the original wording goes in `status_note` |
 | vintage | str | e.g. `PESA 2026`, `OBR databank Sep 2026`, `DWP Spring Forecast 2026`, `HMRC IT liabilities 2026` |
@@ -190,7 +196,7 @@ guess); per-edition layouts as described in section 2 (#5); parsers never combin
 
 ```sql
 provenance(provenance_id TEXT PRIMARY KEY, source_id, publisher, dataset, publication_date DATE, source_url,
-           file_sha256, sheet, cell_or_range, api_query, row_label, column_label, licence, licence_url,
+           file_sha256, sheet, cell_or_range, api_query, licence, licence_url,
            transformations JSON, status, status_note, vintage, retrieval, retrieved_at TIMESTAMP,
            inputs JSON)          -- provenance_ids of other values used to derive this one (derived values only)
 observations(series_id, fiscal_year, value DOUBLE, unit, price_basis, status, provenance_id)   -- one row per published value
@@ -308,7 +314,7 @@ Non-monetary series have only `nominal`. Every point has a `provenance_id`, with
 "check":{...}}}}`. The `check` block:
 ```json
 {"kind":"spreadsheet","download_url":"https://assets.publishing.service.gov.uk/...xlsx","landing_url":"https://www.gov.uk/...",
- "sheet":"10.1","cell":"B12","row_label":"Total general public services","column_label":"2015-16",
+ "sheet":"10.1","cell":"B12",
  "sha256":"4be4da7b...","published_value":4330,"published_unit":"GBP_m",
  "instructions":"Download the file, open sheet '10.1', go to cell B12 (row 'Total general public services', column '2015-16'). To confirm you have the same file: shasum -a 256 <file> should print 4be4da7b...",
  "derived_from":[...provenance ids, for derived values...]}
@@ -337,7 +343,7 @@ list is valid).
 
 `check-api DIR [--live]` validates: every file above exists and parses; shapes match this section; every point's
 `provenance_id` resolves to a complete record (gate in section 7) with an https `source_url` and a 64-hex sha256;
-monetary headline series have all three variants; forecast points carry `status: forecast`; every rule R1 to R7
+monetary headline series have all three variants; forecast points carry `status: forecast`; every rule R1 to R14
 appears in reconciliation.json (including `not_run`); every claim resolves to a real point. `--live` also fails on any
 `retrieval: fixture` record (refresh deploys live builds only).
 
@@ -436,3 +442,26 @@ Top-level `permissions: {}`, and each job declares only what it needs. No `${{ g
 Spend over £25k, Contracts Finder, Stat-Xplore, ONS LMS/labour, PAYE RTI, ETB household incidence, debt stocks and
 GDP centred end-March, departmental budgets beyond PESA chapter 5 totals, auto-discovery of new editions, any
 interpolation or nowcasting, and any server-side component.
+
+## 15. Layman layer and wave-2 sources (added 2026-10)
+
+Design notes: `docs/design/layman-and-sources.md`, `layman-ux.md`, `positioning.md`, `visual-audit.md`.
+
+**New parsers** (`src/ukpm/parsers/`, each `parse(path, meta)` plus `SERIES`, `LayoutError` on unknown layouts):
+`ons_population`, `ons_households`, `ons_gdp`, `ons_psf`, `obr_efo`, `obr_efo_receipts`, `pesa_uk`, `cabinet_office_spend`
+(shared helpers in `_w2.py`). Fixtures sit under `tests/fixtures/<source>/` with origin URL and sha256 recorded.
+
+**Derived series** (`units.py`, wired in `build.py`): `per_person`, `per_household`, `share` (out of every £100),
+`per_claimant`, `remainder` and `sum_rows`. Each derived value gets a provenance record listing both inputs and is
+`forecast` if any input is. Calendar-year and stock series get no variants.
+
+**New API files:** `benefits/index.json`, `benefits/<slug>.json`, `shares.json`, `glossary.json`,
+`cabinet_office/summary.json` (see [API.md](API.md)). `check_api.py` rejects Cabinet Office files containing
+row-level keys (`FORBIDDEN_CO_KEYS`). The API is about 24 MB uncompressed; pages lazy-load the large provenance and
+benefit files (IntersectionObserver on the home page, `benefits/index.json` for comparisons).
+
+**Reconciliation:** R8 to R14 added (OBR vs DWP, Cabinet Office bounds, PESA UK vs TME, PSF identities, HMRC vs OBR
+receipts). `R7_MEMO_LINES` in `reconcile.py` excludes memo rows below the Table 1a total.
+
+**Module ownership:** parsers own their file and fixtures; only the integrate step edits `data/sources.yml`, `build.py`,
+`units.py`, `reconcile.py`, `check_api.py` and `registry.py`. Site: `app.js`/`app.css` shared; one page script per page.

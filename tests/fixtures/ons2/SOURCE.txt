@@ -1,0 +1,18 @@
+Trimmed fixtures: real cell values copied at their ORIGINAL sheet and A1 addresses (unrelated rows,
+columns and sheets dropped). Fetched 2026-10-15. Licence: Open Government Licence v3.0 (ONS dataset pages).
+
+psf_aug2026.trimmed.xlsx  (Cover Sheet rows 1-8; PSA6B_2, PSA6L, PSA6C_3, PSA1 rows 1-9, 33-34 calendar 2024/2025, 53-63 financial years 2015-16..2025-26)
+  sha256 655ffa4f65715e97e30ffe80991d718172a0378b8c1d91520a8a0c0d6e1ce29c
+  original https://www.ons.gov.uk/file?uri=/economy/governmentpublicsectorandtaxes/publicsectorfinance/datasets/publicsectorfinancesappendixatables110/current/publicsectorfinancessummarytablesappendixafinal.xlsx
+  original sha256 4cc5dded99d4bf06b8df9c3d9ef4e09a903c96208ba54626e6db507a07129b7e
+  published 7.00am 22 September 2026 (data to August 2026)
+familiesandhouseholdsuk2025.trimmed.xlsx  (Cover sheet rows 1-3; Notes row 12; sheet 5 rows 1, 12, 21-22, columns A-M)
+  sha256 161c44dddb139087f6fa7df84815d6e737d625fe3342c134795289362087a320
+  original https://www.ons.gov.uk/file?uri=/peoplepopulationandcommunity/birthsdeathsandmarriages/families/datasets/familiesandhouseholdsfamiliesandhouseholds/current/familiesandhouseholdsuk2025.xlsx
+  original sha256 a89eaa3d7f519bfa949c7cfa12f531b8c7a86c704adcb70e81f49567ae724a91
+  published 17 April 2026
+ybha_ukea.trimmed.csv  (8 metadata lines, annual rows 1948, 2015, 2023, 2024, 2025 and quarter 2026 Q2, verbatim)
+  sha256 9e56d3c8806d84ed5f90d09df3f3956f25bf8f251ac3335805e9978efd5e58d7
+  original https://www.ons.gov.uk/generator?format=csv&uri=/economy/grossdomesticproductgdp/timeseries/ybha/ukea
+  original sha256 080b6afad67e567c2f27c1afea720cdf49832b7158de0487fc4a3681c0485bf4
+  release date 30-09-2026

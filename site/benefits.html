@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<title>Benefits · UK Public Money</title>
-<meta name="description" content="UK welfare spending under different official definitions, side by side, from DWP and HM Treasury.">
+<title>Benefits explained · UK Public Money</title>
+<meta name="description" content="What each benefit costs, how many people get it and what it costs for each person, in plain English.">
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/app.css">
 <script src="config.js" defer></script>
@@ -22,20 +22,19 @@
 <div class="controls"><div class="controls-inner"><div id="basis-host"></div><p class="recon-strip" id="recon-host" aria-live="polite">Loading cross-checks…</p></div></div>
 <main id="main" tabindex="-1" data-page-root>
 
-<h1>Benefits</h1>
-<p class="lede">“Welfare spending” has several official totals. They differ because they count different things, not because one is wrong.</p>
-<h2>What counts as welfare? Definitions side by side</h2>
-<div class="toolbar" id="defs-tools"></div>
-<div id="defs"><p class="state" role="status">Loading…</p></div>
-<div class="note"><p>Scope differs: DWP Table 1a is <strong>Great Britain</strong>; the DWP “UK welfare” tab adds Northern Ireland and other
-departments; COFOG social protection (PESA 10.1) is <strong>England only</strong> and includes non-DWP spending. Compare like with like.</p></div>
-<h2>Spending by benefit (Great Britain)</h2>
-<div id="lines"><p class="state" role="status">Loading…</p></div>
-<h2>UK welfare spending over time</h2>
-<div id="over"><p class="state" role="status">Loading…</p></div>
-<h2>How many people get each benefit</h2>
-<div id="caseloads"><p class="state" role="status">Loading…</p></div>
-
+<h1>Benefits explained</h1>
+<section class="summary" aria-labelledby="summary-h"><h2 id="summary-h" class="visually-hidden">In one sentence</h2><div id="summary-body"><p class="state" role="status">Loading…</p></div></section>
+<p class="one-line">Benefits run by the Department for Work and Pensions in <strong>Great Britain</strong> (Northern Ireland has its own system). <a href="#totals">Why “welfare” has more than one total</a></p>
+<h2>What each benefit costs</h2>
+<div id="list"><p class="state" role="status">Loading…</p></div>
+<div id="gaps"></div>
+<section aria-labelledby="totals" class="band wide">
+<div class="band-text"><h2 id="totals">Why “welfare” has more than one total</h2>
+<p>You may hear very different totals for welfare. They count different things, so each can be right. The bigger the total, the more it includes. <a href="reconciliation.html">How the sources compare</a></p></div>
+<div id="totals-host"><p class="state" role="status">Loading…</p></div>
+</section>
+<h2 class="visually-hidden">For checkers</h2>
+<div id="checkers"></div>
 </main>
 <footer class="site-foot"><div class="foot-inner">
 <ul><li><a href="index.html">Overview</a></li><li><a href="spending.html">Where £1 goes</a></li><li><a href="revenue.html">Where £1 comes from</a></li><li><a href="benefits.html">Benefits</a></li><li><a href="who-pays.html">Who pays</a></li><li><a href="claims.html">Check a claim</a></li><li><a href="reconciliation.html">Reconciliation</a></li><li><a href="methodology.html">Methodology</a></li><li><a href="corrections.html">Corrections</a></li><li><a href="about.html">About</a></li></ul>
