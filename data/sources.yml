@@ -606,6 +606,32 @@
     - {series: "home_office_spend.resource_del.asylum_support_resettlement_accommodation", years: ["2021-22", "2022-23"], reason: "published under a different group name (Asylum & Protection), so not joined to this line"}
   notes: "publication_date is the ARA publication date (the scout doc gives no date for the tables). Customer Services (Visas & Passports) is NET of fee income (negative). Asylum & Protection (2022-23) and Asylum Support (2023-24 on) are different group names, so they are not joined."
 
+- id: home_office_ara
+  publisher: Home Office
+  dataset: "Annual Report and Accounts 2025-26 (HC 440): income lines (Note 3, fees and charges table, Trust Statement)"
+  landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2025-to-2026
+  licence: OGL-UK-3.0
+  licence_evidence: "PDF page 3 (copyright page): licensed under the Open Government Licence v3.0 except where otherwise stated (checked 2026-10-16)."
+  cadence: annual
+  coverage: {from: 2024-25, to: 2025-26, note: "outturn from audited accounts; 2024-25 is the comparative column printed in the 2025-26 report"}
+  verdict: USABLE
+  verdict_reason: "Audited accounts, fixed pages, every row and check asserted by the parser. Only two years; the 2024-25 column can be restated or reclassified (Trust Statement says reclassified)."
+  enabled: true
+  fixture_dir: tests/fixtures/home_office_ara
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: ho_ara_2025_26
+      edition: Home Office Annual Report and Accounts 2025-26 (HC 440)
+      publication_date: 2026-07-14
+      file_url: https://assets.publishing.service.gov.uk/media/6a58e9953ae256c99b702f50/36.54_HO_ARA_25-26_WEB.pdf
+      landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2025-to-2026
+      format: pdf
+      sha256: c8cda7ee5f28700b4a2174b3889cb203c410503c60222e6a03102d92642c1350
+      role: annual_report_accounts
+  gaps:
+    - {series: "home_office_ara.*", years: ["2023-24"], reason: "only the 2025-26 report is parsed; earlier years sit in earlier reports with different layouts"}
+  notes: "PDF, 18.7 MB, 370 pages. Read with pypdf from fixed PDF pages 228, 283, 284, 351 (cross-check 339). Not parsed: passport fees (consular passport fees are inside the Trust Statement total), total fees-and-charges income, income by visa route (not published). IHS payable to the Consolidated Fund is nil in 2025-26 (the accounts print a dash)."
+
 - id: home_office_asylum
   publisher: Home Office
   dataset: Immigration system statistics, year ending June 2026 (asylum summary tables, Asy_00a)

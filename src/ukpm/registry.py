@@ -14,7 +14,7 @@ import yaml
 from .provenance import HOST_ALLOWLIST, LICENCE_ALLOWLIST
 
 VERDICTS = frozenset({"USABLE", "PARTIAL", "UNVERIFIED", "UNUSABLE"})
-FORMATS = frozenset({"xlsx", "ods", "csv", "zip"})
+FORMATS = frozenset({"xlsx", "ods", "csv", "zip", "pdf"})
 _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 _SOURCE_REQUIRED = (
     "id",

@@ -1,0 +1,12 @@
+Trimmed fixture: five real pages of the Home Office Annual Report and Accounts 2025-26 (HC 440), copied with pypdf.
+Fetched 2026-10-16. Licence: Open Government Licence v3.0 (original PDF page 3, copyright page; page 3 is not kept in this fixture).
+
+Pages kept (1-based PDF page, printed page): 228 (223) Fees and Charges table; 283 (278) Note 3 Income;
+284 (279) Note 3 continued; 339 (334) Trust Statement narrative; 351 (346) Statement of Revenue, Other Income and Expenditure.
+Every other page is a blank A4 page, so the kept pages keep their ORIGINAL PDF page numbers (the parser reads fixed page numbers).
+
+ara_2025_26.trimmed.pdf
+  fixture sha256 ae92f3bf5510d470e9e702b75d3fd70f43db30c30097e26e5e31145f3ca9e743
+  original https://assets.publishing.service.gov.uk/media/6a58e9953ae256c99b702f50/36.54_HO_ARA_25-26_WEB.pdf
+  original sha256 c8cda7ee5f28700b4a2174b3889cb203c410503c60222e6a03102d92642c1350
+  recipe: PdfReader(original); for page i in 1..351: add_page(i) if i in {228,283,284,339,351} else add_blank_page(595, 842); write.

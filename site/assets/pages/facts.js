@@ -190,7 +190,7 @@ UKPM.page(async () => {
         return {
           answer: ['In ' + y + ', the Home Office spent about ', money(ap, 'Asylum support, resettlement and accommodation, ' + y), ' on asylum support, resettlement and accommodation. That is about ',
             per100('Asylum support, resettlement and accommodation', y, ap, tp, 'total government spending'), ' of every £100 the government spent.'],
-          know: ['This is the Home Office only. Other departments have costs too, and there is no single official total that covers everything. Money collected from visa fees is a separate figure that we do not show yet. The asylum page has the people, the other departments and the gaps.'],
+          know: ['This is the Home Office only. Other departments have costs too, and there is no single official total that covers everything. Money the Home Office collects from visa fees is a separate figure and is not netted off here. The immigration page has the people, the other departments and the gaps.'],
           more: ['immigration.html', 'See the full picture on immigration and money'],
         };
       },
