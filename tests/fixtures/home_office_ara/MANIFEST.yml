@@ -1,0 +1,7 @@
+# The ARA PDF is 18.7 MB; only the five pages the parser reads are kept (others blank, so page numbers are unchanged).
+fixtures:
+  - source_id: home_office_ara
+    original_sha256: c8cda7ee5f28700b4a2174b3889cb203c410503c60222e6a03102d92642c1350
+    original_url: https://assets.publishing.service.gov.uk/media/6a58e9953ae256c99b702f50/36.54_HO_ARA_25-26_WEB.pdf
+    fixture: ara_2025_26.trimmed.pdf
+    fixture_sha256: ae92f3bf5510d470e9e702b75d3fd70f43db30c30097e26e5e31145f3ca9e743

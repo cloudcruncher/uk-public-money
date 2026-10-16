@@ -167,6 +167,17 @@
   series_ids: [home_office_spend.resource_del.asylum_support_resettlement_accommodation, home_office_spend.resource_del.customer_services_visas_passports, home_office_spend.resource_del.immigration_enforcement, home_office_spend.resource_del.border_force, home_office_spend.resource_del.total]
   notes: "The Customer Services line (visas and passports) is negative because fee income is taken off the cost, so it shows income above cost. The file name says 'draft', so check against the Annual Report and Accounts. Group names change from year to year, so a line is shown only for the years it appears under that name. Asylum hotels are not a separate line."
 
+- id: home_office_ara_income
+  group: [immigration, "Immigration: money in and money out"]
+  label: Home Office income from visas, health surcharge, skills charge and penalties (Annual Report and Accounts)
+  short: "Money the Home Office recorded as income from fees, charges and penalties, taken from its audited accounts for 2025-26 with the year before for comparison"
+  publisher: Home Office
+  includes: [Visa and immigration fee income, Immigration Health Surcharge kept in the Home Office accounts, Immigration Health Surcharge paid straight to the Consolidated Fund, UK Visas and Immigration income and full cost from the fees and charges table, Immigration Skills Charge, Civil penalties, Total revenue in the Trust Statement]
+  excludes: [Passport fees (except consular passport fees inside the Trust Statement total), Tax paid by migrants, Benefits or NHS costs, Income by type of visa, Years before 2024-25]
+  source_id: home_office_ara
+  series_ids: [home_office_ara.visa_income, home_office_ara.ihs_retained, home_office_ara.ihs_payable_consolidated_fund, home_office_ara.ukvi_fee_income, home_office_ara.ukvi_full_cost, home_office_ara.ukvi_surplus, home_office_ara.immigration_skills_charge, home_office_ara.civil_penalties, home_office_ara.trust_total_revenue]
+  notes: "Financial years (April to March). Read from the PDF by a fixed-page program, with the page and row recorded on every figure. The 2024-25 figures are comparatives printed in the 2025-26 report; the Trust Statement says its 2024-25 column is reclassified (discounts policy) and the narrative calls it restated. The Immigration Health Surcharge is passed on to health services in the four nations, so it is income to the Home Office accounts and not a measure of NHS cost; the retained part is in Note 3 and the part paid straight to the Consolidated Fund is shown separately (a dash, read as nil, in 2025-26). The report also says that refunds for an Immigration Health Surcharge scheme error are taken off the retained income. The fees and charges table (UKVI) and Note 3 visa income describe the same fees on slightly different bases, so they differ by a few thousand pounds. Trust Statement revenue is before costs of collection and credit losses (gross)."
+
 - id: dwp_uc_by_status
   group: [immigration, "Immigration: money in and money out"]
   label: People on Universal Credit by immigration status (DWP)

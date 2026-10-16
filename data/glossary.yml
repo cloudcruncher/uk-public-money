@@ -283,7 +283,7 @@
   plain: A fee that most people pay when they apply for a visa to stay in the UK for more than six months, to help pay for the NHS.
   long: The Home Office collects the surcharge when a visa application is made. It keeps the money in its accounts and passes it on to the health services of the four nations of the UK. It is income to the government. It is not a measure of what care for migrants costs the NHS, and the official accounts give one total, not a split by type of visa.
   see_also: [immigration-skills-charge]
-  source_id: home_office_spend
+  source_id: home_office_ara
 
 - id: immigration-skills-charge
   term: Immigration skills charge
@@ -291,7 +291,31 @@
   plain: A fee that an employer pays when it hires a worker from abroad on a skilled worker visa.
   long: The employer pays the charge for each worker for each year of the visa. The Home Office collects it and pays it into the government's main account, not into its own budget. The official accounts give one total, not a split by employer or by job.
   see_also: [immigration-health-surcharge]
-  source_id: home_office_spend
+  source_id: home_office_ara
+
+- id: consolidated-fund
+  term: Consolidated Fund
+  aliases: [the Consolidated Fund]
+  plain: The government's main bank account, where most money it collects is paid in.
+  long: Some fees, charges and fines collected by the Home Office are not kept by the department. They are paid into the Consolidated Fund, which is the Treasury's main account, and can then be spent on anything Parliament agrees. The Home Office publishes a separate set of accounts for this money, called the Trust Statement.
+  see_also: [immigration-skills-charge, trust-statement]
+  source_id: home_office_ara
+
+- id: trust-statement
+  term: Trust Statement
+  aliases: [Home Office Trust Statement]
+  plain: A separate set of accounts for money the Home Office collects for the government's main bank account.
+  long: The Home Office keeps its own running costs in one set of accounts. Money it only collects on behalf of the government, such as the Immigration Skills Charge and civil penalties, goes in the Trust Statement. Its revenue is shown before the costs of collecting it and before money that will probably never be paid is taken off. The 2024-25 column is marked as reclassified in the latest report.
+  see_also: [consolidated-fund, civil-penalties]
+  source_id: home_office_ara
+
+- id: civil-penalties
+  term: Civil penalties
+  aliases: [immigration civil penalties]
+  plain: Fines on employers, lorry drivers' firms, carriers and landlords who break immigration rules, such as hiring someone who has no right to work.
+  long: The Home Office charges these fines, and many are later reduced or cancelled after an appeal or a check of what the person or firm can pay. The money goes to the government's main account. A fall in the total can mean fewer fines were issued or more were cancelled, so it does not by itself show more or less rule-breaking.
+  see_also: [consolidated-fund, trust-statement]
+  source_id: home_office_ara
 
 - id: leave-to-remain
   term: Leave to remain
