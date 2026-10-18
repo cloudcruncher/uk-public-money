@@ -1,0 +1,7 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-18.
+Licence: Open Government Licence v3.0 (gov.scot: "except for graphic assets and where otherwise stated"). Published 2026-08-12.
+
+gers_2025_26.trimmed.xlsx  (whole sheets Table_1.1, Table_3.1, Table_3.3, Table_5.1; the other 60 sheets, charts and images removed)
+  sha256 b92e6ac6e05098ba561467367459762f5ce48a99f7879bd846917efab3762f64
+  original https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2026/08/government-expenditure-revenue-scotland-2025-26/documents/gers-2025-26-tables/gers-2025-26-tables/govscot%3Adocument/gers-2025-26-tables.xlsx
+  original sha256 61e2e8f64b280a57c61423d523c09c9252aa2f002aab7f638c129e57dcd55d9f

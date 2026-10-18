@@ -663,3 +663,26 @@
   gaps:
     - {series: "home_office_asylum.support_hotels", years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021"], reason: "the Home Office table has no hotel figure for these years (cells marked not applicable or not collected)"}
   notes: "Only sheet Asy_00a, calendar years 2015 onward (hotel counts exist from 2022; earlier cells are z/: and give no value). The two 'Year ending June' columns (latest: June 2026) are not parsed because they use a different period basis. The sha256 changes each quarter."
+
+- id: scotland_gers
+  publisher: Scottish Government
+  dataset: Government Expenditure and Revenue Scotland (GERS) 2025-26, tables
+  landing_url: https://www.gov.scot/publications/government-expenditure-revenue-scotland-2025-26/
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.scot page footer: 'All content is available under the Open Government Licence v3.0, except for graphic assets and where otherwise stated' (docs/sources/new-sources-2-pub.md section 4a, checked 2026-10-15)."
+  cadence: annual (August)
+  coverage: {from: 1998-99, to: 2025-26, note: "Scotland only. Revenue and net fiscal balance on two bases (with a geographical share of North Sea, and excluding North Sea); total spending has one basis; spending by function for 2025-26 only"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/scotland_gers
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: gers_2025_26_tables
+      edition: GERS 2025-26 tables
+      publication_date: 2026-08-12
+      file_url: https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2026/08/government-expenditure-revenue-scotland-2025-26/documents/gers-2025-26-tables/gers-2025-26-tables/govscot%3Adocument/gers-2025-26-tables.xlsx
+      landing_url: https://www.gov.scot/publications/government-expenditure-revenue-scotland-2025-26/
+      format: xlsx
+      sha256: 61e2e8f64b280a57c61423d523c09c9252aa2f002aab7f638c129e57dcd55d9f
+      role: tables
+  notes: "Sheets Table_1.1 (revenue), Table_3.1 (total spending), Table_5.1 (net fiscal balance), all 1998-99 to 2025-26, and Table_3.3 (2025-26 spending by function). Percent and share rows are not parsed (stored as fractions under a % label). Not parsed: revenue and spending by detailed type (other Table_1.x/3.x), devolved taxes, per-head figures, the supplementary expenditure database. Earlier years are restated each August. The 'Scotland' revenue and balance series include a geographical share of North Sea revenue; the '_excl_north_sea' series include none. www.gov.scot was added to HOST_ALLOWLIST for this source."

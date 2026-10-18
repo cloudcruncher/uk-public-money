@@ -18,6 +18,7 @@ HOST_ALLOWLIST = frozenset(
         "obr.uk",
         "www.ons.gov.uk",
         "api.beta.ons.gov.uk",
+        "www.gov.scot",
     }
 )
 _SHA_RE = re.compile(r"^[0-9a-f]{64}$")
