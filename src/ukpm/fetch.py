@@ -139,6 +139,11 @@ def fetch_source(src: Source, *, offline: bool, work: Path = WORK) -> list[Fetch
     for f in src.files:
         cached = _cache_path(work, src, f)
         fixture = None
+        # CI restores the raw-cache release flat as work/raw-cache/<sha>.<format>.
+        restored = work / "raw-cache" / f"{f.sha256}.{f.format}"
+        if not cached.exists() and restored.exists() and sha256_file(restored) == f.sha256:
+            cached.parent.mkdir(parents=True, exist_ok=True)
+            cached.write_bytes(restored.read_bytes())
         if cached.exists() and sha256_file(cached) == f.sha256:
             path, from_fix = cached, False
         elif offline:
