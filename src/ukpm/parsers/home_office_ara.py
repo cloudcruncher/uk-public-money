@@ -198,12 +198,14 @@ _DEFS = {
     ),
     "ihs_payable_consolidated_fund": (
         "Immigration Health Surcharge, payable to the Consolidated Fund",
-        "surcharge income that goes straight to the government's main account (Note 3); "
+        "surcharge income that goes straight to the government's main account "
+        "(Note 3 in 2025-26, Note 4 in earlier reports); "
         "nil in 2025-26 (the accounts show a dash)",
     ),
     "ukvi_fee_income": (
         "UK Visas and Immigration fee income (fees and charges table)",
-        "income of the Customer Service (UKVI) segment, in-country and overseas",
+        "income of the Customer Service (UKVI) segment, in-country and overseas; "
+        "differs from Note visa income by up to about 0.8% in 2022-23 and 2023-24",
     ),
     "ukvi_full_cost": (
         "UK Visas and Immigration full cost (fees and charges table)",
