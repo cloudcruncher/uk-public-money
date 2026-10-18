@@ -614,14 +614,14 @@
 
 - id: home_office_ara
   publisher: Home Office
-  dataset: "Annual Report and Accounts 2025-26 (HC 440): income lines (Note 3, fees and charges table, Trust Statement)"
+  dataset: "Annual Reports and Accounts 2023-24, 2024-25 and 2025-26: income lines (Note 3, fees and charges table, Trust Statement)"
   landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2025-to-2026
   licence: OGL-UK-3.0
-  licence_evidence: "PDF page 3 (copyright page): licensed under the Open Government Licence v3.0 except where otherwise stated (checked 2026-10-16)."
+  licence_evidence: "PDF page 3 (copyright page): licensed under the Open Government Licence v3.0 except where otherwise stated (checked 2026-10-16). The 2024-25 report (PDF page 4) and 2023-24 report (PDF page 3) carry the same line (checked 2026-10-18)."
   cadence: annual
-  coverage: {from: 2024-25, to: 2025-26, note: "outturn from audited accounts; 2024-25 is the comparative column printed in the 2025-26 report"}
+  coverage: {from: 2022-23, to: 2025-26, note: "outturn from audited accounts; each report prints its own year and the year before, so the earliest year is a comparative; a year in two reports takes the newest report"}
   verdict: USABLE
-  verdict_reason: "Audited accounts, fixed pages, every row and check asserted by the parser. Only two years; the 2024-25 column can be restated or reclassified (Trust Statement says reclassified)."
+  verdict_reason: "Audited accounts, fixed pages, every row and check asserted by the parser. Four years; comparative columns can be restated or reclassified (the 2025-26 Trust Statement says 2024-25 is reclassified), and the newest report wins."
   enabled: true
   fixture_dir: tests/fixtures/home_office_ara
   user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
@@ -634,9 +634,25 @@
       format: pdf
       sha256: c8cda7ee5f28700b4a2174b3889cb203c410503c60222e6a03102d92642c1350
       role: annual_report_accounts
+    - key: ho_ara_2024_25
+      edition: Home Office Annual Report and Accounts 2024-25
+      publication_date: 2025-07-17
+      file_url: "https://assets.publishing.service.gov.uk/media/688c9785a34b939141463e37/HO_ARA_2024-25_Book_WEB_Final_v3+CorrSlip.pdf"
+      landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2024-to-2025
+      format: pdf
+      sha256: 7be88cfa2f8176d977b660db558da24d37a5df5decbc5f2328831b5ad2b1cf4b
+      role: annual_report_accounts
+    - key: ho_ara_2023_24
+      edition: Home Office Annual Report and Accounts 2023-24
+      publication_date: 2024-07-30
+      file_url: https://assets.publishing.service.gov.uk/media/66b249b40808eaf43b50de07/2023-24_Home_Office_Annual_Report_and_Accounts.pdf
+      landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2023-to-2024
+      format: pdf
+      sha256: ab16cb60fea3ea9a364f10c96166c1ae7abd9464890a82122d298fe8855ba447
+      role: annual_report_accounts
   gaps:
-    - {series: "home_office_ara.*", years: ["2023-24"], reason: "only the 2025-26 report is parsed; earlier years sit in earlier reports with different layouts"}
-  notes: "PDF, 18.7 MB, 370 pages. Read with pypdf from fixed PDF pages 228, 283, 284, 351 (cross-check 339). Not parsed: passport fees (consular passport fees are inside the Trust Statement total), total fees-and-charges income, income by visa route (not published). IHS payable to the Consolidated Fund is nil in 2025-26 (the accounts print a dash)."
+    - {series: "home_office_ara.*", years: ["2021-22"], reason: "the earliest report parsed is 2023-24, whose comparative year is 2022-23; older reports are not parsed"}
+  notes: "Three PDFs, each with its own fixed pages read with pypdf. 2025-26 (18.7 MB, 370 pages): PDF pages 228, 283, 284, 351 (cross-check 339). 2024-25 (330 pages): 200, 256, 311 (cross-check 302). 2023-24 (312 pages): 196, 248, 295 (cross-check 286). The fee-table UKVI income agrees with Note visa income to 0.1% in 2025-26 and 2024-25, but differs by 0.35% (2023-24) and 0.8% (2022-23); the parser allows those two gaps and no more. Not parsed: passport fees (consular passport fees are inside the Trust Statement total), total fees-and-charges income, income by visa route (not published). IHS payable to the Consolidated Fund is nil in 2025-26 (the accounts print a dash)."
 
 - id: home_office_asylum
   publisher: Home Office
@@ -663,3 +679,52 @@
   gaps:
     - {series: "home_office_asylum.support_hotels", years: ["2015", "2016", "2017", "2018", "2019", "2020", "2021"], reason: "the Home Office table has no hotel figure for these years (cells marked not applicable or not collected)"}
   notes: "Only sheet Asy_00a, calendar years 2015 onward (hotel counts exist from 2022; earlier cells are z/: and give no value). The two 'Year ending June' columns (latest: June 2026) are not parsed because they use a different period basis. The sha256 changes each quarter."
+
+- id: scotland_gers
+  publisher: Scottish Government
+  dataset: Government Expenditure and Revenue Scotland (GERS) 2025-26, tables
+  landing_url: https://www.gov.scot/publications/government-expenditure-revenue-scotland-2025-26/
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.scot page footer: 'All content is available under the Open Government Licence v3.0, except for graphic assets and where otherwise stated' (docs/sources/new-sources-2-pub.md section 4a, checked 2026-10-15)."
+  cadence: annual (August)
+  coverage: {from: 1998-99, to: 2025-26, note: "Scotland only. Revenue and net fiscal balance on two bases (with a geographical share of North Sea, and excluding North Sea); total spending has one basis; spending by function for 2025-26 only"}
+  verdict: USABLE
+  enabled: true
+  fixture_dir: tests/fixtures/scotland_gers
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: gers_2025_26_tables
+      edition: GERS 2025-26 tables
+      publication_date: 2026-08-12
+      file_url: https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2026/08/government-expenditure-revenue-scotland-2025-26/documents/gers-2025-26-tables/gers-2025-26-tables/govscot%3Adocument/gers-2025-26-tables.xlsx
+      landing_url: https://www.gov.scot/publications/government-expenditure-revenue-scotland-2025-26/
+      format: xlsx
+      sha256: 61e2e8f64b280a57c61423d523c09c9252aa2f002aab7f638c129e57dcd55d9f
+      role: tables
+  notes: "Sheets Table_1.1 (revenue), Table_3.1 (total spending), Table_5.1 (net fiscal balance), all 1998-99 to 2025-26, and Table_3.3 (2025-26 spending by function). Percent and share rows are not parsed (stored as fractions under a % label). Not parsed: revenue and spending by detailed type (other Table_1.x/3.x), devolved taxes, per-head figures, the supplementary expenditure database. Earlier years are restated each August. The 'Scotland' revenue and balance series include a geographical share of North Sea revenue; the '_excl_north_sea' series include none. www.gov.scot was added to HOST_ALLOWLIST for this source."
+
+- id: mhclg_la_outturn
+  publisher: Ministry of Housing, Communities and Local Government
+  dataset: Local authority revenue expenditure and financing, England, 2025-26 first release (Table 1a, service expenditure net of income, cash terms)
+  landing_url: https://www.gov.uk/government/statistics/local-authority-revenue-expenditure-and-financing-england-2025-to-2026-first-release
+  licence: OGL-UK-3.0
+  licence_evidence: "gov.uk page footer: 'All content is available under the Open Government Licence v3.0, except where otherwise stated' (docs/sources/new-sources-2-pub.md section 4b)."
+  cadence: annual (first release in September, revised in later releases)
+  coverage: {from: 2021-22, to: 2025-26, note: "England only; financial years; GBP million, cash terms; first release is provisional"}
+  verdict: USABLE
+  verdict_reason: "England national totals by service; the parser asserts title, unit, labels and that the categories sum to the total. Provisional first release (authorities that had not returned in time are estimated); education is not comparable across years (academies); adult social care is not shown on its own."
+  enabled: true
+  fixture_dir: tests/fixtures/mhclg
+  user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
+  files:
+    - key: mhclg_ro_2025_26_table_1a
+      edition: MHCLG local authority revenue expenditure and financing England 2025-26 first release (Table 1a)
+      publication_date: 2026-09-17
+      file_url: https://assets.publishing.service.gov.uk/media/6aa91ca70420ac660805f7d9/RO_2025-26_Table_1a_1b.ods
+      landing_url: https://www.gov.uk/government/statistics/local-authority-revenue-expenditure-and-financing-england-2025-to-2026-first-release
+      format: ods
+      sha256: 2807508a4030dedffd0c3377e89dd829b40aada18739ba2cf245a12288b23488
+      role: service_expenditure_england
+  gaps:
+    - {series: "mhclg_la_outturn.*", years: ["before 2021-22"], reason: "the first-release table starts at 2021-22; earlier years are in the multi-year CSV, which is not parsed"}
+  notes: "Only sheet Table_1a (cash terms, GBP million). Table_1b (real terms), the Greater London Authority row, the excluding-education totals, the Revenue Expenditure row and the per-council multi-year CSV are not parsed. Fixture is rows 1-19 of the sheet. The sha256 changes with each release."
