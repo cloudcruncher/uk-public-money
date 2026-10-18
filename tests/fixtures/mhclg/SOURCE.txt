@@ -1,0 +1,6 @@
+Trimmed fixture: real cell values copied at their ORIGINAL sheet and A1 addresses. Fetched 2026-10-18.
+Licence: Open Government Licence v3.0 (gov.uk). Published 2026-09-17.
+
+table_1a.trimmed.xlsx  (sheet Table_1a rows 1-19 only; the original is an ods with sheets Table_1a, Table_1b, Notes)
+  original https://assets.publishing.service.gov.uk/media/6aa91ca70420ac660805f7d9/RO_2025-26_Table_1a_1b.ods
+  original sha256 2807508a4030dedffd0c3377e89dd829b40aada18739ba2cf245a12288b23488
