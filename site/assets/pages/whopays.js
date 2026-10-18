@@ -1,4 +1,4 @@
-/* Who pays: HMRC income tax liabilities and taxpayers by income band (Table 2.5, from 2023-24). */
+/* Who pays: HMRC income tax liabilities and taxpayers by income band (Table 2.5 and 2.5a, from 2015-16). */
 UKPM.page(async () => {
   const U = UKPM; const { h, $ } = U;
   const ix = await U.index();

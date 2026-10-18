@@ -142,7 +142,7 @@ UKPM.page(async () => {
 
   U.mountCheckers({
     figures: figs,
-    method: ['Fee income is from the Home Office Annual Report and Accounts 2025-26 (audited accounts, read from fixed pages). Home Office spending is “resource DEL” (day-to-day budget) from the Home Office Core Data Tables, 2026; plans years are not shown.',
+    method: ['Fee income is from the Home Office Annual Report and Accounts for 2023-24, 2024-25 and 2025-26 (audited accounts, read from fixed pages); where reports differ for the same year, the newest report is used. Home Office spending is “resource DEL” (day-to-day budget) from the Home Office Core Data Tables, 2026; plans years are not shown.',
       'Asylum counts are from Home Office asylum statistics at 31 December each year. Refugee costs are from the FCDO provisional UK aid statistics (calendar years). Universal Credit counts are from DWP, Great Britain, May of each year.',
       'These sources use different years (financial, calendar or a single month), so we do not add them together.'],
   });
