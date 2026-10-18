@@ -1306,7 +1306,7 @@
 
   /* ---------- chrome: nav, basis toggle, reconciliation strip, build banner, footer ---------- */
   const NAV_MAIN = [['index.html', 'Home'], ['spending.html', 'Where your money goes'], ['revenue.html', 'Where the money comes from'],
-    ['benefits.html', 'Benefits explained'], ['who-pays.html', 'Who pays tax'], ['facts.html', 'Is it true?'], ['immigration.html', 'Immigration and money'], ['claims.html', 'Check a number']];
+    ['benefits.html', 'Benefits explained'], ['who-pays.html', 'Who pays tax'], ['regions.html', 'Scotland and your council'], ['facts.html', 'Is it true?'], ['immigration.html', 'Immigration and money'], ['claims.html', 'Check a number']];
   const NAV_SEC = [['glossary.html', 'Words explained'], ['reconciliation.html', 'Why totals differ'], ['methodology.html', 'How we work it out'],
     ['corrections.html', 'Corrections'], ['about.html', 'About us']];
   function navList(items, cls, current) {
