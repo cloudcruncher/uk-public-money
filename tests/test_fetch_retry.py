@@ -43,3 +43,16 @@ def test_changed_file_still_reports_mismatch(monkeypatch, tmp_path):
     src = SimpleNamespace(id="s", user_agent=None)
     with pytest.raises(fetch.FetchError, match="sha256 mismatch"):
         fetch._download(src, _entry(hashlib.sha256(GOOD).hexdigest()), tmp_path / "f.xlsx")
+
+
+def test_restored_raw_cache_file_is_used_without_downloading(monkeypatch, tmp_path):
+    sha = hashlib.sha256(GOOD).hexdigest()
+    (tmp_path / "raw-cache").mkdir()
+    (tmp_path / "raw-cache" / f"{sha}.xlsx").write_bytes(GOOD)
+    monkeypatch.setattr(fetch, "_download", lambda *a: pytest.fail("should not download"))
+    entry = SimpleNamespace(
+        key="k", file_url="https://www.gov.uk/x.xlsx", sha256=sha, format="xlsx"
+    )
+    src = SimpleNamespace(id="s", user_agent=None, files=[entry], fixture_dir=None)
+    (got,) = fetch.fetch_source(src, offline=False, work=tmp_path)
+    assert got.path.read_bytes() == GOOD
