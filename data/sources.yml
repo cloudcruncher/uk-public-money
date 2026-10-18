@@ -119,7 +119,7 @@
   licence: OGL-UK-3.0
   licence_evidence: "gov.uk footer: Open Government Licence v3.0 (checked 2026-10-15)"
   cadence: annual
-  coverage: {from: 2023-24, to: 2026-27, note: "tax years; 2026-27 is a projection"}
+  coverage: {from: 2015-16, to: 2026-27, note: "tax years; 2015-16 to 2022-23 from historic Table 2.5a, 2023-24 onward from Table 2.5; 2024-25 onward are projections"}
   verdict: PARTIAL
   enabled: true
   fixture_dir: tests/fixtures/revenue
@@ -133,6 +133,14 @@
       format: ods
       sha256: d7e9b36cb585824bf69a3a60b32099b4a2fe213e53ea538401ae3acfaf5fb68c
       role: liabilities_by_income_range
+    - key: hmrc_table_2_5a
+      edition: Income Tax liabilities by income range, historic years 2015-16 to 2022-23 (Table 2.5a)
+      publication_date: 2026-07-15
+      file_url: https://assets.publishing.service.gov.uk/media/6a54901da6586e258d371cf7/Table_2.5a_-_Historic.ods
+      landing_url: https://www.gov.uk/government/statistics/income-tax-liabilities-by-income-range--2
+      format: ods
+      sha256: fd1e98e358b9aa57c6ae2d7c4425e41d4ec90816b980856370e98b1ce8f71542
+      role: liabilities_by_income_range_historic
     - key: hmrc_table_2_1
       edition: Income Tax liabilities statistics, 2023-24 to 2026-27
       publication_date: 2026-07-15
@@ -141,8 +149,6 @@
       format: ods
       sha256: caca39aca5c041081a56cf685a438769a6fbcbfe5b3f8ec8d498ec0afc2c9ed1
       role: taxpayer_numbers
-  gaps:
-    - {series: "hmrc_income_tax.*", years: ["2015-16", "2016-17", "2017-18", "2018-19", "2019-20", "2020-21", "2021-22", "2022-23"], reason: "current edition starts 2023-24; historic Table 2.5a not yet downloaded"}
 
 - id: dwp_benefits
   publisher: Department for Work and Pensions
