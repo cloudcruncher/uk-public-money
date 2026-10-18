@@ -614,14 +614,14 @@
 
 - id: home_office_ara
   publisher: Home Office
-  dataset: "Annual Report and Accounts 2025-26 (HC 440): income lines (Note 3, fees and charges table, Trust Statement)"
+  dataset: "Annual Reports and Accounts 2023-24, 2024-25 and 2025-26: income lines (Note 3, fees and charges table, Trust Statement)"
   landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2025-to-2026
   licence: OGL-UK-3.0
-  licence_evidence: "PDF page 3 (copyright page): licensed under the Open Government Licence v3.0 except where otherwise stated (checked 2026-10-16)."
+  licence_evidence: "PDF page 3 (copyright page): licensed under the Open Government Licence v3.0 except where otherwise stated (checked 2026-10-16). The 2024-25 report (PDF page 4) and 2023-24 report (PDF page 3) carry the same line (checked 2026-10-18)."
   cadence: annual
-  coverage: {from: 2024-25, to: 2025-26, note: "outturn from audited accounts; 2024-25 is the comparative column printed in the 2025-26 report"}
+  coverage: {from: 2022-23, to: 2025-26, note: "outturn from audited accounts; each report prints its own year and the year before, so the earliest year is a comparative; a year in two reports takes the newest report"}
   verdict: USABLE
-  verdict_reason: "Audited accounts, fixed pages, every row and check asserted by the parser. Only two years; the 2024-25 column can be restated or reclassified (Trust Statement says reclassified)."
+  verdict_reason: "Audited accounts, fixed pages, every row and check asserted by the parser. Four years; comparative columns can be restated or reclassified (the 2025-26 Trust Statement says 2024-25 is reclassified), and the newest report wins."
   enabled: true
   fixture_dir: tests/fixtures/home_office_ara
   user_agent: "Mozilla/5.0 (compatible; ukpm/0.1)"
@@ -634,9 +634,25 @@
       format: pdf
       sha256: c8cda7ee5f28700b4a2174b3889cb203c410503c60222e6a03102d92642c1350
       role: annual_report_accounts
+    - key: ho_ara_2024_25
+      edition: Home Office Annual Report and Accounts 2024-25
+      publication_date: 2025-07-17
+      file_url: "https://assets.publishing.service.gov.uk/media/688c9785a34b939141463e37/HO_ARA_2024-25_Book_WEB_Final_v3+CorrSlip.pdf"
+      landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2024-to-2025
+      format: pdf
+      sha256: 7be88cfa2f8176d977b660db558da24d37a5df5decbc5f2328831b5ad2b1cf4b
+      role: annual_report_accounts
+    - key: ho_ara_2023_24
+      edition: Home Office Annual Report and Accounts 2023-24
+      publication_date: 2024-07-30
+      file_url: https://assets.publishing.service.gov.uk/media/66b249b40808eaf43b50de07/2023-24_Home_Office_Annual_Report_and_Accounts.pdf
+      landing_url: https://www.gov.uk/government/publications/home-office-annual-report-and-accounts-2023-to-2024
+      format: pdf
+      sha256: ab16cb60fea3ea9a364f10c96166c1ae7abd9464890a82122d298fe8855ba447
+      role: annual_report_accounts
   gaps:
-    - {series: "home_office_ara.*", years: ["2023-24"], reason: "only the 2025-26 report is parsed; earlier years sit in earlier reports with different layouts"}
-  notes: "PDF, 18.7 MB, 370 pages. Read with pypdf from fixed PDF pages 228, 283, 284, 351 (cross-check 339). Not parsed: passport fees (consular passport fees are inside the Trust Statement total), total fees-and-charges income, income by visa route (not published). IHS payable to the Consolidated Fund is nil in 2025-26 (the accounts print a dash)."
+    - {series: "home_office_ara.*", years: ["2021-22"], reason: "the earliest report parsed is 2023-24, whose comparative year is 2022-23; older reports are not parsed"}
+  notes: "Three PDFs, each with its own fixed pages read with pypdf. 2025-26 (18.7 MB, 370 pages): PDF pages 228, 283, 284, 351 (cross-check 339). 2024-25 (330 pages): 200, 256, 311 (cross-check 302). 2023-24 (312 pages): 196, 248, 295 (cross-check 286). The fee-table UKVI income agrees with Note visa income to 0.1% in 2025-26 and 2024-25, but differs by 0.35% (2023-24) and 0.8% (2022-23); the parser allows those two gaps and no more. Not parsed: passport fees (consular passport fees are inside the Trust Statement total), total fees-and-charges income, income by visa route (not published). IHS payable to the Consolidated Fund is nil in 2025-26 (the accounts print a dash)."
 
 - id: home_office_asylum
   publisher: Home Office

@@ -5,3 +5,13 @@ fixtures:
     original_url: https://assets.publishing.service.gov.uk/media/6a58e9953ae256c99b702f50/36.54_HO_ARA_25-26_WEB.pdf
     fixture: ara_2025_26.trimmed.pdf
     fixture_sha256: ae92f3bf5510d470e9e702b75d3fd70f43db30c30097e26e5e31145f3ca9e743
+  - source_id: home_office_ara
+    original_sha256: 7be88cfa2f8176d977b660db558da24d37a5df5decbc5f2328831b5ad2b1cf4b
+    original_url: https://assets.publishing.service.gov.uk/media/688c9785a34b939141463e37/HO_ARA_2024-25_Book_WEB_Final_v3+CorrSlip.pdf
+    fixture: ara_2024_25.trimmed.pdf
+    fixture_sha256: a4b380e794b4b8d29c3b4d197be9d1975af798bd74aab9b297203152a442e7c4
+  - source_id: home_office_ara
+    original_sha256: ab16cb60fea3ea9a364f10c96166c1ae7abd9464890a82122d298fe8855ba447
+    original_url: https://assets.publishing.service.gov.uk/media/66b249b40808eaf43b50de07/2023-24_Home_Office_Annual_Report_and_Accounts.pdf
+    fixture: ara_2023_24.trimmed.pdf
+    fixture_sha256: 79b1f02b4ae2ff57351f41e780a59bf1602e5fc3f3a3512f4642dcf019b4882d

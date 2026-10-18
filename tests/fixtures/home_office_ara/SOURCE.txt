@@ -10,3 +10,21 @@ ara_2025_26.trimmed.pdf
   original https://assets.publishing.service.gov.uk/media/6a58e9953ae256c99b702f50/36.54_HO_ARA_25-26_WEB.pdf
   original sha256 c8cda7ee5f28700b4a2174b3889cb203c410503c60222e6a03102d92642c1350
   recipe: PdfReader(original); for page i in 1..351: add_page(i) if i in {228,283,284,339,351} else add_blank_page(595, 842); write.
+
+ara_2024_25.trimmed.pdf
+  Four real pages of the Home Office Annual Report and Accounts 2024-25, copied with pypdf; fetched 2026-10-18.
+  Licence: Open Government Licence v3.0 (original PDF page 4, copyright page; not kept in the fixture).
+  Pages kept (PDF page, printed page): 200 (192) Fees and Charges; 256 (248) Note 4 Income; 302 (294) Trust Statement narrative; 311 (303) Statement of Revenue.
+  fixture sha256 a4b380e794b4b8d29c3b4d197be9d1975af798bd74aab9b297203152a442e7c4
+  original https://assets.publishing.service.gov.uk/media/688c9785a34b939141463e37/HO_ARA_2024-25_Book_WEB_Final_v3+CorrSlip.pdf
+  original sha256 7be88cfa2f8176d977b660db558da24d37a5df5decbc5f2328831b5ad2b1cf4b
+  recipe: as above, kept pages {200,256,302,311} of 330, every other page a blank 595 x 842 page.
+
+ara_2023_24.trimmed.pdf
+  Four real pages of the Home Office Annual Report and Accounts 2023-24, copied with pypdf; fetched 2026-10-18.
+  Licence: Open Government Licence v3.0 (original PDF page 3, copyright page; not kept in the fixture).
+  Pages kept (PDF page, printed page): 196 (192) Fees and Charges; 248 (244) Note 4 Income; 286 (282) Trust Statement narrative; 295 (291) Statement of Revenue.
+  fixture sha256 79b1f02b4ae2ff57351f41e780a59bf1602e5fc3f3a3512f4642dcf019b4882d
+  original https://assets.publishing.service.gov.uk/media/66b249b40808eaf43b50de07/2023-24_Home_Office_Annual_Report_and_Accounts.pdf
+  original sha256 ab16cb60fea3ea9a364f10c96166c1ae7abd9464890a82122d298fe8855ba447
+  recipe: as above, kept pages {196,248,286,295} of 312, every other page a blank 595 x 842 page.
