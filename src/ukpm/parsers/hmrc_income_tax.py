@@ -52,14 +52,14 @@ SERIES = {
         "unit": "gbp_m",
         "period_type": "tax_year",
         "monetary": True,
-        "description": "Table 2.5 All Ranges, Total Income Tax liability.",
+        "description": "Table 2.5 / 2.5a All Ranges, Total Income Tax liability.",
     },
     "hmrc_income_tax.total_income": {
         "title": "Total income of income tax payers",
         "unit": "gbp_m",
         "period_type": "tax_year",
         "monetary": True,
-        "description": "Table 2.5 All Ranges, Total income.",
+        "description": "Table 2.5 / 2.5a All Ranges, Total income.",
     },
     "hmrc_income_tax.payers.all": {
         "title": "All income tax payers",

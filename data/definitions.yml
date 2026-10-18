@@ -80,7 +80,7 @@
   excludes: [NICs, welfare]
   source_id: hmrc_income_tax
   series_ids: [hmrc_income_tax.liabilities_total]
-  notes: "Tax years, not fiscal years. 2023-24 onward in the current edition."
+  notes: "Tax years, not fiscal years. 2015-16 to 2022-23 from historic Table 2.5a; 2023-24 onward from Table 2.5."
 
 - id: central_govt_tme
   label: Central government total managed expenditure (ONS)
