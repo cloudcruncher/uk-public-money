@@ -97,6 +97,10 @@ def _download(src: Source, f: FileEntry, dest: Path) -> tuple[str, str, str, int
                         h.update(chunk)
                         out.write(chunk)
                 digest = h.hexdigest()
+                if size == 0:
+                    # A 200 with no body is a dropped connection: retry it.
+                    tmp.unlink(missing_ok=True)
+                    raise OSError("empty response body")
                 if digest != f.sha256:
                     tmp.unlink(missing_ok=True)
                     raise FetchError(
