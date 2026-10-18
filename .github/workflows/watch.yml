@@ -1,0 +1,41 @@
+name: Watch for new editions
+
+on:
+  schedule:
+    - cron: "41 6 * * 1"   # weekly, Monday
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      issues: write
+    env:
+      PYTHONPATH: src
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
+      - run: uv sync --locked
+      - name: Compare landing pages with pinned files
+        run: |
+          set +e
+          uv run --locked python -m ukpm watch | tee watch.md
+          echo "rc=${PIPESTATUS[0]}" >> "$GITHUB_ENV"
+      - name: Open or update the tracking issue
+        if: env.rc == '3'
+        run: |
+          n=$(gh issue list --label source-watch --state open --json number -q '.[0].number')
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --body-file watch.md
+          else
+            gh label create source-watch --color 0e8a16 2>/dev/null || true
+            gh issue create --label source-watch --title "New or changed source editions" --body-file watch.md
+          fi
+      - name: Fail on a watcher error
+        if: env.rc != '0' && env.rc != '3'
+        run: exit 1
