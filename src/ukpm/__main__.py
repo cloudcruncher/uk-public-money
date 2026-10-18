@@ -115,7 +115,12 @@ def main(argv: list[str] | None = None) -> int:
     pc = sub.add_parser("check-api")
     pc.add_argument("dir", nargs="?", default="site/api/v1")
     pc.add_argument("--live", action="store_true")
+    pw = sub.add_parser("watch")
+    pw.add_argument("sources", nargs="*")
+    pw.add_argument("--accept", action="store_true")
     args = ap.parse_args(argv)
+    if args.cmd == "watch":
+        return _delegate("watch", args.sources + (["--accept"] if args.accept else []))
     if args.cmd == "fetch":
         return cmd_fetch(args)
     if args.cmd == "build":
