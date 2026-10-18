@@ -7,7 +7,7 @@ Verified 2026-10-15/16 by the scouts; detail and hashes in `docs/sources/` (`spe
 | `pesa` | HMT PESA: Table 10.1 COFOG, Table 4.1 aggregates | USABLE | yes | COFOG 2015-16 to 2024-25; 4.1 to 2025-26 outturn. OGL v3 |
 | `obr` | OBR Public Finances Databank, Sept 2026 | USABLE | yes | OGL v3 (version inferred from an unversioned link on the OBR copyright page). Needs a browser User-Agent |
 | `hmrc_receipts` | HMRC tax and NICs receipts, `NS_Table.ods` | USABLE | yes | Year headers of `Receipts_Annually` still to be confirmed by the parser |
-| `hmrc_income_tax` | HMRC Income Tax Tables 2.5 and 2.1 | PARTIAL | yes | 2023-24 onward only; 2015-16 to 2022-23 need historic Table 2.5a |
+| `hmrc_income_tax` | HMRC Income Tax Tables 2.5 and 2.1 | PARTIAL | yes | 2015-16 to 2026-27 (2015-16 to 2022-23 from historic Table 2.5a) |
 | `dwp_benefits` | DWP outturn and forecast tables, Spring Forecast 2026 | USABLE | yes | Table 1a (spend), 1c (caseload); UK and GB welfare tabs |
 | `ons_psf` | ONS Public Sector Finances (central government TME, debt interest) | USABLE | yes | Followed from the bulletin to the dataset file. Re-issued monthly; URL is `/current/` (see Known gaps) |
 | `ons_population` | ONS mid-year population estimates, UK | USABLE | yes | Basis for per-person figures. OGL v3.0 verified |
@@ -33,7 +33,6 @@ UNUSABLE: OBR historical official forecasts database (the URL returns an access 
 ## Known gaps
 
 - PESA COFOG 10.1 stops at 2024-25; 2025-26 has aggregates only.
-- HMRC income tax 2015-16 to 2022-23 not yet sourced.
 - ONS URLs are not stable. `ons_psf` and `ons_households` use `/current/` links and `ons_gdp` a generator CSV. ONS moves a release to `/previous/vNNN` only after the next one, and none of those versioned links matched our pinned sha256 (checked 2026-10-16). `refresh.yml` restores the pinned file from the `raw-cache` GitHub release; if ONS replaces a file before it is first cached, `ukpm fetch` fails with a sha256 mismatch and the pin must be re-verified from `landing_url`.
 - Universal Credit, ESA, JSA, Pension Credit and Housing Benefit caseloads count cases or claims, not necessarily people (DWP Table 1c says only "individuals" and has no household note for UC). ESA and JSA include credits-only cases that are paid nothing.
 - OBR EFO and DWP disagree by 1.09% for Universal Credit in 2024-25 (rule R8, tolerance 1%). Both are outturn. DWP Notes say its figures differ from the EFO through different spending definitions and reassignment across benefits, and Table 1a's OBR reconciliation shows a net +1.2 GBP bn bridge for 2024-25 (not itemised by benefit). The line and scope compared are the same; forecast years agree exactly.

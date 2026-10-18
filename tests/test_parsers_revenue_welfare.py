@@ -19,6 +19,7 @@ FETCHED = "2026-10-15T00:00:00Z"
 PATHS = {
     "hmrc_ns_table": FX / "revenue/NS_Table.trimmed.xlsx",
     "hmrc_table_2_5": FX / "revenue/Table_2.5.trimmed.xlsx",
+    "hmrc_table_2_5a": FX / "revenue/Table_2.5a.trimmed.xlsx",
     "hmrc_table_2_1": FX / "revenue/Table_2.1.trimmed.xlsx",
     "dwp_spring_2026": FX / "dwp/spring_forecast_2026.trimmed.xlsx",
 }
@@ -55,7 +56,9 @@ def receipts():
 
 @pytest.fixture(scope="module")
 def itax():
-    return _parse(hmrc_income_tax, "hmrc_income_tax", ["hmrc_table_2_5", "hmrc_table_2_1"])
+    return _parse(
+        hmrc_income_tax, "hmrc_income_tax", ["hmrc_table_2_5", "hmrc_table_2_5a", "hmrc_table_2_1"]
+    )
 
 
 @pytest.fixture(scope="module")
@@ -160,7 +163,9 @@ def test_receipts_blank_and_text_cells_give_no_row(tmp_path, receipts):
 
 
 def _itax_path(r):
-    return PATHS["hmrc_table_2_1" if r.prov.sheet.startswith("2_1") else "hmrc_table_2_5"]
+    if r.prov.sheet.startswith("2_1"):
+        return PATHS["hmrc_table_2_1"]
+    return PATHS["hmrc_table_2_5a" if r.prov.sheet.startswith("2_5a") else "hmrc_table_2_5"]
 
 
 def test_itax_every_row_matches_its_recorded_cell(itax):
@@ -202,7 +207,7 @@ def test_itax_status_boundary_and_partial_coverage(itax):
     for r in itax:
         assert r.prov.status == ("outturn" if r.fiscal_year <= "2023-24" else "forecast")
     liabs = {r.fiscal_year for r in itax if r.series_id == "hmrc_income_tax.liabilities_total"}
-    assert liabs == {"2023-24", "2026-27"}  # documented partial coverage, no invented years
+    assert liabs == {*hmrc_income_tax.HISTORIC_YEARS, "2023-24", "2026-27"}  # no invented years
     assert {r.fiscal_year for r in itax if r.series_id == "hmrc_income_tax.payers.all"} == {
         "2015-16",
         "2023-24",
@@ -244,6 +249,52 @@ def test_itax_layout_errors(tmp_path):
     )
     with pytest.raises(LayoutError, match="Tax year"):
         hmrc_income_tax.parse(p, _meta("hmrc_income_tax", "hmrc_table_2_1", p))
+
+
+@pytest.mark.parametrize(
+    ("fy", "value", "sheet"),
+    [
+        ("2015-16", 178000.0, "2_5a_IT_liability_by_IT_15-16"),
+        ("2022-23", 245000.0, "2_5a_IT_Liability_by_IT_22-23"),
+    ],
+)
+def test_itax_historic_2_5a_liabilities_total(itax, fy, value, sheet):
+    r = _one(itax, "hmrc_income_tax.liabilities_total", fy)
+    assert (r.value, r.prov.cell_or_range, r.prov.status, r.unit) == (
+        value,
+        "L18",
+        "outturn",
+        "gbp_m",
+    )
+    assert (
+        r.prov.sheet == sheet
+        and r.prov.file_sha256 == _sources()["hmrc_income_tax"].files[1].sha256
+    )
+    assert _wb(PATHS["hmrc_table_2_5a"])[sheet]["L18"].value == value
+    band = _one(itax, "hmrc_income_tax.payers.band.from_50000", fy)
+    assert band.unit == "thousand_persons" and band.prov.cell_or_range == "J11"
+
+
+def test_itax_historic_2_5a_layout_errors(tmp_path):
+    def run(fn, match):
+        p = _edit(tmp_path, "hmrc_table_2_5a", fn)
+        with pytest.raises(LayoutError, match=match):
+            hmrc_income_tax.parse(p, _meta("hmrc_income_tax", "hmrc_table_2_5a", p))
+
+    run(lambda w: w.remove(w["2_5a_IT_liability_by_IT_17-18"]), "17-18 sheet")
+    run(
+        lambda w: w["2_5a_IT_liability_by_IT_17-18"].__setitem__("A1", "Table 2.5a, 2016 to 2017"),
+        "title",
+    )
+    run(lambda w: w["2_5a_IT_liability_by_IT_17-18"].__setitem__("A6", "Range"), "lower limit")
+    run(
+        lambda w: w["2_5a_IT_liability_by_IT_17-18"].__setitem__("A5", "Amounts in GBP"),
+        "units line",
+    )
+    run(
+        lambda w: w["2_5a_IT_liability_by_IT_17-18"].__setitem__("L6", "Tax"),
+        "Total Income Tax liability",
+    )
 
 
 def test_itax_unknown_file_key_raises():

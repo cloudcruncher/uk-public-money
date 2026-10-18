@@ -13,3 +13,7 @@ Table_2.1.trimmed.xlsx (sheet 2_1_IT_payers_by_demographic: header and rows 2015
   sha256 4468259dfcfdac40b5ac95aa1f499ac43226200fd77176f93f2bce4e0c9d9da8
   original https://assets.publishing.service.gov.uk/media/6a54e2a9a4890e65cce64dd3/Table_2.1_Number_of_individual_Income_Tax_Payers.ods
   original sha256 caca39aca5c041081a56cf685a438769a6fbcbfe5b3f8ec8d498ec0afc2c9ed1
+Table_2.5a.trimmed.xlsx (historic Table 2.5a, sheets 2_5a_IT_liability_by_IT_15-16 to 22-23, complete; fetched 2026-10-18)
+  sha256 6390bbed1c96c847c26be9dcab4f87671ffc329ae2894fa9482f4dd855c6fd63
+  original https://assets.publishing.service.gov.uk/media/6a54901da6586e258d371cf7/Table_2.5a_-_Historic.ods
+  original sha256 fd1e98e358b9aa57c6ae2d7c4425e41d4ec90816b980856370e98b1ce8f71542
