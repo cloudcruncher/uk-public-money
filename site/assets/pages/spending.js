@@ -9,7 +9,7 @@ UKPM.page(async () => {
   const funcIds = set.parts.map((p) => p.series_id);
   const TOTAL = set.total_series_id || 'pesa_uk.services';
   const otherLabel = set.other_label || 'EU transactions and rounding';
-  const data = await U.seriesMany([...funcIds, TOTAL, 'obr.psf.tme', 'pesa_uk.public_debt_transactions']);
+  const data = await U.seriesMany([...funcIds, TOTAL, 'obr.psf.tme', 'pesa_uk.accounting_adjustments']);
   const total = data[TOTAL];
   if (!total) throw new Error('PESA total spending on services is missing from this build');
   const short = (ser) => (ser.title || ser.id).split(',')[0];
@@ -57,14 +57,15 @@ UKPM.page(async () => {
     poundHost.appendChild(h('p', null, 'In ', h('strong', null, year), ', the UK government spent ',
       U.num(U.pointFor(total, U.variantFor(total).variant, year), { label: 'Spending on services, UK, ' + year }),
       ' on public services across the UK. Out of every £100, here is where it went:'));
-    /* Bridge to the home-page headline (total managed expenditure), so the two totals do not look like a mismatch. */
+    /* Bridge to total managed expenditure: PESA asserts services + accounting adjustments = TME. */
     const tmeP = data['obr.psf.tme'] && U.pointFor(data['obr.psf.tme'], 'nominal', year);
-    const debtP = data['pesa_uk.public_debt_transactions'] && U.pointFor(data['pesa_uk.public_debt_transactions'], 'nominal', year);
+    const adjP = data['pesa_uk.accounting_adjustments'] && U.pointFor(data['pesa_uk.accounting_adjustments'], 'nominal', year);
     const svcP = U.pointFor(total, 'nominal', year);
-    if (tmeP && svcP && tmeP.value > svcP.value) {
-      poundHost.appendChild(h('p', { class: 'small' }, 'Why is this less than the ', U.num(tmeP, { label: 'All government spending, ' + year }),
-        ' of all government spending on the home page? That headline is total managed expenditure, which also counts interest on government debt' +
-        (debtP && debtP.value > 0 ? ' (' + U.fmt(debtP.value, debtP.unit) + ')' : '') + ' and some accounting items. This page splits spending on services only. The two come from different publications, so a small gap can also come from different forecast dates.'));
+    if (tmeP && svcP && adjP && tmeP.value > svcP.value) {
+      poundHost.appendChild(h('p', { class: 'small' }, 'Why is this less than all government spending in ' + year + ' (',
+        U.num(tmeP, { label: 'All government spending, ' + year }),
+        ', the figure on the home page for the latest year)? That headline is total managed expenditure. It adds accounting adjustments (',
+        U.num(adjP, { label: 'Accounting adjustments, ' + year }), ') that are not spending on any one service. Interest on government debt is already included here, under general public services. The two totals are published at different times, so a small difference can also come from later revisions.'));
     }
     const status = items.some((i) => i.point && i.point.status === 'forecast') ? 'mixed' : 'actual';
     const left = h('div', null, U.scopeChip(year, 'UK', status),
