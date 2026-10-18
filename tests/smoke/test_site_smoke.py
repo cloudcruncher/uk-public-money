@@ -15,13 +15,23 @@ PAGES = [
     "claims",
     "facts",
     "immigration",
+    "regions",
     "check",
     "reconciliation",
     "about",
     "methodology",
     "corrections",
 ]
-DATA_PAGES = ["index", "spending", "revenue", "benefits", "who-pays", "facts", "immigration"]
+DATA_PAGES = [
+    "index",
+    "spending",
+    "revenue",
+    "benefits",
+    "who-pays",
+    "facts",
+    "immigration",
+    "regions",
+]
 T = 20_000
 
 
@@ -266,6 +276,20 @@ def test_nav_links_resolve(page, base_url):
     hrefs = sorted(
         set(page.locator("nav.nav a").evaluate_all("els => els.map(e => e.getAttribute('href'))"))
     )
-    assert len(hrefs) == 13
+    assert len(hrefs) == 14
     for href in hrefs:
         assert page.request.get(base_url + href).ok, href
+
+
+def test_regions_page_shows_scotland_and_council_figures(page, base_url):
+    goto(page, base_url, "regions.html")
+    for sel in ("#scot-time", "#scot-split", "#council-total", "#council-split"):
+        page.locator(f"{sel} button.num-val").first.wait_for(timeout=T)
+        assert page.locator(f"{sel} p.state").count() == 0, sel
+    text = page.locator("main").inner_text()
+    assert "North Sea" in text and "children’s social care" in text.lower().replace("'", "’")
+    page.locator("#council-split select").select_option("2023-24")
+    page.wait_for_function(
+        "() => document.querySelector('#council-split').innerText.includes('In 2023-24')", timeout=T
+    )
+    assert page.errors == []
